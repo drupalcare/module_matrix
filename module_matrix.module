@@ -62,7 +62,7 @@ function module_matrix_theme_registry_alter(array &$theme_registry): void {
 }
 
 /**
- * Preprocesses the system modules details for Module Matrix.
+ * Implements hook_preprocess_HOOK().
  */
 function module_matrix_preprocess_system_modules_details(array &$variables): void {
   // Core uses this for module details.
@@ -81,23 +81,37 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
       // Add custom module data.
       if ($extension) {
         $package_name = $extension->info['package'] ?? 'Other';
+        // Use the module's human-readable name or fallback to ID.
+        $module_name = $extension->info['name'] ?? $id;
 
-        $stability = match (TRUE) {
-          str_contains($extension->info['version'] ?? '', '-dev') => 'dev',
-          str_contains($extension->info['version'] ?? '', '-alpha') => 'alpha',
-          str_contains($extension->info['version'] ?? '', '-beta') => 'beta',
-          str_contains($extension->info['version'] ?? '', '-rc') => 'rc',
-          default => 'stable',
-        };
+        // Determine stability.
+        $stability = 'stable';
+        if (!empty($extension->info['version'])) {
+          $version = $extension->info['version'];
+          if (preg_match('/-dev/', $version)) {
+            $stability = 'dev';
+          }
+          elseif (preg_match('/-alpha/', $version)) {
+            $stability = 'alpha';
+          }
+          elseif (preg_match('/-beta/', $version)) {
+            $stability = 'beta';
+          }
+          elseif (preg_match('/-rc/', $version)) {
+            $stability = 'rc';
+          }
+        }
 
-        // Check if 'package' is set in $module, fall back if not.
+        // Determine lifecycle.
+        $lifecycle = $extension->info['lifecycle'] ?? 'Unknown';
+        // Add data to the module.
         $module_package = $module['package'] ?? $package_name;
 
         // Avoid overwriting existing core-provided data.
         $project = $module['project'] ?? $extension->info['project'] ?? $id;
         $module += [
           'package' => $module_package,
-          'lifecycle' => $module['lifecycle'] ?? $extension->info['lifecycle'] ?? 'Unknown',
+          'lifecycle' => $lifecycle,
           'status' => $module['status'] ?? (\Drupal::service('module_handler')->moduleExists($id) ? 1 : 0),
           'weight' => $module['weight'] ?? $extension->weight ?? 'N/A',
           'project' => $project,
@@ -111,9 +125,6 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
             'issue_link' => Url::fromUri("https://www.drupal.org/node/add/project-issue/{$project}")->toString(),
             'usage_link' => Url::fromUri("https://www.drupal.org/project/usage/{$project}")->toString(),
           ];
-          $module['#attributes']['data-project'] = $module['project'];
-          $module['#attributes']['data-status'] = $module['status'];
-          $module['#attributes']['data-lifecycle'] = $module['lifecycle'];
         }
       }
     }
@@ -146,7 +157,6 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
   $enabled_settings = array_filter($variables['visibility'], fn($value) => $value === 1);
   $enabled_count = count($enabled_settings);
   $variables['enabled_count'] = $enabled_count;
-
 }
 
 /**
@@ -213,7 +223,7 @@ function module_matrix_form_system_modules_alter(array &$form, FormStateInterfac
       ],
       '#default_value' => [],
       '#attributes' => [
-        'class' => ['form-checkboxes'],
+        'class' => ['form-checkboxes', 'enable-filter'],
       ],
     ],
   ];
@@ -226,14 +236,35 @@ function module_matrix_form_system_modules_alter(array &$form, FormStateInterfac
       '#type' => 'checkboxes',
       '#title' => t('Filter by lifecycle'),
       '#options' => [
-        'stable' => t('Stable'),
-        'dev' => t('Dev'),
-        'beta' => t('Beta'),
-        'alpha' => t('Alpha'),
+        'stable' => t('Active'),
+        'deprecated' => t('Deprecated'),
+        'experimental' => t('Experimental'),
+        'obsolete' => t('Obsolete'),
       ],
       '#default_value' => [],
       '#attributes' => [
-        'class' => ['form-checkboxes'],
+        'class' => ['form-checkboxes', 'lifecycle-filter'],
+      ],
+    ],
+  ];
+
+  // Add the stability filter container.
+  $form['filters']['stability'] = [
+    '#type' => 'container',
+    '#attributes' => ['class' => ['module-matrix-stability', 'form-item']],
+    'checkboxes' => [
+      '#type' => 'checkboxes',
+      '#title' => t('Filter by stability'),
+      '#options' => [
+        'stable' => t('Stable'),
+        'rc' => t('Release Candidate'),
+        'beta' => t('Beta'),
+        'alpha' => t('Alpha'),
+        'dev' => t('Dev'),
+      ],
+      '#default_value' => [],
+      '#attributes' => [
+        'class' => ['form-checkboxes', 'stability-filter'],
       ],
     ],
   ];

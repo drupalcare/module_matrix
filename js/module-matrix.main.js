@@ -4,8 +4,9 @@
   if (!formContext) return;
   const filterInput = formContext.querySelector('#edit-text');
   const mainList = formContext.querySelector('.module-matrix-list');
-  const statusCheckboxes = formContext.querySelectorAll('input[name^="checkboxes["][value="0"], input[name^="checkboxes["][value="1"]');
-  const lifecycleCheckboxes = formContext.querySelectorAll('input[name^="checkboxes["]:not([value="0"]):not([value="1"])');
+  const statusCheckboxes = formContext.querySelectorAll('.enable-filter');
+  const lifecycleCheckboxes = formContext.querySelectorAll('.lifecycle-filter');
+  const stabilityCheckboxes = formContext.querySelectorAll('.stability-filter');
   const resetButton = formContext.querySelector('#reset-filters');
   let activePackage = 'all';
   Drupal.behaviors.moduleMatrixMain = {
@@ -52,6 +53,13 @@
       })
     );
     lifecycleCheckboxes.forEach((checkbox) =>
+      checkbox.addEventListener('change', () => {
+        activePackage = 'all';
+        applyFiltersWithAnimation(mainList, activePackage, data);
+        updateActivePackageLink(sidebarSelector, 'all');
+      })
+    );
+    stabilityCheckboxes.forEach((checkbox) =>
       checkbox.addEventListener('change', () => {
         activePackage = 'all';
         applyFiltersWithAnimation(mainList, activePackage, data);
@@ -123,6 +131,9 @@
     const selectedLifecycles = Array.from(lifecycleCheckboxes)
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.value);
+    const selectedStability = Array.from(stabilityCheckboxes)
+      .filter((checkbox) => checkbox.checked)
+      .map((checkbox) => checkbox.value);
     let visibleCount = 0;
     Array.from(mainList.querySelectorAll('.module-matrix-list-inner')).forEach((module) => {
       const moduleDetails = module.querySelector('.name-package');
@@ -130,6 +141,7 @@
       // Extract data attributes
       const moduleStatus = moduleDetails.dataset.status || '';
       const moduleLifecycle = moduleDetails.dataset.lifecycle || '';
+      const moduleStability = moduleDetails.dataset.stability || '';
       const modulePackage = moduleDetails.dataset.package || '';
       const moduleName = moduleDetails.dataset.name?.toLowerCase() || '';
       const moduleDescription = moduleDetails.dataset.description?.toLowerCase() || '';
@@ -137,8 +149,9 @@
       const matchesQuery = query === '' || moduleName.includes(query) || moduleDescription.includes(query);
       const matchesStatus = selectedStatuses.length === 0 || selectedStatuses.includes(moduleStatus);
       const matchesLifecycle = selectedLifecycles.length === 0 || selectedLifecycles.includes(moduleLifecycle);
+      const matchesStability = selectedStability.length === 0 || selectedStability.includes(moduleStability);
       const matchesPackage = activePackage === 'all' || modulePackage === activePackage;
-      const shouldHide = !(matchesQuery && matchesStatus && matchesLifecycle && matchesPackage);
+      const shouldHide = !(matchesQuery && matchesStatus && matchesStability && matchesLifecycle && matchesPackage);
       // Toggle visibility
       module.classList.toggle('hidden', shouldHide);
       if (!shouldHide) {
@@ -146,13 +159,13 @@
       }
     });
     // Debugging logs
-    console.log("Filtering Results:");
-    console.log("Query:", query);
-    console.log("Selected Statuses:", selectedStatuses);
-    console.log("Selected Lifecycles:", selectedLifecycles);
-    console.log("Active Package:", activePackage);
-    console.log("Visible Modules:", visibleCount);
-    console.log("Total Modules:", getTotalModules(data));
+    // console.log("Filtering Results:");
+    // console.log("Query:", query);
+    // console.log("Selected Statuses:", selectedStatuses);
+    // console.log("Selected Lifecycles:", selectedLifecycles);
+    // console.log("Active Package:", activePackage);
+    // console.log("Visible Modules:", visibleCount);
+    // console.log("Total Modules:", getTotalModules(data));
   }
   // Update active package link visually
   function updateActivePackageLink(sidebarSelector, activePackage) {
@@ -167,12 +180,13 @@
   // Reset all filters
   function resetFilters(mainList, sidebarSelector, data) {
     if (!data) {
-      console.error('Data object is not defined for resetFilters');
+      // console.error('Data object is not defined for resetFilters');
       return;
     }
     if (filterInput) filterInput.value = '';
     statusCheckboxes.forEach((checkbox) => (checkbox.checked = false));
     lifecycleCheckboxes.forEach((checkbox) => (checkbox.checked = false));
+    stabilityCheckboxes.forEach((checkbox) => (checkbox.checked = false));
     applyFilters(mainList, 'all', data); // Pass the `data` object
     updateActivePackageLink(sidebarSelector, 'all');
   }
@@ -184,14 +198,14 @@
     const mainSidebar = mainWrapper.querySelector('.module-matrix-sidebar');
     const mainList = mainWrapper.querySelector('.module-matrix-list');
     if (!mainSidebar || !mainList) {
-      console.error('Main sidebar or list not found in the first wrapper');
+      // console.error('Main sidebar or list not found in the first wrapper');
       return null;
     }
     // Initialize `data` using the wrapper
     const data = initializeModuleData(mainWrapper);
     // Ensure `data` is valid
     if (!data) {
-      console.error('Failed to initialize module data');
+      // console.error('Failed to initialize module data');
       return null;
     }
     // Pass `data` to the sidebar initialization
@@ -264,7 +278,7 @@
     const data = initializeDataStructure();
     const moduleList = getModuleList(wrapper);
     if (!moduleList) {
-      console.error('Module list not found inside wrapper');
+      //console.error('Module list not found inside wrapper');
       return data;
     }
     const moduleItems = Array.from(moduleList.querySelectorAll('.module-matrix-list-inner'));
@@ -289,6 +303,7 @@
       packageEnabledCounts: {},
       modulesByDate: [],
       modulesByStability: [],
+      modulesByLifecycle: [],
       modulesByName: [],
       modules: [],
     };
@@ -309,9 +324,10 @@
     const isEnabled = details.dataset.status && parseInt(details.dataset.status) === 1;
     const moduleName = namePackage.textContent.trim() || '';
     const moduleDate = details.dataset.date || '';
+    const moduleLifecycle = details.dataset.lifecycle || '';
     const moduleStability = details.dataset.stability || '';
     updateModuleCounts(data, packageName, isEnabled);
-    updateModuleLists(data, item, packageName, moduleName, moduleDate, moduleStability);
+    updateModuleLists(data, item, packageName, moduleName, moduleDate, moduleStability, moduleLifecycle);
   }
 
   function updateModuleCounts(data, packageName, isEnabled) {
@@ -326,17 +342,22 @@
     }
   }
 
-  function updateModuleLists(data, item, packageName, moduleName, moduleDate, moduleStability) {
+  function updateModuleLists(data, item, packageName, moduleName, moduleDate, moduleStability, moduleLifecycle) {
     data.modules.push({
       element: item,
       packageName,
       name: moduleName,
       date: moduleDate,
       stability: moduleStability,
+      lifecycle: moduleLifecycle,
     });
     data.modulesByDate.push({
       element: item,
       date: moduleDate,
+    });
+    data.modulesByLifecycle.push({
+      element: item,
+      lifecycle: moduleLifecycle,
     });
     data.modulesByStability.push({
       element: item,
@@ -383,6 +404,10 @@
     return sortAlphabetically(data.modulesByStability, 'stability');
   }
 
+  function getModulesByLifecycle(data) {
+    return sortAlphabetically(data.getModulesByLifecycle, 'lifecycle');
+  }
+
   function getModulesByName(data) {
     return sortAlphabetically(data.modulesByName, 'name');
   }
@@ -401,7 +426,7 @@
   function storePackageLinks(sidebarSelector, packageCounts = {}, packageEnabledCounts = {}, packageDisabledCounts = {}, data) {
     const sidebar = document.querySelector(sidebarSelector);
     if (!sidebar) {
-      console.error(`Sidebar not found for selector: ${sidebarSelector}`);
+      //console.error(`Sidebar not found for selector: ${sidebarSelector}`);
       return;
     }
     // Clear the sidebar
@@ -447,22 +472,19 @@
       package: packageName,
     });
     classList.forEach((className) => link.classList.add(className));
-
     // Add the material-icons span to the left
     const iconSpan = document.createElement('span');
     iconSpan.className = 'material-icons';
     iconSpan.textContent = 'category';
     link.prepend(iconSpan);
-
     // Add the span elements for counts
     const countSpans = createCountSpans(total, enabled, disabled);
     link.appendChild(countSpans);
-
     // Add specific behavior for "All Modules" link
     link.addEventListener('click', (event) => {
       event.preventDefault();
       if (!data) {
-        console.error('Data object is not defined for applyFilters');
+        //console.error('Data object is not defined for applyFilters');
         return;
       }
       if (isAllModulesLink) {
@@ -500,7 +522,7 @@
   function getUpdateFunctions(modules) {
     return modules.filter((module) => {
       const details = module.element.querySelector('.name-package');
-      return details && details.dataset.update === '1'; // Assuming 'data-update="1"' indicates an update function
+      return details && details.dataset.update === '1';
     });
   }
 

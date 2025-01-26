@@ -50,19 +50,19 @@
 {% set current_package = '' %}
   {% for module in modules %}
 
-{% set current_package = '' %}
-{% set module_package = module.package is defined ? module.package|render|striptags|trim : '' %}
-{% set module_name = module.name is defined ? module.name|render|striptags|trim : '' %}
-{% set module_machine_name = module.machine_name is defined ? module.machine_name|render|striptags|trim : '' %}
-{% set module_project = module.project is defined ? module.project|render|striptags|trim : '' %}
-{% set module_status = module.status is defined and module.status ? 'enabled' : 'disabled' %}
-{% set module_stability = module.stability is defined ? module.stability|render|striptags|trim : '' %}
-{% set module_mtime = module.mtime is defined ? module.mtime|render|striptags|trim : '' %}
-{% set module_version = module.version is defined ? module.version|render|striptags|trim : '' %}
-{% set module_lifecycle = module.lifecycle is defined ? module.lifecycle|render|striptags|trim : '' %}
-{% set module_description = module.description is defined ? module.description|render|striptags|trim : '' %}
-{% set module_enable_id = module.description is defined ? module.description|render|striptags|trim|clean_id ~ '-description' : '' %}
-{% set modules_project_machine = (module_machine_name == module_project) ? module_project : module_project ~ '-' ~ module_machine_name %}
+    {% set current_package = '' %}
+    {% set module_package = module.package is defined ? module.package|render|striptags|trim : '' %}
+    {% set module_name = module.name is defined ? module.name|render|striptags|trim : '' %}
+    {% set module_machine_name = module.machine_name is defined ? module.machine_name|render|striptags|trim : '' %}
+    {% set module_project = module.project is defined ? module.project|render|striptags|trim : '' %}
+    {% set module_status = module.status is defined and module.status ? 'enabled' : 'disabled' %}
+    {% set module_stability = module.stability is defined ? module.stability|render|striptags|trim : '' %}
+    {% set module_mtime = module.mtime is defined ? module.mtime|render|striptags|trim : '' %}
+    {% set module_version = module.version is defined ? module.version|render|striptags|trim : '' %}
+    {% set module_lifecycle = module.lifecycle is defined ? module.lifecycle|render|striptags|trim : '' %}
+    {% set module_description = module.description is defined ? module.description|render|striptags|trim : '' %}
+    {% set module_enable_id = module.description is defined ? module.description|render|striptags|trim|clean_id ~ '-description' : '' %}
+    {% set modules_project_machine = (module_machine_name == module_project) ? module_project : module_project ~ '-' ~ module_machine_name %}
 
 
 
@@ -124,8 +124,8 @@
         <details class="js-form-wrapper form-wrapper">
           <summary aria-controls="{{ module_enable_id }}" role="button" aria-expanded="false">
             <span class="text module-matrix-item-description">{{ module_description ? module_description : 'No description available'|t }}
-</span>
-          </summary>
+           </span>
+        </summary>
 
           <div class="details-wrapper">
 
@@ -239,7 +239,7 @@
         {% else %}
           <div class="js-form-wrapper form-wrapper">
             <div class="text module-matrix-item-description">{{ module_description ? module_description : 'No description available'|t }}
-</div>
+            </div>
           </div>
         {% endif %}
 
