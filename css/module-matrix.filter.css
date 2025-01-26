@@ -1,0 +1,72 @@
+form.system-modules .module-matrix-filters > .fieldset__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+form.system-modules .module-matrix-filters > .fieldset__wrapper >:first-child {
+  flex: 1 1 100%;
+}
+
+form.system-modules .module-matrix-filters > .fieldset__wrapper >:not(:first-child):not(.reset-button) {
+  flex: 1 1 calc(33.333% - 16px);
+  box-sizing: border-box;
+}
+
+form.system-modules .module-matrix-filters > .fieldset__wrapper > .reset-button {
+  margin-left: auto;
+  flex: 0 0 auto;
+  width: auto;
+  max-height: 50px;
+}
+
+@media (max-width:768px) {
+  form.system-modules .module-matrix-filters > .fieldset__wrapper >:not(:first-child) {
+    flex: 1 1 100%;
+  }
+
+}
+
+form.system-modules .module-matrix-filters .form-item--text {
+  width: 100%;
+  display: grid;
+}
+
+form.system-modules .module-matrix-filters .form-item--text label {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+form.system-modules .module-matrix-filters fieldset.form-checkboxes {
+  width: 100%;
+  max-width: 400px;
+  float: left;
+  border: 0 !important;
+  display: grid;
+}
+
+form.system-modules .module-matrix-filters fieldset.form-checkboxes > * {
+  display: grid;
+}
+
+form.system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: start;
+  align-items: center;
+}
+
+form.system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes > * {
+  display: flex;
+  justify-content: start;
+}
+
+form.system-modules .module-matrix-filters fieldset.form-checkboxes label {
+  margin: 4px 4px 0 8px;
+}
+
+form.system-modules .module-matrix-filters .reset-button {
+  align-items: flex-end;
+}

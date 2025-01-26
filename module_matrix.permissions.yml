@@ -1,0 +1,4 @@
+access module matrix settings:
+  title: 'Access Module Matrix Settings'
+  description: 'Allows users to access and modify the Module Matrix settings.'
+  restrict access: false

@@ -1,0 +1,52 @@
+form.system-modules  .module-matrix-list-inner {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+form.system-modules  .module-matrix-list-inner.hidden {
+  display: none !important;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Never update it, it will break the filter */
+.module-matrix-list-inner {
+  flex-direction: column;
+  display: flex;
+}
+
+@media (min-width:992px) {
+  form.system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-layout .module-matrix-list-inner) {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: start;
+    align-items: center;
+  }
+
+  form.system-modules .module-matrix-list-inner .name-package:not(.module-matrix-wrapper.grid-layout .name-package) {
+    flex: 0 0 30%;
+    max-width: 30%;
+  }
+
+  form.system-modules .module-matrix-list-inner .module-matrix-item-details:not(.module-matrix-wrapper.grid-layout .module-matrix-item-details) {
+    flex: 1 1 auto;
+    flex-grow: 1;
+  }
+
+}
+
+@media (min-width:1200px) {
+  form.system-modules .module-matrix-list-inner .name-package:not(.module-matrix-wrapper.grid-layout .name-package) {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+
+}
+
+@media (min-width:1400px) {
+  form.system-modules .module-matrix-list-inner .name-package:not(.module-matrix-wrapper.grid-layout .name-package) {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+
+}

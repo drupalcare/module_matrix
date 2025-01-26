@@ -1,0 +1,43 @@
+form.system-modules .material-icons {
+  font-family: 'Material Icons';
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  src: url('../fonts/MaterialIcons-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@keyframes scaleAndSlide {
+  from {
+    transform: scale(0.9);
+    inset-block-end: -300px;
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    inset-block-end: 0;
+    opacity: 1;
+  }
+
+}
+
+form.system-modules .module-matrix-list,
+form.system-modules .module-matrix-sidebar {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 16px;
+}
+
+form.system-modules .module-matrix-list {
+  padding-top: 0;
+}
+
+form.system-modules .matrix-animate-combined {
+  position: relative;
+  animation: scaleAndSlide 0.3s cubic-bezier(0.1, 0.9, 1, 0.1);
+}

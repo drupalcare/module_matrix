@@ -1,0 +1,252 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the modules listing page.
+ *
+ * Displays a list of all packages in a project.
+ *
+ * Available variables:
+ * - modules: Contains multiple module instances. Each module contains:
+ *   - attributes: Attributes on the row.
+ *   - checkbox: A checkbox for enabling the module.
+ *   - name: The human-readable name of the module.
+ *   - id: A unique identifier for interacting with the details element.
+ *   - enable_id: A unique identifier for interacting with the checkbox element.
+ *   - description: The description of the module.
+ *   - machine_name: The module's machine name.
+ *   - version: Information about the module version.
+ *   - requires: A list of modules that this module requires.
+ *   - required_by: A list of modules that require this module.
+ *   - links: A list of administration links provided by the module.
+ *
+ * @see template_preprocess_system_modules_details()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if not visibility.disable_library %}
+{{ attach_library('module_matrix/matrix-style') }}
+{% endif %}
+{{ attach_library('module_matrix/main') }}
+{% set count = 'count-' ~ enabled_count %}
+{% set compact_layout = visibility.compact_layout ? ' compact' : ''  %}
+{% set scrollable_sidebar = visibility.scrollable_sidebar ? ' enabled-scroll' : ''  %}
+{% set grid_layout = (enabled_count == 1 or visibility.grid_layout or visibility.compact_layout) ? ' grid-layout' : '' %}
+
+<div class="module-matrix-wrapper {{ count }} {{ visibility.layout }}{{ grid_layout }}{{ compact_layout }}{{ scrollable_sidebar }}">
+  <div class="module-matrix-sidebar">
+    {% set displayed_packages = [] %}
+    {% for module in modules %}
+      {% if module.package is defined and module.package|render|striptags|trim not in displayed_packages|keys %}
+        {% set package_link = module.package|render|striptags|trim %}
+        <a href="#" class="package-link" data-package="{{ package_link }}" aria-label="{{ package_link }}">{{ package_link }}</a>
+        {% set displayed_packages = displayed_packages|merge({ (package_link): true }) %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+
+  <div class="module-matrix-list">
+{% set current_package = '' %}
+  {% for module in modules %}
+
+{% set current_package = '' %}
+{% set module_package = module.package is defined ? module.package|render|striptags|trim : '' %}
+{% set module_name = module.name is defined ? module.name|render|striptags|trim : '' %}
+{% set module_machine_name = module.machine_name is defined ? module.machine_name|render|striptags|trim : '' %}
+{% set module_project = module.project is defined ? module.project|render|striptags|trim : '' %}
+{% set module_status = module.status is defined and module.status ? 'enabled' : 'disabled' %}
+{% set module_stability = module.stability is defined ? module.stability|render|striptags|trim : '' %}
+{% set module_mtime = module.mtime is defined ? module.mtime|render|striptags|trim : '' %}
+{% set module_version = module.version is defined ? module.version|render|striptags|trim : '' %}
+{% set module_lifecycle = module.lifecycle is defined ? module.lifecycle|render|striptags|trim : '' %}
+{% set module_description = module.description is defined ? module.description|render|striptags|trim : '' %}
+{% set module_enable_id = module.description is defined ? module.description|render|striptags|trim|clean_id ~ '-description' : '' %}
+{% set modules_project_machine = (module_machine_name == module_project) ? module_project : module_project ~ '-' ~ module_machine_name %}
+
+
+
+    <div class="module-matrix-list-inner {{ module_package|clean_class }}-{{ modules_project_machine }}">
+      <div class="name-package {{ module_status }}"
+     id="{{ module_enable_id }}"
+     data-package="{{ module_package }}"
+     data-project="{{ module_project }}"
+     data-name="{{ module_name }}"
+     data-status="{{ module.status ? 1 : 0 }}"
+     data-date="{{ module_mtime }}"
+     data-stability="{{ module_stability }}"
+     data-version="{{ module_version }}"
+     data-lifecycle="{{ module_lifecycle }}"
+     data-machine-name="{{ module_machine_name }}"
+     data-description="{{ module_description|render|striptags|trim ?: 'No description available' }}">
+      <span class="checkbox">
+        {{ module.checkbox }}
+      </span>
+
+      {% if module_name and module_project and module_package is defined and module_package|lower != 'core' and module_package|lower != 'custom' %}
+        <a class="name" href="https://drupal.org/project/{{ module_project }}" target="_blank">{{ module_name }}</a>
+      {% else %}
+        <span class="name name-{{ module_project|clean_class }}">{{ module_name }}</span>
+      {% endif %}
+
+      {% if module_package is defined and module_package != current_package %}
+      {% set current_package = module_package %}
+      <span class="package package-{{ current_package|clean_class }}" data-package="{{ current_package }}">
+        {{ current_package }}
+      </span>
+      {% endif %}
+
+      </div>
+     {% if not visibility.compact_layout %}
+     {% if enabled_count == 1 %}
+     <div class="module-matrix-item-details {{ count }}">
+        {{ module_description ? module_description : 'No description available'|t }}
+     </div>
+     {% else %}
+
+     <div class="module-matrix-item-details {{ count }}">
+
+        {% if
+          (visibility.module_project and module_project) or
+          (visibility.module_status and module_status) or
+          (visibility.module_version and module_version) or
+          (visibility.module_mtime and module_mtime) or
+          (visibility.module_stability and module_stability) or
+          (visibility.module_lifecycle and module_lifecycle) or
+          (visibility.module_machine_name and module_machine_name) or
+          (visibility.module_links and module.links) or
+          (visibility.module_issue_link and module.issue_link) or
+          (visibility.module_usage_link and module.usage_link) or
+          (visibility.module_requires and module.requires) or
+          (visibility.module_required_by and module.required_by)
+        %}
+
+        <details class="js-form-wrapper form-wrapper">
+          <summary aria-controls="{{ module_enable_id }}" role="button" aria-expanded="false">
+            <span class="text module-matrix-item-description">{{ module_description ? module_description : 'No description available'|t }}
+</span>
+          </summary>
+
+          <div class="details-wrapper">
+
+            {% if visibility.module_project and module_project %}
+            <div class="admin-requirements project">
+              <span class="material-icons">folder_open</span>
+              {{ 'Project: @project'|t({'@project': module_project|capitalize }) }}
+            </div>
+            {% endif %}
+
+            {% if visibility.module_status and module_status %}
+            <div class="admin-requirements status">
+              <span class="material-icons">check_circle</span>
+              {{ 'Status: @status'|t({'@status': module_status|capitalize }) }}
+            </div>
+            {% endif %}
+
+            {% if visibility.module_version and module_version %}
+            <div class="admin-requirements version">
+              <span class="material-icons">label</span>
+              {{ 'Version: @module-version'|t({'@module-version': module_version }) }}
+            </div>
+            {% endif %}
+
+            {% if visibility.module_mtime and module_mtime %}
+            <div class="admin-requirements mtime">
+              <span class="material-icons">schedule</span>
+              {{ 'Last modified: @mtime'|t({'@mtime': module_mtime}) }}
+            </div>
+            {% endif %}
+
+            {% if visibility.module_stability and module_stability %}
+            <div class="admin-requirements stability">
+              <span class="material-icons">security</span>
+              {{ 'Stability: @stability'|t({'@stability': module_stability|capitalize }) }}
+            </div>
+            {% endif %}
+
+            {% if visibility.module_lifecycle and module_lifecycle %}
+            <div class="admin-requirements lifecycle">
+              <span class="material-icons">loop</span>
+              {{ 'Lifecycle: @lifecycle'|t({'@lifecycle': module_lifecycle|capitalize }) }}
+            </div>
+            {% endif %}
+
+            {% if visibility.module_machine_name and module_machine_name %}
+            <div class="admin-requirements machine-name">
+              <span class="material-icons">memory</span>
+              {{ 'Machine name: @machine-name'|t({'@machine-name': module_machine_name}) }}
+            </div>
+            {% endif %}
+
+            {% if visibility.module_links and module.links %}
+            {% for link_type in ['help', 'permissions', 'configure'] %}
+              {% if module.links[link_type] is defined %}
+                {% if link_type == 'help' %}
+                  <div class="admin-requirements help-link">
+                    <span class="material-icons">help_outline</span>
+                    {{ module.links[link_type] }}
+                  </div>
+                {% elseif link_type == 'permissions' %}
+                  <div class="admin-requirements permissions-link">
+                    <span class="material-icons">lock</span>
+                    {{ module.links[link_type] }}
+                  </div>
+                {% elseif link_type == 'configure' %}
+                  <div class="admin-requirements configure-link">
+                    <span class="material-icons">settings</span>
+                    {{ module.links[link_type] }}
+                  </div>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            {% if visibility.module_issue_link and module.issue_link %}
+            <div class="admin-requirements issue-link">
+              <span class="material-icons">bug_report</span>
+              <a href="{{ module.issue_link }}" target="_blank">
+                {{ 'Create Issue'|t }}
+              </a>
+            </div>
+            {% endif %}
+
+            {% if visibility.module_usage_link and module.usage_link %}
+            <div class="admin-requirements usage-link">
+              <span class="material-icons">bar_chart</span>
+              <a href="{{ module.usage_link }}" target="_blank">
+                {{ 'Usage Stats'|t }}
+              </a>
+            </div>
+            {% endif %}
+
+            {% if visibility.module_requires and module.requires %}
+            <div class="admin-requirements requires">
+              <span class="material-icons">link</span>
+              {{ 'Requires: @module-list'|t({'@module-list': module.requires}) }}
+            </div>
+            {% endif %}
+
+            {% if visibility.module_required_by and module.required_by %}
+            <div class="admin-requirements required_by">
+              <span class="material-icons">link_off</span>
+              {{ 'Required by: @module-list'|t({'@module-list': module.required_by}) }}
+            </div>
+            {% endif %}
+
+          </div>
+        </details>
+
+        {% else %}
+          <div class="js-form-wrapper form-wrapper">
+            <div class="text module-matrix-item-description">{{ module_description ? module_description : 'No description available'|t }}
+</div>
+          </div>
+        {% endif %}
+
+     </div>
+     {% endif %}
+     {% endif %}
+    </div>
+  {% endfor %}
+  </div>
+</div>

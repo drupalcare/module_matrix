@@ -1,0 +1,85 @@
+form.system-modules .module-matrix-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width:992px) {
+  form.system-modules .module-matrix-wrapper.right {
+    flex-direction: row-reverse;
+  }
+
+  form.system-modules .module-matrix-wrapper.left {
+    flex-direction: row;
+  }
+
+  form.system-modules .module-matrix-wrapper.left .module-matrix-sidebar,
+  form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
+    flex: 0 0 30%;
+    max-width: 30%;
+  }
+
+  form.system-modules .module-matrix-wrapper.left .module-matrix-list:not(.grid-layout .module-matrix-list),
+  form.system-modules .module-matrix-wrapper.right .module-matrix-list:not(.grid-layout .module-matrix-list) {
+    flex: 1 1 auto;
+    flex-grow: 1;
+  }
+
+}
+
+@media (min-width:1200px) {
+  form.system-modules .module-matrix-wrapper.left .module-matrix-sidebar,
+  form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
+    flex: 0 0 26%;
+    max-width: 26%;
+  }
+
+}
+
+@media (min-width:1400px) {
+  form.system-modules .module-matrix-wrapper.left .module-matrix-sidebar,
+  form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
+    flex: 0 0 22%;
+    max-width: 22%;
+  }
+
+}
+
+form.system-modules .module-matrix-wrapper.top .module-matrix-sidebar {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+form.system-modules .module-matrix-wrapper.top .module-matrix-sidebar > a {
+  flex-direction: row-reverse;
+  white-space: nowrap;
+}
+
+form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 12px;
+  width: 100%;
+  align-items: start;
+}
+
+form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
+  border: 1px solid #ddd;
+  padding: 12px;
+}
+form.system-modules .enabled-scroll.module-matrix-wrapper .module-matrix-sidebar:not(.top.module-matrix-wrapper .module-matrix-sidebar) {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 10px;
+  scrollbar-width: thin;
+}
+
+@media (max-width:992px) {
+  form.system-modules .enabled-scroll.module-matrix-wrapper .module-matrix-sidebar:not(.top.module-matrix-wrapper .module-matrix-sidebar) {
+    max-height: 60vh;
+  }
+
+}

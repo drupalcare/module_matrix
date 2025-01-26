@@ -1,0 +1,20 @@
+main:
+  css:
+    theme:
+      css/module-matrix.layout.css: {}
+      css/module-matrix.main.css: {}
+      css/module-matrix.inner.css: {}
+      css/module-matrix.filter.css: {}
+      css/module-matrix.package.css: {}
+      css/module-matrix.details.css: {}
+  js:
+    js/module-matrix.main.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+
+matrix-style:
+  css:
+    theme:
+      css/module-matrix.style.css: {}

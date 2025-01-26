@@ -1,0 +1,227 @@
+<?php
+
+/**
+ * @file
+ * Contains hooks and core functionality for the ModuleMatrix module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Url;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function module_matrix_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'modeule_matrix.dashboard':
+      return t('The ModuleMatrix module provides an enhanced dashboard for managing modules, including filters, insights, and advanced operations.');
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for system_modules_list().
+ */
+function module_matrix_preprocess_system_modules_list(array &$variables) {
+  // Add custom CSS class to the modules list page.
+  $variables['#attributes']['class'][] = 'module-matrix-enhanced';
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function module_matrix_theme_registry_alter(array &$theme_registry): void {
+  // Alter the system-modules-details template to include applicable classes.
+  $theme_registry['system_modules_details']['path'] = \Drupal::service('extension.list.module')->getPath('module_matrix') . '/templates';
+}
+
+/**
+ * Preprocesses the system modules details for Module Matrix.
+ */
+function module_matrix_preprocess_system_modules_details(array &$variables): void {
+  // Core uses this for module details.
+  $form = $variables['form'];
+  $config = \Drupal::config('module_matrix.settings');
+
+  // Enhance module details with additional information.
+  $extension_list = \Drupal::service('extension.list.module')->getList();
+
+  foreach ($variables['modules'] as &$module) {
+    // Retrieve the module ID from parents.
+    $id = $module['name']['#parents'][1] ?? NULL;
+    if ($id) {
+      $extension = $extension_list[$id] ?? NULL;
+
+      // Add custom module data.
+      if ($extension) {
+        $package_name = $extension->info['package'] ?? 'Other';
+
+        $stability = match (TRUE) {
+          str_contains($extension->info['version'] ?? '', '-dev') => 'dev',
+          str_contains($extension->info['version'] ?? '', '-alpha') => 'alpha',
+          str_contains($extension->info['version'] ?? '', '-beta') => 'beta',
+          str_contains($extension->info['version'] ?? '', '-rc') => 'rc',
+          default => 'stable',
+        };
+
+        // Check if 'package' is set in $module, fall back if not.
+        $module_package = $module['package'] ?? $package_name;
+
+        // Avoid overwriting existing core-provided data.
+        $project = $module['project'] ?? $extension->info['project'] ?? $id;
+        $module += [
+          'package' => $module_package,
+          'lifecycle' => $module['lifecycle'] ?? $extension->info['lifecycle'] ?? 'Unknown',
+          'status' => $module['status'] ?? (\Drupal::service('module_handler')->moduleExists($id) ? 1 : 0),
+          'weight' => $module['weight'] ?? $extension->weight ?? 'N/A',
+          'project' => $project,
+          'mtime' => $module['mtime'] ?? (!empty($extension->info['mtime']) ? date('Y-m-d H:i:s', $extension->info['mtime']) : 'Unknown'),
+          'stability' => $stability,
+        ];
+
+        // Add links only if the package is not Core or Custom.
+        if (!in_array(strtolower($module_package), ['core', 'custom'], TRUE)) {
+          $module += [
+            'issue_link' => Url::fromUri("https://www.drupal.org/node/add/project-issue/{$project}")->toString(),
+            'usage_link' => Url::fromUri("https://www.drupal.org/project/usage/{$project}")->toString(),
+          ];
+          $module['#attributes']['data-project'] = $module['project'];
+          $module['#attributes']['data-status'] = $module['status'];
+          $module['#attributes']['data-lifecycle'] = $module['lifecycle'];
+        }
+      }
+    }
+  }
+
+  // Pass visibility settings to the template.
+  $variables['visibility'] = [
+    // Description is always enabled.
+    'module_description' => 1,
+    'module_machine_name' => $config->get('module_machine_name') ?? 1,
+    'module_version' => $config->get('module_version') ?? 1,
+    'module_lifecycle' => $config->get('module_lifecycle') ?? 1,
+    'module_requires' => $config->get('module_requires') ?? 1,
+    'module_required_by' => $config->get('module_required_by') ?? 1,
+    'module_status' => $config->get('module_status') ?? 1,
+    'module_project' => $config->get('module_project') ?? 1,
+    'module_mtime' => $config->get('module_mtime') ?? 1,
+    'module_stability' => $config->get('module_stability') ?? 1,
+    'module_links' => $config->get('module_links') ?? 1,
+    'module_issue_link' => $config->get('module_issue_link') ?? 1,
+    'module_usage_link' => $config->get('module_usage_link') ?? 1,
+    'compact_layout' => (bool) $config->get('compact_layout') ?? 0,
+    'scrollable_sidebar' => (bool) $config->get('scrollable_sidebar') ?? 0,
+    'layout' => $config->get('layout') ?? 'left',
+    'disable_library' => (bool) $config->get('disable_library') ?? 0,
+    'grid_layout' => (bool) $config->get('grid_layout') ?? 0,
+  ];
+
+  // Count enabled settings.
+  $enabled_settings = array_filter($variables['visibility'], fn($value) => $value === 1);
+  $enabled_count = count($enabled_settings);
+  $variables['enabled_count'] = $enabled_count;
+
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function module_matrix_element_info_alter(array &$types) {
+  // Add context to make the alteration specific to the system-modules form.
+  $current_route = \Drupal::routeMatch()->getRouteName();
+  if ($current_route === 'system.modules_list') {
+    // Only modify container elements for the system-modules form.
+    if (isset($types['container'])) {
+      unset($types['container']);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function module_matrix_form_system_modules_alter(array &$form, FormStateInterface $form_state, $form_id): void {
+  // Remove the 'container' wrapper explicitly if it's part of the render array.
+  // Adjust module packages and elements similar to module_filter.
+  if (isset($form['modules']) && is_array($form['modules'])) {
+    foreach (Element::children($form['modules']) as $package_name) {
+      $package = &$form['modules'][$package_name];
+
+      // Modify the package-level details element.
+      if (isset($package['#type']) && $package['#type'] === 'details') {
+        $package['#type'] = 'container';
+        unset($package['#open']);
+        $package['#attributes']['class'][] = 'module-package-wrapper';
+      }
+    }
+  }
+  $form['filters'] = [
+    '#type' => 'fieldset',
+
+    '#attributes' => [
+      'class' => ['module-matrix-filters'],
+    ],
+  ];
+
+  // Add the text filter field.
+  $form['filters']['text'] = [
+    '#type' => 'textfield',
+    '#title' => t('Search Modules'),
+    '#placeholder' => t('Enter module name or description'),
+    '#attributes' => [
+      'class' => ['form-control'],
+    ],
+  ];
+
+  // Add the status filter container.
+  $form['filters']['status'] = [
+    '#type' => 'container',
+    '#attributes' => ['class' => ['module-matrix-status', 'form-item']],
+    'checkboxes' => [
+      '#type' => 'checkboxes',
+      '#title' => t('Filter by status'),
+      '#options' => [
+        '1' => t('Enabled'),
+        '0' => t('Disabled'),
+        'unavailable' => t('Unavailable'),
+      ],
+      '#default_value' => [],
+      '#attributes' => [
+        'class' => ['form-checkboxes'],
+      ],
+    ],
+  ];
+
+  // Add the lifecycle filter container.
+  $form['filters']['lifecycle'] = [
+    '#type' => 'container',
+    '#attributes' => ['class' => ['module-matrix-lifecycle', 'form-item']],
+    'checkboxes' => [
+      '#type' => 'checkboxes',
+      '#title' => t('Filter by lifecycle'),
+      '#options' => [
+        'stable' => t('Stable'),
+        'dev' => t('Dev'),
+        'beta' => t('Beta'),
+        'alpha' => t('Alpha'),
+      ],
+      '#default_value' => [],
+      '#attributes' => [
+        'class' => ['form-checkboxes'],
+      ],
+    ],
+  ];
+
+  // Add the reset button.
+  $form['filters']['reset'] = [
+    '#type' => 'button',
+    '#value' => t('Reset'),
+    '#attributes' => [
+      'id' => 'reset-filters',
+  // Adding Drupal button classes.
+      'class' => ['button', 'reset-button', 'form-button'],
+    ],
+  ];
+
+}

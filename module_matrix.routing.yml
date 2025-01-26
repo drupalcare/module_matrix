@@ -1,0 +1,9 @@
+module_matrix.settings_form:
+  path: '/admin/config/system/module-matrix-settings'
+  defaults:
+    _form: '\Drupal\module_matrix\Form\ModuleMatrixSettingsForm'
+    _title: 'Module Matrix Settings'
+  requirements:
+    _permission: 'access module matrix settings'
+  options:
+    _admin_route: true
