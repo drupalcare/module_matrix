@@ -13,21 +13,21 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  protected function getEditableConfigNames() {
+  protected function getEditableConfigNames(): array {
     return ['module_matrix.settings'];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'module_matrix_settings_form';
   }
 
   /**
    * Build the settings form.
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('module_matrix.settings');
 
     // Existing layout radios.
@@ -116,7 +116,7 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $this->config('module_matrix.settings');
     foreach ($form_state->getValues() as $key => $value) {
       $config->set($key, $value);

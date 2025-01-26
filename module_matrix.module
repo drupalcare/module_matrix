@@ -13,17 +13,42 @@ use Drupal\Core\Routing\RouteMatchInterface;
 /**
  * Implements hook_help().
  */
-function module_matrix_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-    case 'modeule_matrix.dashboard':
-      return t('The ModuleMatrix module provides an enhanced dashboard for managing modules, including filters, insights, and advanced operations.');
+function module_matrix_help($route_name, RouteMatchInterface $route_match): ?string {
+  if ($route_name === 'help.page.module_matrix') {
+    return _module_matrix_helper_render_readme();
   }
+  return NULL;
+}
+
+/**
+ * Helper function to render README.md.
+ *
+ * @return string
+ *   The rendered content of README.md.
+ */
+function _module_matrix_helper_render_readme(): string {
+  $readme_path = __DIR__ . '/README.md';
+  $text = file_get_contents($readme_path);
+
+  if ($text === FALSE) {
+    return t('README.md file not found.');
+  }
+
+  if (!\Drupal::moduleHandler()->moduleExists('markdown')) {
+    return '<pre>' . htmlspecialchars($text) . '</pre>';
+  }
+
+  // Use the Markdown filter to render the README.
+  $filter_manager = \Drupal::service('plugin.manager.filter');
+  $settings = \Drupal::config('markdown.settings')->getRawData();
+  $filter = $filter_manager->createInstance('markdown', ['settings' => $settings]);
+  return $filter->process($text, 'en')->getProcessedText();
 }
 
 /**
  * Implements hook_preprocess_HOOK() for system_modules_list().
  */
-function module_matrix_preprocess_system_modules_list(array &$variables) {
+function module_matrix_preprocess_system_modules_list(array &$variables): void {
   // Add custom CSS class to the modules list page.
   $variables['#attributes']['class'][] = 'module-matrix-enhanced';
 }
