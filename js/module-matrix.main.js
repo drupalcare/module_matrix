@@ -31,6 +31,7 @@
       storeAllModules(listSelector, data.modules);
       // Attach filters and pass the `data` object
       attachFilters(unifiedWrapper, mainList, sidebarSelector, data);
+      animateDetails();
     },
   };
   // Attach filtering logic
@@ -170,13 +171,20 @@
   // Update active package link visually
   function updateActivePackageLink(sidebarSelector, activePackage) {
     const sidebar = document.querySelector(sidebarSelector);
-    const packageLinks = sidebar.querySelectorAll('.package-link');
-    packageLinks.forEach((link) => link.classList.remove('active'));
+    if (!sidebar) return;
+
+    // Remove "active" class from all links
+    sidebar.querySelectorAll('.package-link').forEach((link) => {
+      link.classList.remove('active');
+    });
+
+    // Add "active" class to the selected link
     const activeLink = sidebar.querySelector(`[data-package="${activePackage}"]`);
     if (activeLink) {
       activeLink.classList.add('active');
     }
   }
+
   // Reset all filters
   function resetFilters(mainList, sidebarSelector, data) {
     if (!data) {
@@ -440,7 +448,7 @@
       'All Modules',
       '#',
       'all',
-      ['package-link-all', 'active'],
+      ['package-link', 'package-link-all' , 'active'],
       true, // This marks it as the "All Modules" link
       totalModules,
       totalEnabled,
@@ -549,4 +557,32 @@
     fragment.appendChild(offSpan);
     return fragment;
   }
+
+  // Add animation to <details> elements
+  function animateDetails() {
+    const detailsElements = document.querySelectorAll('details');
+
+    detailsElements.forEach((details) => {
+      const wrapper = details.querySelector('.details-wrapper');
+      if (!wrapper) return;
+
+      // Add initial styles
+      wrapper.style.transition = 'height 0.3s ease';
+      wrapper.style.overflow = 'hidden';
+      wrapper.style.height = details.open ? `${wrapper.scrollHeight}px` : '0px';
+
+      // Listen for toggle events
+      details.addEventListener('toggle', () => {
+        if (details.open) {
+          // Animate expanding
+          wrapper.style.height = `${wrapper.scrollHeight}px`;
+        } else {
+          // Animate collapsing
+          wrapper.style.height = '0px';
+        }
+      });
+    });
+  }
+
+
 })(Drupal, drupalSettings, once);

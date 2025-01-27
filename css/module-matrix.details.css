@@ -7,11 +7,23 @@ form.system-modules .module-matrix-list .module-matrix-item-details {
   border-radius: 6px;
 }
 
-form.system-modules .module-matrix-list .name-package {
+form.system-modules .module-matrix-list .compact-top,
+form.system-modules .module-matrix-list .name-package:not(.compact .name-package) {
   display: flex;
   align-items: center;
   justify-content: start;
   gap: 12px;
+}
+
+form.system-modules .compact .module-matrix-list .name-package {
+  flex-direction: row;
+}
+
+form.system-modules .compact .module-matrix-list .compact-bottom {
+  display: flex;
+  font-size: 14px;
+  margin-top: 12px;
+  gap: 8px;
 }
 
 form.system-modules .module-matrix-list .module-matrix-item-details .details-wrapper {
@@ -47,21 +59,27 @@ form.system-modules .module-matrix-list .name-package .state-indicator {
 }
 
 form.system-modules .module-matrix-list .name-package {
-  border: 1px solid transparent;
+  border: 1px thin transparent;
   box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
   transition: box-shadow 0.3s ease, border 0.3s ease;
 }
 
 form.system-modules .module-matrix-list .name-package.enabled {
   border-color: #66cc66;
-  box-shadow: inset 0 4px 10px rgba(102, 204, 102, 0.4);
+  box-shadow: inset 0 6px 12px rgba(102, 204, 102, 0.3);
 }
 
 form.system-modules .module-matrix-list .name-package.disabled {
   border-color: #ff6666;
-  box-shadow: inset 0 4px 10px rgba(255, 102, 102, 0.4);
+  box-shadow: inset 0 6px 12px rgba(255, 102, 102, 0.3);
 }
 
 form.system-modules .module-matrix-list .name-package .checkbox .form-item {
   margin: 0;
+}
+
+form.system-modules .details-wrapper {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
 }

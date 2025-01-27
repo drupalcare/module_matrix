@@ -104,6 +104,10 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
 
         // Determine lifecycle.
         $lifecycle = $extension->info['lifecycle'] ?? 'Unknown';
+
+        // Get the subpath.
+        $subpath = $extension->getPath();
+
         // Add data to the module.
         $module_package = $module['package'] ?? $package_name;
 
@@ -117,6 +121,7 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
           'project' => $project,
           'mtime' => $module['mtime'] ?? (!empty($extension->info['mtime']) ? date('Y-m-d H:i:s', $extension->info['mtime']) : 'Unknown'),
           'stability' => $stability,
+          'subpath' => $subpath,
         ];
 
         // Add links only if the package is not Core or Custom.
@@ -142,6 +147,7 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
     'module_status' => $config->get('module_status') ?? 1,
     'module_project' => $config->get('module_project') ?? 1,
     'module_mtime' => $config->get('module_mtime') ?? 1,
+    'module_subpath' => $config->get('module_subpath') ?? 1,
     'module_stability' => $config->get('module_stability') ?? 1,
     'module_links' => $config->get('module_links') ?? 1,
     'module_issue_link' => $config->get('module_issue_link') ?? 1,

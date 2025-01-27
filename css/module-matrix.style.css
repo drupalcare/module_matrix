@@ -5,7 +5,7 @@
 .details-wrapper .admin-requirements.status .material-icons {
   color: #4caf50; /* Green for Status (Enabled) */
 }
-
+.compact-bottom .version .material-icons,
 .details-wrapper .admin-requirements.version .material-icons {
   color: #2196f3; /* Blue for Version */
 }
@@ -26,14 +26,17 @@
   color: #9e9e9e; /* Light gray for Machine Name */
 }
 
+.compact-bottom .help-link .material-icons,
 .details-wrapper .admin-requirements.help-link .material-icons {
   color: #3f51b5; /* Indigo for Help */
 }
 
+.compact-bottom .permissions-link .material-icons,
 .details-wrapper .admin-requirements.permissions-link .material-icons {
   color: #f44336; /* Red for Permissions */
 }
 
+.compact-bottom .configure-link .material-icons,
 .details-wrapper .admin-requirements.configure-link .material-icons {
   color: #673ab7; /* Purple for Configure */
 }
@@ -52,4 +55,7 @@
 
 .details-wrapper .admin-requirements.required_by .material-icons {
   color: #f44336; /* Red for Required By (Disabled) */
+}
+.details-wrapper .admin-requirements.subpath .material-icons {
+  color: #00acc1; /* Deep Cyan for Subpath */
 }

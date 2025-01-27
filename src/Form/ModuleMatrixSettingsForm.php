@@ -82,6 +82,7 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
       'module_required_by' => $this->t('Required By'),
       'module_status' => $this->t('Status'),
       'module_project' => $this->t('Project'),
+      'module_subpath' => $this->t('Subpath'),
       'module_mtime' => $this->t('Last Modified'),
       'module_stability' => $this->t('Stability'),
       'module_links' => $this->t('Links (Help, Permissions, Configure)'),
@@ -106,7 +107,7 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Compact Layout'),
       '#default_value' => $config->get('compact_layout') ?? 0,
-      '#description' => $this->t("Enable Compact Layout to simplify the interface. When enabled, the following settings will be disabled: Description, Machine Name, Version, Lifecycle, Requires, Required By, Status, Project, Last Modified, Stability, Links (Help, Permissions, Configure), Issue Link, and Usage Link. Note that the Name and Package options are alawys displayed."),
+      '#description' => $this->t("Enable Compact Layout to simplify the interface. When enabled, the following settings will be disabled: Description, Machine Name, Lifecycle, Requires, Required By, Status, Project, Last Modified, Stability, Issue Link, and Usage Link. Note that the Name and Package options are alawys displayed."),
       '#attributes' => ['class' => ['compact-layout-toggle']],
     ];
 
