@@ -1,3 +1,12 @@
+/**
+ * @file
+ * Module Matrix Main.
+ *
+ * Filename:     module-matrix-main.js
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
+
 ((Drupal, drupalSettings, once) => {
   'use strict';
   const formContext = document.querySelector('form.system-modules');
@@ -123,7 +132,7 @@
       );
     });
   }
-  // Apply filters
+    // Apply filters
   function applyFilters(mainList, activePackage, data) {
     const query = filterInput?.value.toLowerCase().trim() || '';
     const selectedStatuses = Array.from(statusCheckboxes)
@@ -135,39 +144,46 @@
     const selectedStability = Array.from(stabilityCheckboxes)
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.value);
-    let visibleCount = 0;
-    Array.from(mainList.querySelectorAll('.module-matrix-list-inner')).forEach((module) => {
+
+    // Get all modules
+    const allModules = Array.from(mainList.querySelectorAll('.module-matrix-list-inner'));
+
+    // Filter and collect visible modules
+    const visibleModules = allModules.filter((module) => {
       const moduleDetails = module.querySelector('.name-package');
-      if (!moduleDetails) return;
-      // Extract data attributes
+      if (!moduleDetails) return false;
+
+      const moduleName = moduleDetails.dataset.name?.toLowerCase() || '';
+      const moduleDescription = moduleDetails.dataset.description?.toLowerCase() || '';
+      const modulePackage = moduleDetails.dataset.package || '';
       const moduleStatus = moduleDetails.dataset.status || '';
       const moduleLifecycle = moduleDetails.dataset.lifecycle || '';
       const moduleStability = moduleDetails.dataset.stability || '';
-      const modulePackage = moduleDetails.dataset.package || '';
-      const moduleName = moduleDetails.dataset.name?.toLowerCase() || '';
-      const moduleDescription = moduleDetails.dataset.description?.toLowerCase() || '';
-      // Match filters
+
       const matchesQuery = query === '' || moduleName.includes(query) || moduleDescription.includes(query);
+      const matchesPackage = activePackage === 'all' || modulePackage === activePackage;
       const matchesStatus = selectedStatuses.length === 0 || selectedStatuses.includes(moduleStatus);
       const matchesLifecycle = selectedLifecycles.length === 0 || selectedLifecycles.includes(moduleLifecycle);
       const matchesStability = selectedStability.length === 0 || selectedStability.includes(moduleStability);
-      const matchesPackage = activePackage === 'all' || modulePackage === activePackage;
-      const shouldHide = !(matchesQuery && matchesStatus && matchesStability && matchesLifecycle && matchesPackage);
-      // Toggle visibility
-      module.classList.toggle('hidden', shouldHide);
-      if (!shouldHide) {
-        visibleCount++;
-      }
+
+      return matchesQuery && matchesPackage && matchesStatus && matchesLifecycle && matchesStability;
     });
-    // Debugging logs
-    // console.log("Filtering Results:");
-    // console.log("Query:", query);
-    // console.log("Selected Statuses:", selectedStatuses);
-    // console.log("Selected Lifecycles:", selectedLifecycles);
-    // console.log("Active Package:", activePackage);
-    // console.log("Visible Modules:", visibleCount);
-    // console.log("Total Modules:", getTotalModules(data));
+
+    // Sort the filtered modules alphabetically by `data-name`
+    const sortedVisibleModules = visibleModules.sort((a, b) => {
+      const nameA = a.querySelector('.name-package')?.dataset.name?.toLowerCase() || '';
+      const nameB = b.querySelector('.name-package')?.dataset.name?.toLowerCase() || '';
+      return nameA.localeCompare(nameB);
+    });
+
+    // Hide all modules and then show only the filtered and sorted ones
+    allModules.forEach((module) => module.classList.add('hidden'));
+    sortedVisibleModules.forEach((module) => module.classList.remove('hidden'));
+
+    // Debugging
+    //console.log(`Visible modules after filtering and sorting: ${sortedVisibleModules.length}`);
   }
+
   // Update active package link visually
   function updateActivePackageLink(sidebarSelector, activePackage) {
     const sidebar = document.querySelector(sidebarSelector);
@@ -508,12 +524,16 @@
 
   function storeAllModules(containerSelector, modules) {
     const container = document.querySelector(containerSelector);
-    if (!container) {
-      //console.error(`Container not found for selector: ${containerSelector}`);
-      return;
-    }
-    clearAndAppend(container, modules.map((module) => module.element));
-    //console.log('All modules stored:', modules);
+    if (!container) return;
+
+    // Sort modules alphabetically by `data-name`
+    const sortedModules = modules.sort((a, b) => {
+      const nameA = a.element.querySelector('.name-package')?.dataset.name?.toLowerCase() || '';
+      const nameB = b.element.querySelector('.name-package')?.dataset.name?.toLowerCase() || '';
+      return nameA.localeCompare(nameB);
+    });
+
+    clearAndAppend(container, sortedModules.map((module) => module.element));
   }
 
   function sortAlphabetically(array, key) {

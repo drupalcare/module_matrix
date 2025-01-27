@@ -1,3 +1,11 @@
+/**
+ * @file
+ * Module Matrix Layout.
+ *
+ * Filename:     module-matrix-layout.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
 form.system-modules .module-matrix-wrapper {
   display: flex;
   flex-direction: column;
@@ -19,8 +27,8 @@ form.system-modules .module-matrix-wrapper {
     max-width: 30%;
   }
 
-  form.system-modules .module-matrix-wrapper.left .module-matrix-list:not(.grid-layout .module-matrix-list),
-  form.system-modules .module-matrix-wrapper.right .module-matrix-list:not(.grid-layout .module-matrix-list) {
+  form.system-modules .module-matrix-wrapper.left .module-matrix-list,
+  form.system-modules .module-matrix-wrapper.right .module-matrix-list {
     flex: 1 1 auto;
     flex-grow: 1;
   }
@@ -60,16 +68,19 @@ form.system-modules .module-matrix-wrapper.top .module-matrix-sidebar > a {
 
 form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  gap: 12px;
-  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  grid-auto-rows: auto;
+  gap: 16px;
   align-items: start;
+  justify-content: start;
 }
 
 form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
   border: 1px solid #ddd;
   padding: 12px;
+  border-radius: 8px;
 }
+
 form.system-modules .enabled-scroll.module-matrix-wrapper .module-matrix-sidebar:not(.top.module-matrix-wrapper .module-matrix-sidebar) {
   max-height: 80vh;
   overflow-y: auto;

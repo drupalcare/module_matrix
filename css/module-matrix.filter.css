@@ -1,7 +1,15 @@
+/**
+ * @file
+ * Module Matrix Filter.
+ *
+ * Filename:     module-matrix-filter.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
 form.system-modules .module-matrix-filters > .fieldset__wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 16px;
 }
 
 form.system-modules .module-matrix-filters > .fieldset__wrapper {

@@ -18,3 +18,8 @@ matrix-style:
   css:
     theme:
       css/module-matrix.style.css: {}
+
+matrix-settings:
+  css:
+    theme:
+      css/module-matrix.settings.css: {}

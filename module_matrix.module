@@ -2,7 +2,14 @@
 
 /**
  * @file
- * Contains hooks and core functionality for the ModuleMatrix module.
+ * Provides the module implementation for module_matrix.
+ *
+ * Contains template preprocessing and theme definitions for Views.
+ *
+ * Filename:     module_matrix.module
+ * Website:      https://www.flashwebcenter.com
+ * Description:  template.
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
 
 use Drupal\Core\Form\FormStateInterface;
@@ -46,14 +53,6 @@ function _module_matrix_helper_render_readme(): string {
 }
 
 /**
- * Implements hook_preprocess_HOOK() for system_modules_list().
- */
-function module_matrix_preprocess_system_modules_list(array &$variables): void {
-  // Add custom CSS class to the modules list page.
-  $variables['#attributes']['class'][] = 'module-matrix-enhanced';
-}
-
-/**
  * Implements hook_theme_registry_alter().
  */
 function module_matrix_theme_registry_alter(array &$theme_registry): void {
@@ -62,82 +61,137 @@ function module_matrix_theme_registry_alter(array &$theme_registry): void {
 }
 
 /**
- * Implements hook_preprocess_HOOK().
+ * Implements hook_preprocess_HOOK() for system_modules_details.
  */
 function module_matrix_preprocess_system_modules_details(array &$variables): void {
   // Core uses this for module details.
   $form = $variables['form'];
   $config = \Drupal::config('module_matrix.settings');
-
-  // Enhance module details with additional information.
   $extension_list = \Drupal::service('extension.list.module')->getList();
 
+  // Get categorized modules (parents and submodules).
+  [$parent_modules, $sub_modules] = module_matrix_categorize_modules($extension_list);
+
+  // Enhance module details.
   foreach ($variables['modules'] as &$module) {
-    // Retrieve the module ID from parents.
     $id = $module['name']['#parents'][1] ?? NULL;
-    if ($id) {
-      $extension = $extension_list[$id] ?? NULL;
+    if ($id && isset($extension_list[$id])) {
+      module_matrix_enhance_module($module, $extension_list[$id], $parent_modules, $sub_modules);
+    }
+  }
 
-      // Add custom module data.
-      if ($extension) {
-        $package_name = $extension->info['package'] ?? 'Other';
-        // Use the module's human-readable name or fallback to ID.
-        $module_name = $extension->info['name'] ?? $id;
+  // Add visibility settings and enabled count to variables.
+  $variables['visibility'] = module_matrix_get_visibility_settings($config);
+  $variables['enabled_count'] = count(array_filter($variables['visibility'], fn($value) => $value === 1));
+}
 
-        // Determine stability.
-        $stability = 'stable';
-        if (!empty($extension->info['version'])) {
-          $version = $extension->info['version'];
-          if (preg_match('/-dev/', $version)) {
-            $stability = 'dev';
-          }
-          elseif (preg_match('/-alpha/', $version)) {
-            $stability = 'alpha';
-          }
-          elseif (preg_match('/-beta/', $version)) {
-            $stability = 'beta';
-          }
-          elseif (preg_match('/-rc/', $version)) {
-            $stability = 'rc';
-          }
-        }
+/**
+ * Categorizes modules into parent modules and submodules.
+ */
+function module_matrix_categorize_modules(array $extension_list): array {
+  $parent_modules = [];
+  $sub_modules = [];
 
-        // Determine lifecycle.
-        $lifecycle = $extension->info['lifecycle'] ?? 'Unknown';
+  foreach ($extension_list as $machine_name => $extension) {
+    $subpath = $extension->getPath();
+    $parts = explode('/', $subpath);
 
-        // Get the subpath.
-        $subpath = $extension->getPath();
+    if (count($parts) >= 3 && $parts[0] === 'modules' && $parts[1] === 'contrib') {
+      $project_name = $parts[2];
 
-        // Add data to the module.
-        $module_package = $module['package'] ?? $package_name;
-
-        // Avoid overwriting existing core-provided data.
-        $project = $module['project'] ?? $extension->info['project'] ?? $id;
-        $module += [
-          'package' => $module_package,
-          'lifecycle' => $lifecycle,
-          'status' => $module['status'] ?? (\Drupal::service('module_handler')->moduleExists($id) ? 1 : 0),
-          'weight' => $module['weight'] ?? $extension->weight ?? 'N/A',
-          'project' => $project,
-          'mtime' => $module['mtime'] ?? (!empty($extension->info['mtime']) ? date('Y-m-d H:i:s', $extension->info['mtime']) : 'Unknown'),
-          'stability' => $stability,
-          'subpath' => $subpath,
+      if (count($parts) === 3) {
+        $parent_modules[$machine_name] = [
+          'project_name' => $project_name,
+          'name' => $extension->info['name'] ?? $machine_name,
         ];
-
-        // Add links only if the package is not Core or Custom.
-        if (!in_array(strtolower($module_package), ['core', 'custom'], TRUE)) {
-          $module += [
-            'issue_link' => Url::fromUri("https://www.drupal.org/node/add/project-issue/{$project}")->toString(),
-            'usage_link' => Url::fromUri("https://www.drupal.org/project/usage/{$project}")->toString(),
-          ];
-        }
+      }
+      else {
+        $sub_modules[$machine_name] = [
+          'subpath' => $subpath,
+          'project_name' => $project_name,
+        ];
       }
     }
   }
 
-  // Pass visibility settings to the template.
-  $variables['visibility'] = [
-    // Description is always enabled.
+  return [$parent_modules, $sub_modules];
+}
+
+/**
+ * Enhances a single module with additional data, links, and submodule messages.
+ */
+function module_matrix_enhance_module(array &$module, $extension, array $parent_modules, array $sub_modules): void {
+  $subpath = $extension->getPath();
+  $parts = explode('/', $subpath);
+  $project_name = $parts[2] ?? NULL;
+
+  // Initialize module attributes.
+  $package_name = $extension->info['package'] ?? 'Other';
+  $stability = module_matrix_get_stability($extension->info['version'] ?? '');
+  $lifecycle = $extension->info['lifecycle'] ?? 'Unknown';
+
+  // Build links and submodule message.
+  $issue_link = NULL;
+  $usage_link = NULL;
+  $submodule_message = NULL;
+
+  if (isset($parent_modules[$module['name']['#parents'][1]])) {
+    // Parent module.
+    $issue_link = Url::fromUri("https://www.drupal.org/node/add/project-issue/{$project_name}")->toString();
+    $usage_link = Url::fromUri("https://www.drupal.org/project/usage/{$project_name}")->toString();
+  }
+  elseif (isset($sub_modules[$module['name']['#parents'][1]])) {
+    // Submodule: Find its parent.
+    foreach ($parent_modules as $parent_data) {
+      if ($parent_data['project_name'] === $project_name) {
+        $submodule_message = "This is a submodule for the parent module: {$parent_data['name']}.";
+        $issue_link = Url::fromUri("https://www.drupal.org/node/add/project-issue/{$parent_data['project_name']}")->toString();
+        $usage_link = Url::fromUri("https://www.drupal.org/project/usage/{$parent_data['project_name']}")->toString();
+        break;
+      }
+    }
+  }
+
+  // Add data to the module.
+  $module += [
+    'package' => $package_name,
+    'lifecycle' => $lifecycle,
+    'status' => $module['status'] ?? (\Drupal::service('module_handler')->moduleExists($module['name']['#parents'][1]) ? 1 : 0),
+    'weight' => $module['weight'] ?? $extension->weight ?? 'N/A',
+    'project' => $project_name,
+    'mtime' => $module['mtime'] ?? (!empty($extension->info['mtime']) ? date('Y-m-d H:i:s', $extension->info['mtime']) : 'Unknown'),
+    'stability' => $stability,
+    'subpath' => $subpath,
+    'issue_link' => $issue_link,
+    'usage_link' => $usage_link,
+    'submodule_message' => $submodule_message,
+  ];
+}
+
+/**
+ * Determines the stability of a module version.
+ */
+function module_matrix_get_stability(string $version): string {
+  if (preg_match('/-dev/', $version)) {
+    return 'dev';
+  }
+  elseif (preg_match('/-alpha/', $version)) {
+    return 'alpha';
+  }
+  elseif (preg_match('/-beta/', $version)) {
+    return 'beta';
+  }
+  elseif (preg_match('/-rc/', $version)) {
+    return 'rc';
+  }
+  return 'stable';
+}
+
+/**
+ * Retrieves visibility settings for the template.
+ */
+function module_matrix_get_visibility_settings($config): array {
+  return [
     'module_description' => 1,
     'module_machine_name' => $config->get('module_machine_name') ?? 1,
     'module_version' => $config->get('module_version') ?? 1,
@@ -158,11 +212,6 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
     'disable_library' => (bool) $config->get('disable_library') ?? 0,
     'grid_layout' => (bool) $config->get('grid_layout') ?? 0,
   ];
-
-  // Count enabled settings.
-  $enabled_settings = array_filter($variables['visibility'], fn($value) => $value === 1);
-  $enabled_count = count($enabled_settings);
-  $variables['enabled_count'] = $enabled_count;
 }
 
 /**

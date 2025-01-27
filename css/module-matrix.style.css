@@ -1,3 +1,11 @@
+/**
+ * @file
+ * Module Matrix Style.
+ *
+ * Filename:     module-matrix-style.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
 .details-wrapper .admin-requirements.project .material-icons {
   color: #757575; /* Neutral gray for Project */
 }
@@ -89,4 +97,17 @@ form.system-modules .module-matrix-sidebar a > span.off {
 
 form.system-modules .module-matrix-sidebar a > span.total {
   color: #9e9e9e;
+}
+
+form.system-modules .module-matrix-sidebar a,
+form.system-modules .module-matrix-list-inner > *:not(.grid-layout .module-matrix-list-inner > *),
+form.system-modules .grid-layout .module-matrix-list-inner {
+  transition: background-color 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease, padding 0.5s ease, color 0.5s ease;
+}
+
+form.system-modules .module-matrix-sidebar a:hover,
+form.system-modules .grid-layout .module-matrix-list-inner:hover,
+form.system-modules .module-matrix-list-inner:hover > *:not(.grid-layout .module-matrix-list-inner > *) {
+  text-decoration: none;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 8px 40px;
 }

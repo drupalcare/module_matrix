@@ -2,6 +2,7 @@
 
 namespace Drupal\module_matrix\Form;
 
+use Drupal\Core\Url;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -28,49 +29,18 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
    * Build the settings form.
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
+    // Attach the CSS library.
+    $form['#attached']['library'][] = 'module_matrix/matrix-settings';
+
     $config = $this->config('module_matrix.settings');
 
-    // Existing layout radios.
-    // Add "Layout" radio buttons with detailed descriptions.
-    $form['layout'] = [
-      '#type' => 'radios',
-      '#title' => $this->t('Layout'),
-      '#default_value' => $config->get('layout') ?? 'right',
-      '#options' => [
-        'left' => $this->t('Left Sidebar'),
-        'right' => $this->t('Right Side'),
-        'top' => $this->t('Top Sidebar'),
-      ],
-      '#description' => $this->t('Choose the layout for displaying modules and packages:
-        <ul>
-          <li><strong>Default:</strong> Packages are displayed on the left, and modules are displayed on the right.</li>
-          <li><strong>Right Side:</strong> Sidebar appears on the right, and modules are displayed on the left.</li>
-          <li><strong>Top Sidebar:</strong> Packages are displayed at the top, and modules are displayed at the bottom.</li>
-        </ul>'),
-    ];
-
-    // Scrollable sidebar checkbox.
-    $form['scrollable_sidebar'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Enable Scrollable Sidebar'),
-      '#default_value' => $config->get('scrollable_sidebar') ?? 0,
-      '#description' => $this->t('Make the sidebar scrollable when there are too many items.'),
-    ];
-
-    // New "Disable Library" checkbox.
-    $form['disable_library'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Disable Library'),
-      '#default_value' => $config->get('disable_library') ?? 0,
-      '#description' => $this->t('Check this to disable a library. This option is not affected by Compact Layout.'),
-    ];
-
-    // New "Grid Layout" checkbox.
-    $form['grid_layout'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Enable Grid Layout'),
-      '#default_value' => $config->get('grid_layout') ?? 0,
-      '#description' => $this->t('Switch to a grid layout. This option is not affected by Compact Layout.'),
+    // Add a message at the top of the form with a description.
+    $form['intro_message'] = [
+      '#type' => 'markup',
+      '#markup' => '<p>' . $this->t('This form allows you to configure module-related settings. Toggle the options below to enable or disable specific module features: Machine Name, Version, Lifecycle, Requires, Required By, Status, Project, Subpath, Last Modified, Stability, Links (Help, Permissions, Configure), Issue Link, Usage Link. These settings affect the <a href=":url" target="_blank">module administration page</a>.', [
+        ':url' => Url::fromRoute('system.modules_list')->toString(),
+      ]) . '</p>',
+      '#attributes' => ['class' => ['intro-message-class']],
     ];
 
     // Additional settings that can be toggled.
@@ -96,11 +66,35 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
         '#title' => $label,
         '#default_value' => $config->get($field_key) ?? 1,
         '#states' => [
-                // Disabled by compact layout.
+              // Disabled by compact layout.
           'disabled' => [':input.compact-layout-toggle' => ['checked' => TRUE]],
         ],
       ];
     }
+
+    // Scrollable sidebar checkbox.
+    $form['scrollable_sidebar'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable Scrollable Sidebar'),
+      '#default_value' => $config->get('scrollable_sidebar') ?? 0,
+      '#description' => $this->t('Make the sidebar scrollable when there are too many items.'),
+    ];
+
+    // New "Grid Layout" checkbox.
+    $form['grid_layout'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable Grid Layout'),
+      '#default_value' => $config->get('grid_layout') ?? 0,
+      '#description' => $this->t('Switch to a grid layout to transform the list into a responsive grid.'),
+    ];
+
+    // New "Disable Library" checkbox.
+    $form['disable_library'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Disable Library'),
+      '#default_value' => $config->get('disable_library') ?? 0,
+      '#description' => $this->t('Check this to disable a library. Custom styles like colors and shadows will be removed, giving the list a plain appearance.'),
+    ];
 
     // Add "Compact Layout" checkbox.
     $form['compact_layout'] = [
@@ -109,6 +103,20 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('compact_layout') ?? 0,
       '#description' => $this->t("Enable Compact Layout to simplify the interface. When enabled, the following settings will be disabled: Description, Machine Name, Lifecycle, Requires, Required By, Status, Project, Last Modified, Stability, Issue Link, and Usage Link. Note that the Name and Package options are alawys displayed."),
       '#attributes' => ['class' => ['compact-layout-toggle']],
+    ];
+
+    // Existing layout radios.
+    // Add "Layout" radio buttons with detailed descriptions.
+    $form['layout'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Layout'),
+      '#default_value' => $config->get('layout') ?? 'right',
+      '#options' => [
+        'left' => $this->t('Left Sidebar'),
+        'right' => $this->t('Right Side'),
+        'top' => $this->t('Top Sidebar'),
+      ],
+      '#description' => $this->t('Choose the layout for displaying modules and packages. <strong>Default:</strong> Packages are displayed on the left, and modules are displayed on the right. <strong>Right Side:</strong> Sidebar appears on the right, and modules are displayed on the left. <strong>Top Sidebar:</strong> Packages are displayed at the top, and modules are displayed at the bottom.'),
     ];
 
     return parent::buildForm($form, $form_state);

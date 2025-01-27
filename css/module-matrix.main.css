@@ -1,3 +1,11 @@
+/**
+ * @file
+ * Module Matrix Main.
+ *
+ * Filename:     module-matrix-main.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
 form.system-modules .material-icons {
   font-family: 'Material Icons';
   display: inline-block;
@@ -32,10 +40,6 @@ form.system-modules .module-matrix-sidebar {
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 16px;
-}
-
-form.system-modules .module-matrix-list {
-  padding-top: 0;
 }
 
 form.system-modules .matrix-animate-combined {

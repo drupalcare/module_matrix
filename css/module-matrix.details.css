@@ -1,10 +1,22 @@
-/* module details */
+/**
+ * @file
+ * Module Matrix Details.
+ *
+ * Filename:     module-matrix-details.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
 form.system-modules .module-matrix-list .name-package,
 form.system-modules .module-matrix-list .module-matrix-item-details {
-  margin-top: 12px;
-  padding: 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
+}
+
+form.system-modules .module-matrix-list .name-package,
+form.system-modules .module-matrix-list .description-only,
+form.system-modules .module-matrix-list .module-matrix-item-details.count-1,
+form.system-modules .display-grid .module-matrix-list .module-matrix-item-details {
+  padding: 12px;
 }
 
 form.system-modules .module-matrix-list .compact-top,
@@ -66,4 +78,8 @@ form.system-modules .details-wrapper {
   height: 0;
   overflow: hidden;
   transition: height 0.3s ease;
+}
+
+form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
+  gap: 12px;
 }

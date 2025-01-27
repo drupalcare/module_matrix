@@ -55,6 +55,7 @@
     {% set module_name = module.name is defined ? module.name|render|striptags|trim : '' %}
     {% set module_machine_name = module.machine_name is defined ? module.machine_name|render|striptags|trim : '' %}
     {% set module_project = module.project is defined ? module.project|render|striptags|trim : '' %}
+    {% set submodule_message = module.submodule_message is defined ? module.submodule_message|render|striptags|trim : '' %}
     {% set module_status = module.status is defined and module.status ? 'enabled' : 'disabled' %}
     {% set module_stability = module.stability is defined ? module.stability|render|striptags|trim : '' %}
     {% set module_mtime = module.mtime is defined ? module.mtime|render|striptags|trim : '' %}
@@ -166,7 +167,7 @@
             {% if visibility.module_project and module_project %}
             <div class="admin-requirements project">
               <span class="material-icons">folder_open</span>
-              {{ 'Project: @project'|t({'@project': module_project|capitalize }) }}
+              {{ 'Project: @project'|t({'@project': module_project|replace({'_': ' '})|capitalize|title }) }}
             </div>
             {% endif %}
 
@@ -278,7 +279,7 @@
         </details>
 
         {% else %}
-          <div class="js-form-wrapper form-wrapper">
+          <div class="js-form-wrapper form-wrapper description-only">
             <div class="text module-matrix-item-description">{{ module_description ? module_description : 'No description available'|t }}
             </div>
           </div>

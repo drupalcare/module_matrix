@@ -1,0 +1,19 @@
+/**
+ * @file
+ * Module Matrix Settings.
+ *
+ * Filename:     module-matrix-settings.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
+form.module-matrix-settings-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+form.module-matrix-settings-form .intro-message-class {
+  flex: 0 0 100%;
+  font-weight: bold;
+  margin-bottom: 20px;
+}

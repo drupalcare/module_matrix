@@ -1,3 +1,11 @@
+/**
+ * @file
+ * Module Matrix Package.
+ *
+ * Filename:     module-matrix-package.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
 form.system-modules .module-matrix-sidebar a {
   display: flex;
   justify-content: start;
@@ -6,7 +14,7 @@ form.system-modules .module-matrix-sidebar a {
   margin-bottom: 10px;
   padding: 8px;
   border-radius: 3px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, padding 0.3s ease, color 0.3s ease;
 }
 
 form.system-modules .module-matrix-sidebar {
@@ -18,7 +26,8 @@ form.system-modules .module-matrix-sidebar {
 
 form.system-modules .module-matrix-sidebar a.active,
 form.system-modules .module-matrix-sidebar a:hover {
-  background-color: var(--button--hover-bg-color);
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 form.system-modules .module-matrix-sidebar .material-icons {
