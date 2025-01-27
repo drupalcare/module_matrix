@@ -36,25 +36,6 @@ form.system-modules .module-matrix-sidebar a > span:not(.material-icons) {
   font-size: 14px;
 }
 
-/* Stylish Number Indicators */
-form.system-modules .module-matrix-sidebar a > span.on {
-  padding: 3px 8px 3px 0;
-  color: #4caf50;
-  border-radius: 12px;
-}
-
-form.system-modules .module-matrix-sidebar a > span.off {
-  padding: 3px 0 3px 8px;
-  color: #f44336;
-  border-radius: 4px;
-}
-
-form.system-modules .module-matrix-sidebar a > span.total {
-  padding: 3px 6px;
-  color: #9e9e9e;
-  border-radius: 12px;
-}
-
 form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar a > span.off {
   padding: 3px 8px 3px 0;
 }
@@ -81,4 +62,19 @@ form.system-modules .module-matrix-wrapper.top .module-matrix-sidebar > a {
 form.system-modules .module-matrix-wrapper.top .module-matrix-sidebar .material-icons {
   margin: 0;
   margin-left: 8px;
+}
+
+form.system-modules .module-matrix-sidebar a > span.on {
+  padding: 3px 8px 3px 0;
+  border-radius: 12px;
+}
+
+form.system-modules .module-matrix-sidebar a > span.off {
+  padding: 3px 0 3px 8px;
+  border-radius: 4px;
+}
+
+form.system-modules .module-matrix-sidebar a > span.total {
+  padding: 3px 6px;
+  border-radius: 12px;
 }
