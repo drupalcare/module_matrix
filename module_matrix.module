@@ -166,20 +166,6 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
 }
 
 /**
- * Implements hook_element_info_alter().
- */
-function module_matrix_element_info_alter(array &$types) {
-  // Add context to make the alteration specific to the system-modules form.
-  $current_route = \Drupal::routeMatch()->getRouteName();
-  if ($current_route === 'system.modules_list') {
-    // Only modify container elements for the system-modules form.
-    if (isset($types['container'])) {
-      unset($types['container']);
-    }
-  }
-}
-
-/**
  * Implements hook_form_FORM_ID_alter().
  */
 function module_matrix_form_system_modules_alter(array &$form, FormStateInterface $form_state, $form_id): void {
