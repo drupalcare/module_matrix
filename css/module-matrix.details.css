@@ -60,8 +60,9 @@ form.system-modules .module-matrix-list .name-package .package {
   margin-left: auto;
 }
 
-form.system-modules .module-matrix-wrapper.righ .name-package .package {
+form.system-modules .module-matrix-wrapper.right .name-package .package {
   margin-right: auto;
+  margin-left: 0;
 }
 
 form.system-modules .module-matrix-list .name-package .name {
