@@ -26,7 +26,9 @@ form.system-modules .module-matrix-list .name-package:not(.compact .name-package
   justify-content: start;
   gap: 12px;
 }
-
+form.system-modules .module-matrix-list .name-package:not(.compact .name-package) {
+  flex-wrap: wrap;
+}
 form.system-modules .compact .module-matrix-list .name-package {
   flex-direction: row;
 }

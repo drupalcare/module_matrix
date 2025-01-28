@@ -492,33 +492,56 @@
   }
 
   function createSidebarLink(label, href, packageName, classList = [], isAllModulesLink = false, total = 0, enabled = 0, disabled = 0, data = null) {
-    const link = generateLinkElement(label, href, {
-      package: packageName,
-    });
+    const link = generateLinkElement(label, href, { package: packageName });
     classList.forEach((className) => link.classList.add(className));
-    // Add the material-icons span to the left
+
+    // Create container for left side (icon + text)
+    const leftContainer = document.createElement('div');
+    leftContainer.className = 'package-link-left';
+
+    // Add the material-icons span to the left container
     const iconSpan = document.createElement('span');
     iconSpan.className = 'material-icons';
     iconSpan.textContent = 'category';
-    link.prepend(iconSpan);
-    // Add the span elements for counts
-    const countSpans = createCountSpans(total, enabled, disabled);
-    link.appendChild(countSpans);
-    // Add specific behavior for "All Modules" link
-    link.addEventListener('click', (event) => {
-      event.preventDefault();
-      if (!data) {
-        //console.error('Data object is not defined for applyFilters');
-        return;
-      }
-      if (isAllModulesLink) {
-        resetFilters(mainList, '.module-matrix-sidebar', data); // Use `data` here
-      } else {
-        activePackage = packageName;
-        applyFilters(mainList, activePackage, data); // Use `data` here
-        updateActivePackageLink('.module-matrix-sidebar', activePackage);
-      }
-    });
+
+    // Add the label to the left container
+    const labelSpan = document.createElement('span');
+    labelSpan.className = 'package-label';
+    labelSpan.textContent = label;
+
+    leftContainer.appendChild(iconSpan);
+    leftContainer.appendChild(labelSpan);
+
+    // Create container for right side (totals)
+    const rightContainer = document.createElement('div');
+    rightContainer.className = 'package-link-right';
+
+    // Add total, enabled, and disabled spans to the right container
+    const totalSpan = document.createElement('span');
+    totalSpan.className = 'total';
+    totalSpan.textContent = total;
+
+    const onSpan = document.createElement('span');
+    onSpan.className = 'on';
+    onSpan.textContent = enabled;
+
+    const separator = document.createElement('span');
+    separator.textContent = '/';
+
+    const offSpan = document.createElement('span');
+    offSpan.className = 'off';
+    offSpan.textContent = disabled;
+
+    rightContainer.appendChild(totalSpan);
+    rightContainer.appendChild(onSpan);
+    rightContainer.appendChild(separator);
+    rightContainer.appendChild(offSpan);
+
+    // Append both left and right containers to the link
+    link.innerHTML = ''; // Clear link content
+    link.appendChild(leftContainer);
+    link.appendChild(rightContainer);
+
     return link;
   }
 
