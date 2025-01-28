@@ -34,9 +34,14 @@ form.system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-la
     align-items: center;
   }
 
+  form.system-modules .module-matrix-wrapper.right .module-matrix-list-inner .name-package:not(.module-matrix-wrapper.grid-layout .name-package),
+  form.system-modules .module-matrix-wrapper.right .module-matrix-list-inner:not(.module-matrix-wrapper.grid-layout .module-matrix-list-inner) {
+    flex-direction: row-reverse;
+  }
+
   form.system-modules .module-matrix-list-inner .name-package:not(.module-matrix-wrapper.grid-layout .name-package) {
-    flex: 0 0 30%;
-    max-width: 30%;
+    flex: 0 0 33%;
+    max-width: 33%;
   }
 
   form.system-modules .module-matrix-list-inner .module-matrix-item-details:not(.module-matrix-wrapper.grid-layout .module-matrix-item-details) {
@@ -48,16 +53,16 @@ form.system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-la
 
 @media (min-width:1200px) {
   form.system-modules .module-matrix-list-inner .name-package:not(.module-matrix-wrapper.grid-layout .name-package) {
-    flex: 0 0 25%;
-    max-width: 25%;
+    flex: 0 0 27%;
+    max-width: 27%;
   }
 
 }
 
 @media (min-width:1400px) {
   form.system-modules .module-matrix-list-inner .name-package:not(.module-matrix-wrapper.grid-layout .name-package) {
-    flex: 0 0 20%;
-    max-width: 20%;
+    flex: 0 0 24%;
+    max-width: 24%;
   }
 
 }

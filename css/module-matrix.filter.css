@@ -9,7 +9,7 @@
 form.system-modules .module-matrix-filters > .fieldset__wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 2rem;
 }
 
 form.system-modules .module-matrix-filters > .fieldset__wrapper {
@@ -35,21 +35,9 @@ form.system-modules .module-matrix-filters fieldset.form-checkboxes {
   border: 0 !important;
 }
 
-@media (min-width:2000px) {
-  form.system-modules .module-matrix-filters > .fieldset__wrapper >:first-child {
-    flex: 1 1 100%;
-  }
-
-  form.system-modules .module-matrix-filters > .fieldset__wrapper >:not(:first-child):not(.reset-button) {
-    flex: 1 1 calc(33.333% - 16px);
-    box-sizing: border-box;
-  }
-
-  form.system-modules .module-matrix-filters > .fieldset__wrapper > .reset-button {
-    margin-left: auto;
-    flex: 0 0 auto;
-    width: auto;
-    max-height: 50px;
+@media (min-width:1200px) {
+  form.system-modules .module-matrix-filters > .fieldset__wrapper {
+    gap: 3rem;
   }
 
 }
@@ -77,5 +65,7 @@ form.system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkb
 
 form.system-modules .module-matrix-filters .reset-button {
   margin-left: auto;
-  max-height: 50px;
+  margin-left: auto;
+  margin-top: auto;
+  display: flex;
 }

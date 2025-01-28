@@ -31,7 +31,7 @@
 {% set count = 'count-' ~ enabled_count %}
 {% set compact_layout = visibility.compact_layout ? ' compact' : ''  %}
 {% set scrollable_sidebar = visibility.scrollable_sidebar ? ' enabled-scroll' : ''  %}
-{% set grid_layout = (enabled_count == 1 or visibility.grid_layout or visibility.compact_layout) ? ' grid-layout' : '' %}
+{% set grid_layout = (visibility.grid_layout or visibility.compact_layout) ? ' grid-layout' : '' %}
 
 <div class="module-matrix-wrapper {{ count }} {{ visibility.layout }}{{ grid_layout }}{{ compact_layout }}{{ scrollable_sidebar }}">
   <div class="module-matrix-sidebar">

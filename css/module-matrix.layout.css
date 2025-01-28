@@ -12,6 +12,19 @@ form.system-modules .module-matrix-wrapper {
   gap: 16px;
 }
 
+
+form.system-modules .module-matrix-wrapper.top {
+  justify-content: center;
+  align-items: initial!important;
+  gap: 24px;
+}
+
+form.system-modules .module-matrix-wrapper.right,
+form.system-modules .module-matrix-wrapper.left {
+  justify-content: start;
+  align-items: start;
+}
+
 @media (min-width:992px) {
   form.system-modules .module-matrix-wrapper.right {
     flex-direction: row-reverse;
@@ -54,11 +67,12 @@ form.system-modules .module-matrix-wrapper {
 }
 
 form.system-modules .module-matrix-wrapper.top .module-matrix-sidebar {
-  display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  flex-wrap: nowrap;
-  gap: 8px;
+  display: flex !important;
+  flex-direction: row !important;
+  overflow-x: auto !important;
+  flex-wrap: nowrap!important;
+  padding: 32px 0 24px 0;
+  gap: 16px;
 }
 
 form.system-modules .module-matrix-wrapper.top .module-matrix-sidebar > a {

@@ -32,6 +32,7 @@ form.system-modules .module-matrix-sidebar a:hover {
 
 form.system-modules .module-matrix-sidebar .material-icons {
   margin-right: 8px;
+  font-size: 18px;
 }
 
 form.system-modules .module-matrix-sidebar a > span {

@@ -6,11 +6,32 @@
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
+form.system-modules .intro-message-class {
+  display: flex;
+  width: 100%;
+  justify-content: start;
+  margin: 0;
+  padding: 0;
+}
+
+form.system-modules .intro-message-class * {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  text-decoration: none;
+}
+form.system-modules .intro-message-class .material-icons {
+  font-size: 24px;
+}
+form.system-modules .module-matrix-filters {
+  margin-top: 0;
+}
+
 form.system-modules .material-icons {
   font-family: 'Material Icons';
   display: inline-block;
   vertical-align: middle;
-  font-size: 16px;
+  font-size: 24px;
 }
 
 @font-face {

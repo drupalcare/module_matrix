@@ -60,8 +60,13 @@ form.system-modules .module-matrix-list .name-package .package {
   margin-left: auto;
 }
 
+form.system-modules .module-matrix-wrapper.righ .name-package .package {
+  margin-right: auto;
+}
+
 form.system-modules .module-matrix-list .name-package .name {
   font-weight: bold;
+  text-decoration: none;
 }
 
 form.system-modules .module-matrix-list .name-package .state-indicator {

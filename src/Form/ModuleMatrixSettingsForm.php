@@ -105,18 +105,16 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
       '#attributes' => ['class' => ['compact-layout-toggle']],
     ];
 
-    // Existing layout radios.
-    // Add "Layout" radio buttons with detailed descriptions.
     $form['layout'] = [
       '#type' => 'radios',
-      '#title' => $this->t('Layout'),
-      '#default_value' => $config->get('layout') ?? 'right',
+      '#title' => $this->t('Choose the layout for displaying modules and packages'),
+      '#default_value' => $config->get('layout') ?? 'left',
       '#options' => [
-        'left' => $this->t('Left Sidebar'),
-        'right' => $this->t('Right Side'),
-        'top' => $this->t('Top Sidebar'),
+        'left' => $this->t('<strong>Left:</strong> Packages are displayed on the left, and modules are displayed on the right.'),
+        'right' => $this->t('<strong>Right:</strong> Packages are displayed on the right, and modules are displayed on the left.'),
+        'top' => $this->t('<strong>Top:</strong> Packages are displayed at the top, and modules are displayed at the bottom.'),
       ],
-      '#description' => $this->t('Choose the layout for displaying modules and packages. <strong>Default:</strong> Packages are displayed on the left, and modules are displayed on the right. <strong>Right Side:</strong> Sidebar appears on the right, and modules are displayed on the left. <strong>Top Sidebar:</strong> Packages are displayed at the top, and modules are displayed at the bottom.'),
+      '#description' => $this->t('Select the layout that works best for your display.'),
     ];
 
     return parent::buildForm($form, $form_state);

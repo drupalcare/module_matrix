@@ -232,6 +232,18 @@ function module_matrix_form_system_modules_alter(array &$form, FormStateInterfac
       }
     }
   }
+
+  $form['intro_message'] = [
+    '#type' => 'markup',
+    '#markup' => '<p>' . t('<a href=":layout_url" target="_blank"><span class="material-icons" aria-hidden="true">settings</span> Adjust layout and options</a>', [
+      ':layout_url' => Url::fromRoute('module_matrix.settings_form')->toString(),
+    ]) . '</p>',
+  // Ensures it appears at the top.
+    '#weight' => -100,
+    '#prefix' => '<div class="intro-message-class">',
+    '#suffix' => '</div>',
+  ];
+
   $form['filters'] = [
     '#type' => 'fieldset',
 

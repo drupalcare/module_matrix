@@ -10,10 +10,23 @@ form.module-matrix-settings-form {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
+  justify-content: space-between;
 }
 
 form.module-matrix-settings-form .intro-message-class {
   flex: 0 0 100%;
   font-weight: bold;
   margin-bottom: 20px;
+}
+
+form.module-matrix-settings-form > *:not(p,
+.form-actions) {
+  margin-top: 24px!important;
+}
+
+form.module-matrix-settings-form .form-actions {
+  margin-left: auto;
+  margin-top: auto;
+  display: flex;
+  gap: 8px;
 }
