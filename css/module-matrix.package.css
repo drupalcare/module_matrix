@@ -8,6 +8,7 @@
  */
 form.system-modules .module-matrix-sidebar a {
   display: flex;
+  font-weight: normal;
   justify-content: space-between;
   align-items: center;
   text-decoration: none;

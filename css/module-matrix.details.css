@@ -26,9 +26,11 @@ form.system-modules .module-matrix-list .name-package:not(.compact .name-package
   justify-content: start;
   gap: 12px;
 }
+
 form.system-modules .module-matrix-list .name-package:not(.compact .name-package) {
   flex-wrap: wrap;
 }
+
 form.system-modules .compact .module-matrix-list .name-package {
   flex-direction: row;
 }
@@ -68,7 +70,7 @@ form.system-modules .module-matrix-wrapper.right .name-package .package {
 }
 
 form.system-modules .module-matrix-list .name-package .name {
-  font-weight: bold;
+  font-weight: normal;
   text-decoration: none;
 }
 
@@ -86,6 +88,10 @@ form.system-modules .details-wrapper {
   height: 0;
   overflow: hidden;
   transition: height 0.3s ease;
+}
+
+form.system-modules .module-matrix-item-description {
+  font-size: 14px;
 }
 
 form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {

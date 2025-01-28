@@ -7,7 +7,7 @@
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
 form.system-modules  .module-matrix-list-inner {
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease, padding 0.5s ease;
 }
 
 form.system-modules  .module-matrix-list-inner.hidden {
@@ -26,6 +26,13 @@ form.system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-la
   padding-top: 8px;
   padding-bottom: 8px;
   gap: 12px;
+}
+
+form.system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-layout .module-matrix-list-inner):hover {
+  cursor: pointer;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  transition: all 0.2s ease-in-out;
 }
 
 @media (min-width:992px) {

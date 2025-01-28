@@ -107,7 +107,17 @@ form.system-modules .module-matrix-list-inner > *:not(.grid-layout .module-matri
 
 form.system-modules .module-matrix-sidebar a:hover,
 form.system-modules .grid-layout .module-matrix-list-inner:hover,
-form.system-modules .module-matrix-list-inner:hover > *:not(.grid-layout .module-matrix-list-inner > *) {
+form.system-modules .module-matrix-list-inner:hover > .module-matrix-item-details:not(.grid-layout .module-matrix-list-inner > *) {
   text-decoration: none;
   box-shadow: rgba(0, 0, 0, 0.2) 0 8px 40px;
+}
+
+form.system-modules .module-matrix-list-inner:hover > .name-package.disabled {
+  border-color: #f45d52;
+  box-shadow: inset 0 -10px 16px rgba(244, 67, 54, 0.5);
+}
+
+form.system-modules .module-matrix-list-inner:hover > .name-package.enabled {
+  border-color: #65e66a;
+  box-shadow: inset 0 -10px 16px rgba(76, 175, 80, 0.5);
 }
