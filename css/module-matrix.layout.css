@@ -101,8 +101,8 @@ form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner
   flex-direction: column;
   height: 100%;
 }
-
-form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-item-details {
+form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-item-details,
+form.system-modules .module-matrix-wrapper.grid-layout.compact .name-package {
   flex-grow: 1;
   display: flex;
   flex-direction: column;

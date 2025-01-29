@@ -23,8 +23,12 @@ form.system-modules .module-matrix-list .compact-top,
 form.system-modules .module-matrix-list .name-package:not(.compact .name-package) {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
   gap: 12px;
+}
+
+form.system-modules .module-matrix-list .name-package > *:not(.compact .name-package > *) {
+  display: inline-block;
 }
 
 form.system-modules .module-matrix-list .name-package:not(.compact .name-package) {
@@ -33,6 +37,11 @@ form.system-modules .module-matrix-list .name-package:not(.compact .name-package
 
 form.system-modules .compact .module-matrix-list .name-package {
   flex-direction: row;
+}
+
+form.system-modules .module-matrix-list .name-package .name .material-icons {
+  font-size: 14px;
+  margin: 0 4px;
 }
 
 form.system-modules .compact .module-matrix-list .compact-bottom {
@@ -63,11 +72,6 @@ form.system-modules .module-matrix-list .module-matrix-item-details summary {
 form.system-modules .module-matrix-list .name-package .package {
   font-size: 14px;
   margin-left: auto;
-}
-
-form.system-modules .module-matrix-wrapper.right .name-package .package {
-  margin-right: auto;
-  margin-left: 0;
 }
 
 form.system-modules .module-matrix-list .name-package .name {

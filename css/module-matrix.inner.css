@@ -47,8 +47,8 @@ form.system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-la
   }
 
   form.system-modules .module-matrix-list-inner .name-package:not(.module-matrix-wrapper.grid-layout .name-package) {
-    flex: 0 0 33%;
-    max-width: 33%;
+    flex: 0 0 40%;
+    max-width: 40%;
   }
 
   form.system-modules .module-matrix-list-inner .module-matrix-item-details:not(.module-matrix-wrapper.grid-layout .module-matrix-item-details) {
@@ -60,16 +60,16 @@ form.system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-la
 
 @media (min-width:1200px) {
   form.system-modules .module-matrix-list-inner .name-package:not(.module-matrix-wrapper.grid-layout .name-package) {
-    flex: 0 0 27%;
-    max-width: 27%;
+    flex: 0 0 36%;
+    max-width: 36%;
   }
 
 }
 
 @media (min-width:1400px) {
   form.system-modules .module-matrix-list-inner .name-package:not(.module-matrix-wrapper.grid-layout .name-package) {
-    flex: 0 0 24%;
-    max-width: 24%;
+    flex: 0 0 32%;
+    max-width: 32%;
   }
 
 }
