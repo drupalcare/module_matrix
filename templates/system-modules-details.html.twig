@@ -83,14 +83,17 @@
      data-description="{{ module_description|render|striptags|trim ?: 'No description available' }}">
     {% if visibility.compact_layout %}<div class="compact-top">{% endif %}
 
-      <span class="checkbox">
+      <span class="checkbox" title="Toggle {{ module.name }}">
         {{ module.checkbox }}
       </span>
 
       {% if module_name and module_project and module_package is defined and module_package|lower != 'core' and module_package|lower != 'custom' %}
-        <a class="name" href="https://drupal.org/project/{{ module_project }}" target="_blank">{{ module_name }}</a>
+      <a class="name" href="https://drupal.org/project/{{ module_project }}" target="_blank" title="Visit the {{ module_name }} project on Drupal.org">
+        {{ module_name }}
+      </a>
+
       {% else %}
-        <span class="name name-{{ module_project|clean_class }}">{{ module_name }}</span>
+      <span class="name name-{{ module_project|clean_class }}">{{ module_name }}</span>
       {% endif %}
 
       {% if module_package is defined and module_package != current_package %}

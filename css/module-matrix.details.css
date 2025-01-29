@@ -57,6 +57,7 @@ form.system-modules .module-matrix-list .module-matrix-item-details .details-wra
 form.system-modules .module-matrix-list .module-matrix-item-details summary {
   font-weight: normal;
   cursor: pointer;
+  background-color: transparent;
 }
 
 form.system-modules .module-matrix-list .name-package .package {

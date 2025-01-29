@@ -261,7 +261,6 @@
         mainSidebar.appendChild(link);
       }
     });
-    const allLinks = mainSidebar.querySelectorAll('.package-link');
     if (!mainSidebar.querySelector('.package-link.active')) {
       const allModulesLink = mainSidebar.querySelector('.package-link-all');
       if (allModulesLink) {
@@ -282,8 +281,7 @@
     if (!link) return;
     event.preventDefault();
     // Update active package
-    const packageFilter = link.dataset.package;
-    activePackage = packageFilter;
+    activePackage = link.dataset.package;
     // Highlight the selected link
     updateActiveLink(mainSidebar, link);
     // Apply all filters (package + text + checkboxes)
@@ -391,49 +389,6 @@
       element: item,
       name: moduleName,
     });
-  }
-  //Data Utilities
-  /**
-   * Utility functions for data manipulation
-   */
-  function getTotalModules(data) {
-    return data.totalModules;
-  }
-
-  function getTotalEnabled(data) {
-    return data.totalEnabled;
-  }
-
-  function getTotalDisabled(data) {
-    return data.totalDisabled;
-  }
-
-  function getPackageCounts(data) {
-    return data.packageCounts;
-  }
-
-  function getPackageEnabledCounts(data) {
-    return data.packageEnabledCounts;
-  }
-
-  function getPackageDisabledCounts(data) {
-    return data.packageDisabledCounts;
-  }
-
-  function getModulesByDate(data) {
-    return sortAlphabetically(data.modulesByDate, 'date');
-  }
-
-  function getModulesByStability(data) {
-    return sortAlphabetically(data.modulesByStability, 'stability');
-  }
-
-  function getModulesByLifecycle(data) {
-    return sortAlphabetically(data.getModulesByLifecycle, 'lifecycle');
-  }
-
-  function getModulesByName(data) {
-    return sortAlphabetically(data.modulesByName, 'name');
   }
   //Helper Functions
   function generateLinkElement(label, href, dataset = {}) {
@@ -559,22 +514,11 @@
     clearAndAppend(container, sortedModules.map((module) => module.element));
   }
 
-  function sortAlphabetically(array, key) {
-    return [...array].sort((a, b) => a[key].localeCompare(b[key]));
-  }
-
   function clearAndAppend(container, elements) {
     container.innerHTML = '';
     const fragment = document.createDocumentFragment();
     elements.forEach((element) => fragment.appendChild(element));
     container.appendChild(fragment);
-  }
-
-  function getUpdateFunctions(modules) {
-    return modules.filter((module) => {
-      const details = module.element.querySelector('.name-package');
-      return details && details.dataset.update === '1';
-    });
   }
 
   function createCountSpans(total = 0, enabled = 0, disabled = 0) {
@@ -627,5 +571,58 @@
     });
   }
 
+  // function getUpdateFunctions(modules) {
+  //   return modules.filter((module) => {
+  //     const details = module.element.querySelector('.name-package');
+  //     return details && details.dataset.update === '1';
+  //   });
+  // }
+
+  // function sortAlphabetically(array, key) {
+  //   return [...array].sort((a, b) => a[key].localeCompare(b[key]));
+  // }
+
+  /**
+   * Utility functions for data manipulation
+   */
+  // function getTotalModules(data) {
+  //   return data.totalModules;
+  // }
+
+  // function getTotalEnabled(data) {
+  //   return data.totalEnabled;
+  // }
+
+  // function getTotalDisabled(data) {
+  //   return data.totalDisabled;
+  // }
+
+  // function getPackageCounts(data) {
+  //   return data.packageCounts;
+  // }
+
+  // function getPackageEnabledCounts(data) {
+  //   return data.packageEnabledCounts;
+  // }
+
+  // function getPackageDisabledCounts(data) {
+  //   return data.packageDisabledCounts;
+  // }
+
+  // function getModulesByDate(data) {
+  //   return sortAlphabetically(data.modulesByDate, 'date');
+  // }
+
+  // function getModulesByStability(data) {
+  //   return sortAlphabetically(data.modulesByStability, 'stability');
+  // }
+
+  // function getModulesByLifecycle(data) {
+  //   return sortAlphabetically(data.modulesByLifecycle, 'lifecycle');
+  // }
+
+  // function getModulesByName(data) {
+  //   return sortAlphabetically(data.modulesByName, 'name');
+  // }
 
 })(Drupal, drupalSettings, once);

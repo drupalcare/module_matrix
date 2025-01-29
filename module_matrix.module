@@ -172,16 +172,16 @@ function module_matrix_enhance_module(array &$module, $extension, array $parent_
  * Determines the stability of a module version.
  */
 function module_matrix_get_stability(string $version): string {
-  if (preg_match('/-dev/', $version)) {
+  if (str_contains($version, "-dev")) {
     return 'dev';
   }
-  elseif (preg_match('/-alpha/', $version)) {
+  elseif (str_contains($version, "-alpha")) {
     return 'alpha';
   }
-  elseif (preg_match('/-beta/', $version)) {
+  elseif (str_contains($version, "-beta")) {
     return 'beta';
   }
-  elseif (preg_match('/-rc/', $version)) {
+  elseif (str_contains($version, "-rc")) {
     return 'rc';
   }
   return 'stable';
@@ -206,11 +206,11 @@ function module_matrix_get_visibility_settings($config): array {
     'module_links' => $config->get('module_links') ?? 1,
     'module_issue_link' => $config->get('module_issue_link') ?? 1,
     'module_usage_link' => $config->get('module_usage_link') ?? 1,
-    'compact_layout' => (bool) $config->get('compact_layout') ?? 0,
-    'scrollable_sidebar' => (bool) $config->get('scrollable_sidebar') ?? 0,
+    'compact_layout' => $config->get('compact_layout') ?? 0,
+    'scrollable_sidebar' => $config->get('scrollable_sidebar') ?? 0,
     'layout' => $config->get('layout') ?? 'left',
-    'disable_library' => (bool) $config->get('disable_library') ?? 0,
-    'grid_layout' => (bool) $config->get('grid_layout') ?? 0,
+    'disable_library' => $config->get('disable_library') ?? 0,
+    'grid_layout' => $config->get('grid_layout') ?? 0,
   ];
 }
 

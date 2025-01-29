@@ -96,6 +96,22 @@ form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list {
   justify-content: start;
 }
 
+form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-item-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-item-details details {
+  flex-grow: 1;
+}
+
 form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
   border: 1px solid #ddd;
   padding: 12px;
