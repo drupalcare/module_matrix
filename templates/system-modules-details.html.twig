@@ -159,7 +159,7 @@
           (visibility.module_required_by and module.required_by)
         %}
 
-        <div class="matrix-details js-form-wrapper form-wrapper">
+
           <div class="matrix-details-header"  aria-controls="{{ module_enable_id }}" role="button" aria-expanded="false">
             <span class="text module-matrix-item-description">{{ module_description ? module_description : 'No description available'|t }}
            </span>
@@ -280,13 +280,11 @@
             {% endif %}
 
           </div>
-        </div>
+
 
         {% else %}
-          <div class="js-form-wrapper form-wrapper description-only">
-            <div class="text module-matrix-item-description">{{ module_description ? module_description : 'No description available'|t }}
+            <div class="description-only">{{ module_description ? module_description : 'No description available'|t }}
             </div>
-          </div>
         {% endif %}
 
      </div>

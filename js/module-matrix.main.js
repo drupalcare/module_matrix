@@ -547,12 +547,11 @@
 
   // Add animation to <details> elements
   function animateDetails() {
-    document.querySelectorAll('.matrix-details').forEach((details) => {
+    document.querySelectorAll('.module-matrix-item-details').forEach((details) => {
       const header = details.querySelector('.matrix-details-header');
       const content = details.querySelector('.matrix-details-content');
+      if (!header && !content) return;
       const icon = header.querySelector('.matrix-details-header-icon');
-
-      if (!header || !content || !icon) return;
 
       header.addEventListener('click', () => {
         const isOpen = details.classList.toggle('open');
@@ -560,7 +559,7 @@
         if (isOpen) {
           content.style.height = content.scrollHeight + 'px'; // Set height for animation
           header.setAttribute('aria-expanded', 'true');
-          icon.textContent = 'expand_less';
+
 
           content.addEventListener(
             'transitionend',
@@ -576,7 +575,7 @@
           });
 
           header.setAttribute('aria-expanded', 'false');
-          icon.textContent = 'expand_more';
+
         }
       });
     });

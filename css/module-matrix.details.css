@@ -14,14 +14,17 @@ form.system-modules .module-matrix-list .module-matrix-item-details {
 
 form.system-modules .module-matrix-list .module-matrix-item-details {
   font-size: 14px;
+  overflow: hidden;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details,
-form.system-modules .module-matrix-list .name-package {
-  padding: 12px;
+form.system-modules .module-matrix-list .description-only {
+  font-size: 14px;
 }
 
-form.system-modules .display-grid .module-matrix-list .module-matrix-item-details {
+form.system-modules .module-matrix-list .name-package,
+form.system-modules .module-matrix-list .description-only,
+form.system-modules .module-matrix-list .matrix-details-header,
+form.system-modules .module-matrix-list .module-matrix-item-details.count-1 {
   padding: 12px;
 }
 
@@ -43,12 +46,6 @@ form.system-modules .module-matrix-list .name-package:not(.compact .name-package
 
 form.system-modules .compact .module-matrix-list .name-package {
   flex-direction: row;
-}
-
-form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details {
-  border: 1px thin #ddd;
-  border-radius: 4px;
-  overflow: hidden;
 }
 
 form.system-modules .module-matrix-list .name-package .name .material-icons {
@@ -73,6 +70,10 @@ form.system-modules .module-matrix-list .module-matrix-item-details .matrix-deta
   opacity: 0;
   padding: 0;
   transition: height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+
+form.system-modules .module-matrix-list .matrix-details-content > * {
+  padding: 0 12px;
 }
 
 form.system-modules .module-matrix-list .matrix-details-content > *:not(.grid-layout .matrix-details-content > *) {
@@ -126,6 +127,7 @@ form.system-modules .module-matrix-item-description {
 form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header-icon {
   transition: transform 0.3s ease;
   line-height: 14px;
+  margin-top: 5px;
 }
 
 form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
@@ -134,12 +136,17 @@ form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner
 
 form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
   gap: 8px;
-  padding: 0;
   cursor: pointer;
+  flex-direction: row;
   transition: background 0.3s ease;
+}
+
+form.system-modules .module-matrix-wrapper.right .module-matrix-list .matrix-details-header {
+  flex-direction: row-reverse;
+  text-align: right;
 }
 
 form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details-content {
@@ -150,13 +157,12 @@ form.system-modules .module-matrix-list .module-matrix-item-details .matrix-deta
   transition: height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details.open .matrix-details-content {
-  opacity: 1;
-  padding: 12px;
+form.system-modules .module-matrix-list .module-matrix-item-details.open .matrix-details-content {
+  opacity: 1 !important;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details.open .matrix-details-header-icon {
-  transform: rotate(180deg);
+form.system-modules .module-matrix-list .module-matrix-item-details.open .matrix-details-header-icon {
+  transform: rotate(180deg) !important;
 }
 
 form.system-modules .module-matrix-list .module-matrix-item-details.count-1 {
