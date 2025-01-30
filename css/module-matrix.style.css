@@ -6,68 +6,82 @@
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
-.details-wrapper .admin-requirements.project .material-icons {
+.matrix-details-content .admin-requirements.project .material-icons {
   color: #757575; /* Neutral gray for Project */
 }
 
-.details-wrapper .admin-requirements.status .material-icons {
+.matrix-details-content .admin-requirements.status .material-icons {
   color: #4caf50; /* Green for Status (Enabled) */
 }
 
 .compact-bottom .version .material-icons,
-.details-wrapper .admin-requirements.version .material-icons {
+.matrix-details-content .admin-requirements.version .material-icons {
   color: #2196f3; /* Blue for Version */
 }
 
-.details-wrapper .admin-requirements.mtime .material-icons {
+.matrix-details-content .admin-requirements.mtime .material-icons {
   color: #ff9800; /* Orange for Last Modified */
 }
 
-.details-wrapper .admin-requirements.stability .material-icons {
+.matrix-details-content .admin-requirements.stability .material-icons {
   color: #4caf50; /* Green for Stability */
 }
 
-.details-wrapper .admin-requirements.lifecycle .material-icons {
+.matrix-details-content .admin-requirements.lifecycle .material-icons {
   color: #009688; /* Teal for Lifecycle */
 }
 
-.details-wrapper .admin-requirements.machine-name .material-icons {
+.matrix-details-content .admin-requirements.machine-name .material-icons {
   color: #9e9e9e; /* Light gray for Machine Name */
 }
 
 .compact-bottom .help-link .material-icons,
-.details-wrapper .admin-requirements.help-link .material-icons {
+.matrix-details-content .admin-requirements.help-link .material-icons {
   color: #3f51b5; /* Indigo for Help */
 }
 
 .compact-bottom .permissions-link .material-icons,
-.details-wrapper .admin-requirements.permissions-link .material-icons {
+.matrix-details-content .admin-requirements.permissions-link .material-icons {
   color: #f44336; /* Red for Permissions */
 }
 
 .compact-bottom .configure-link .material-icons,
-.details-wrapper .admin-requirements.configure-link .material-icons {
+.matrix-details-content .admin-requirements.configure-link .material-icons {
   color: #673ab7; /* Purple for Configure */
 }
 
-.details-wrapper .admin-requirements.issue-link .material-icons {
+.matrix-details-content .admin-requirements.issue-link .material-icons {
   color: #e91e63; /* Pink for Create Issue */
 }
 
-.details-wrapper .admin-requirements.usage-link .material-icons {
+.matrix-details-content .admin-requirements.usage-link .material-icons {
   color: #ffc107; /* Amber for Usage Stats */
 }
 
-.details-wrapper .admin-requirements.requires .material-icons {
+.matrix-details-content .admin-requirements.requires .material-icons {
   color: #4caf50; /* Green for Requires */
 }
 
-.details-wrapper .admin-requirements.required_by .material-icons {
+.matrix-details-content .admin-requirements.required_by .material-icons {
   color: #f44336; /* Red for Required By (Disabled) */
 }
 
-.details-wrapper .admin-requirements.subpath .material-icons {
+.matrix-details-content .admin-requirements.subpath .material-icons {
   color: #00acc1; /* Deep Cyan for Subpath */
+}
+
+form.system-modules .module-matrix-sidebar a.active,
+form.system-modules .module-matrix-sidebar a:hover {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  transition: all 0.3s ease-in-out;
+}
+
+form.system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-layout .module-matrix-list-inner):hover {
+  cursor: pointer;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  transition: all 0.s ease-in-out;
 }
 
 form.system-modules .module-matrix-list .name-package {

@@ -81,8 +81,48 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
   }
 
   // Add visibility settings and enabled count to variables.
-  $variables['visibility'] = module_matrix_get_visibility_settings($config);
-  $variables['enabled_count'] = count(array_filter($variables['visibility'], fn($value) => $value === 1));
+  // Add visibility settings and enabled count to variables.
+  $module_options = module_matrix_get_modules_options($config);
+  $variables['enabled_count'] = count(array_filter($module_options, fn($value) => $value === 1));
+
+  // Merge module options with visibility settings.
+  $variables['visibility'] = array_merge($module_options, module_matrix_get_visibility_settings($config));
+
+}
+
+/**
+ * Retrieves visibility settings for the template.
+ */
+function module_matrix_get_modules_options($config): array {
+  return [
+    'module_description' => 1,
+    'module_machine_name' => $config->get('module_machine_name') ?? 1,
+    'module_version' => $config->get('module_version') ?? 1,
+    'module_lifecycle' => $config->get('module_lifecycle') ?? 1,
+    'module_requires' => $config->get('module_requires') ?? 1,
+    'module_required_by' => $config->get('module_required_by') ?? 1,
+    'module_status' => $config->get('module_status') ?? 1,
+    'module_project' => $config->get('module_project') ?? 1,
+    'module_mtime' => $config->get('module_mtime') ?? 1,
+    'module_subpath' => $config->get('module_subpath') ?? 1,
+    'module_stability' => $config->get('module_stability') ?? 1,
+    'module_links' => $config->get('module_links') ?? 1,
+    'module_issue_link' => $config->get('module_issue_link') ?? 1,
+    'module_usage_link' => $config->get('module_usage_link') ?? 1,
+  ];
+}
+
+/**
+ * Retrieves visibility settings for the template.
+ */
+function module_matrix_get_visibility_settings($config): array {
+  return [
+    'compact_layout' => $config->get('compact_layout') ?? 0,
+    'scrollable_sidebar' => $config->get('scrollable_sidebar') ?? 0,
+    'layout' => $config->get('layout') ?? 'left',
+    'disable_library' => $config->get('disable_library') ?? 0,
+    'grid_layout' => $config->get('grid_layout') ?? 0,
+  ];
 }
 
 /**
@@ -185,33 +225,6 @@ function module_matrix_get_stability(string $version): string {
     return 'rc';
   }
   return 'stable';
-}
-
-/**
- * Retrieves visibility settings for the template.
- */
-function module_matrix_get_visibility_settings($config): array {
-  return [
-    'module_description' => 1,
-    'module_machine_name' => $config->get('module_machine_name') ?? 1,
-    'module_version' => $config->get('module_version') ?? 1,
-    'module_lifecycle' => $config->get('module_lifecycle') ?? 1,
-    'module_requires' => $config->get('module_requires') ?? 1,
-    'module_required_by' => $config->get('module_required_by') ?? 1,
-    'module_status' => $config->get('module_status') ?? 1,
-    'module_project' => $config->get('module_project') ?? 1,
-    'module_mtime' => $config->get('module_mtime') ?? 1,
-    'module_subpath' => $config->get('module_subpath') ?? 1,
-    'module_stability' => $config->get('module_stability') ?? 1,
-    'module_links' => $config->get('module_links') ?? 1,
-    'module_issue_link' => $config->get('module_issue_link') ?? 1,
-    'module_usage_link' => $config->get('module_usage_link') ?? 1,
-    'compact_layout' => $config->get('compact_layout') ?? 0,
-    'scrollable_sidebar' => $config->get('scrollable_sidebar') ?? 0,
-    'layout' => $config->get('layout') ?? 'left',
-    'disable_library' => $config->get('disable_library') ?? 0,
-    'grid_layout' => $config->get('grid_layout') ?? 0,
-  ];
 }
 
 /**

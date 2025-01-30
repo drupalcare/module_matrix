@@ -12,9 +12,15 @@ form.system-modules .module-matrix-list .module-matrix-item-details {
   border-radius: 6px;
 }
 
-form.system-modules .module-matrix-list .name-package,
-form.system-modules .module-matrix-list .description-only,
-form.system-modules .module-matrix-list .module-matrix-item-details.count-1,
+form.system-modules .module-matrix-list .module-matrix-item-details {
+  font-size: 14px;
+}
+
+form.system-modules .module-matrix-list .module-matrix-item-details,
+form.system-modules .module-matrix-list .name-package {
+  padding: 12px;
+}
+
 form.system-modules .display-grid .module-matrix-list .module-matrix-item-details {
   padding: 12px;
 }
@@ -39,6 +45,12 @@ form.system-modules .compact .module-matrix-list .name-package {
   flex-direction: row;
 }
 
+form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details {
+  border: 1px thin #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
 form.system-modules .module-matrix-list .name-package .name .material-icons {
   font-size: 14px;
   margin: 0 4px;
@@ -51,15 +63,19 @@ form.system-modules .compact .module-matrix-list .compact-bottom {
   gap: 8px;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details .details-wrapper {
+form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details-content {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  padding: 12px;
   font-size: 14px;
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  padding: 0;
+  transition: height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details .details-wrapper > * {
+form.system-modules .module-matrix-list .matrix-details-content > *:not(.grid-layout .matrix-details-content > *) {
   margin-bottom: 12px;
 }
 
@@ -74,9 +90,17 @@ form.system-modules .module-matrix-list .name-package .package {
   margin-left: auto;
 }
 
+form.system-modules .module-matrix-wrapper.right .name-package .package {
+  margin-left: 0;
+  margin-right: auto;
+}
+
 form.system-modules .module-matrix-list .name-package .name {
   font-weight: normal;
   text-decoration: none;
+  font-size: 16px;
+  line-height: 14px;
+  font-weight: normal;
 }
 
 form.system-modules .module-matrix-list .name-package .state-indicator {
@@ -89,7 +113,7 @@ form.system-modules .module-matrix-list .name-package .checkbox .form-item {
   margin: 0;
 }
 
-form.system-modules .details-wrapper {
+form.system-modules .matrix-details-content {
   height: 0;
   overflow: hidden;
   transition: height 0.3s ease;
@@ -99,6 +123,42 @@ form.system-modules .module-matrix-item-description {
   font-size: 14px;
 }
 
+form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header-icon {
+  transition: transform 0.3s ease;
+  line-height: 14px;
+}
+
 form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
   gap: 12px;
+}
+
+form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details-content {
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  padding: 0;
+  transition: height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+
+form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details.open .matrix-details-content {
+  opacity: 1;
+  padding: 12px;
+}
+
+form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details.open .matrix-details-header-icon {
+  transform: rotate(180deg);
+}
+
+form.system-modules .module-matrix-list .module-matrix-item-details.count-1 {
+  cursor: default;
 }

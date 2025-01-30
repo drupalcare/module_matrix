@@ -96,11 +96,22 @@ form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list {
   justify-content: start;
 }
 
+form.system-modules .module-matrix-wrapper.grid-layout.top .module-matrix-list {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+@media (max-width:110px) {
+  form.system-modules .module-matrix-wrapper.grid-layout.top .module-matrix-list {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
 form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
+
 form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-item-details,
 form.system-modules .module-matrix-wrapper.grid-layout.compact .name-package {
   flex-grow: 1;

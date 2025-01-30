@@ -159,13 +159,14 @@
           (visibility.module_required_by and module.required_by)
         %}
 
-        <details class="js-form-wrapper form-wrapper">
-          <summary aria-controls="{{ module_enable_id }}" role="button" aria-expanded="false">
+        <div class="matrix-details js-form-wrapper form-wrapper">
+          <div class="matrix-details-header"  aria-controls="{{ module_enable_id }}" role="button" aria-expanded="false">
             <span class="text module-matrix-item-description">{{ module_description ? module_description : 'No description available'|t }}
            </span>
-        </summary>
+           <span class="matrix-details-header-icon material-icons">expand_more</span>
+        </div>
 
-          <div class="details-wrapper">
+          <div class="matrix-details-content">
 
             {% if visibility.module_project and module_project %}
             <div class="admin-requirements project">
@@ -279,7 +280,7 @@
             {% endif %}
 
           </div>
-        </details>
+        </div>
 
         {% else %}
           <div class="js-form-wrapper form-wrapper description-only">

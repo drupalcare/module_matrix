@@ -547,29 +547,41 @@
 
   // Add animation to <details> elements
   function animateDetails() {
-    const detailsElements = document.querySelectorAll('details');
+    document.querySelectorAll('.matrix-details').forEach((details) => {
+      const header = details.querySelector('.matrix-details-header');
+      const content = details.querySelector('.matrix-details-content');
+      const icon = header.querySelector('.matrix-details-header-icon');
 
-    detailsElements.forEach((details) => {
-      const wrapper = details.querySelector('.details-wrapper');
-      if (!wrapper) return;
+      if (!header || !content || !icon) return;
 
-      // Add initial styles
-      wrapper.style.transition = 'height 0.3s ease';
-      wrapper.style.overflow = 'hidden';
-      wrapper.style.height = details.open ? `${wrapper.scrollHeight}px` : '0px';
+      header.addEventListener('click', () => {
+        const isOpen = details.classList.toggle('open');
 
-      // Listen for toggle events
-      details.addEventListener('toggle', () => {
-        if (details.open) {
-          // Animate expanding
-          wrapper.style.height = `${wrapper.scrollHeight}px`;
+        if (isOpen) {
+          content.style.height = content.scrollHeight + 'px'; // Set height for animation
+          header.setAttribute('aria-expanded', 'true');
+          icon.textContent = 'expand_less';
+
+          content.addEventListener(
+            'transitionend',
+            function onExpand() {
+              content.style.height = 'auto'; // Allow content to adjust dynamically
+              content.removeEventListener('transitionend', onExpand);
+            }
+          );
         } else {
-          // Animate collapsing
-          wrapper.style.height = '0px';
+          content.style.height = content.scrollHeight + 'px'; // Set current height before collapsing
+          requestAnimationFrame(() => {
+            content.style.height = '0px'; // Collapse smoothly
+          });
+
+          header.setAttribute('aria-expanded', 'false');
+          icon.textContent = 'expand_more';
         }
       });
     });
   }
+
 
   // function getUpdateFunctions(modules) {
   //   return modules.filter((module) => {

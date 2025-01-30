@@ -36,12 +36,6 @@ form.system-modules .module-matrix-sidebar {
   background-color: transparent;
 }
 
-form.system-modules .module-matrix-sidebar a.active,
-form.system-modules .module-matrix-sidebar a:hover {
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
-
 form.system-modules .module-matrix-sidebar .material-icons {
   margin-right: 8px;
   font-size: 18px;

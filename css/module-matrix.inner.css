@@ -28,13 +28,6 @@ form.system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-la
   gap: 12px;
 }
 
-form.system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-layout .module-matrix-list-inner):hover {
-  cursor: pointer;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  transition: all 0.2s ease-in-out;
-}
-
 @media (min-width:992px) {
   form.system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-layout .module-matrix-list-inner) {
     flex-direction: row;
