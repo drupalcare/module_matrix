@@ -240,6 +240,14 @@ form#system-modules * {
   border-color: var(--border-color);
 }
 
+form.system-modules a {
+  color: var(--link-color);
+}
+
+form.system-modules a:hover {
+  color: var(--link-color-hover);
+}
+
 /* Text Input Fields */
 form#system-modules input[type="text"] {
   background: var(--input-bg);
