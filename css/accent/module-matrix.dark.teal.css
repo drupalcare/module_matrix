@@ -1,0 +1,34 @@
+/**
+ * @file
+ * Module Matrix Dark.
+ *
+ * Filename:     module-matrix-dark-neutral.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
+form#system-modules,
+form#system-modules * {
+  --accent-color: #009688;
+  --border-color: #103d39;
+  --background-color: #101313;
+  --input-bg: #2f3a3b;
+  --text-color: #d1e4e2;
+  --link-color: #5acfc4;
+  --link-color-hover: #8ef2e7;
+  --button-bg: #1c403d;
+  --button-bg-hover: #0a2926;
+  --details-bg: #1f2526;
+  --filter-bg: #071d1b;
+  --package-bg: var(--details-bg);
+  --package-color: var(--text-color);
+  --package-bg-hover: var(--button-bg-hover);
+  --icon-color-open: #4fbeb4;
+  --main-shadow: rgba(0, 150, 136, 0.25) 0 4px 16px;
+  --focus-shadow: inset 0 -1px 3px rgba(0, 150, 136, 0.3), inset 0 -2px 6px rgba(0, 121, 107, 0.5), inset 0 -4px 12px rgba(0, 105, 92, 0.6);
+  --checkbox-bg: linear-gradient(180deg, #4db6ac 0%, #009688 50%, #00796b 100%);
+  --checkbox-checked-bg: linear-gradient(180deg, #66d1c6 0%, #009688 50%, #00695c 100%);
+  --checkbox-check-circle: radial-gradient(circle at 35% 35%, #e0f2f1 0%, #b2dfdb 40%, #80cbc4 100%);
+  --checkbox-checked-circle: radial-gradient(circle at 40% 40%, #c3f6ed 0%, #80cbc4 40%, #00695c 100%);
+  --checkbox-disabled-bg: linear-gradient(180deg, #40625e 0%, #34524f 50%, #284341 100%);
+  --checkbox-disabled-circle: radial-gradient(circle at 40% 40%, #7daba6 0%, #5f8681 40%, #466764 100%);
+}

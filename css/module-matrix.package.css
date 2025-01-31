@@ -6,97 +6,99 @@
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
-form.system-modules .module-matrix-sidebar a {
+form#system-modules .module-matrix-sidebar a {
   display: flex;
   font-weight: normal;
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
-  border-bottom: 1px dashed #ddd;
   padding: 8px;
   border-radius: 3px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, padding 0.3s ease, color 0.3s ease;
 }
 
-form.system-modules .module-matrix-sidebar .package-link-left,
-form.system-modules .module-matrix-sidebar .package-link-right {
+.module-matrix-sidebar a {
+  border-bottom: 1px solid #ddd;
+}
+
+form#system-modules .module-matrix-sidebar .package-link-left,
+form#system-modules .module-matrix-sidebar .package-link-right {
   display: flex;
   align-items: center;
 }
 
-form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar a,
-form.system-modules .module-matrix-wrapper.left .module-matrix-sidebar a {
+form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar a,
+form#system-modules .module-matrix-wrapper.left .module-matrix-sidebar a {
   width: 100%;
 }
 
-form.system-modules .module-matrix-sidebar {
+form#system-modules .module-matrix-sidebar {
   font-weight: bold;
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: transparent;
 }
 
-form.system-modules .module-matrix-sidebar .material-icons {
+form#system-modules .module-matrix-sidebar .material-icons {
   margin-right: 8px;
   font-size: 18px;
 }
 
-form.system-modules .module-matrix-sidebar a span {
+form#system-modules .module-matrix-sidebar a span {
   font-weight: normal !important;
   display: inline-flex;
   justify-content: center;
   align-items: center;
 }
 
-form.system-modules .module-matrix-sidebar a span:not(.material-icons) {
+form#system-modules .module-matrix-sidebar a span:not(.material-icons) {
   font-size: 14px;
 }
 
-form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar .package-link-left,
-form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar .package-link-right {
+form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar .package-link-left,
+form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar .package-link-right {
   flex-direction: row-reverse;
 }
 
-form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar a span.off {
+form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar a span.off {
   padding: 3px 8px 3px 0;
 }
 
-form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar a span.on {
+form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar a span.on {
   padding: 3px 0 3px 8px;
 }
 
-form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar a .material-icons {
+form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar a .material-icons {
   margin-left: 8px;
 }
 
-form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar a {
+form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar a {
   flex-direction: row-reverse;
   white-space: normal;
 }
 
-form.system-modules .module-matrix-wrapper.top .module-matrix-sidebar a {
-  border: 1px solid #ddd;
+form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar a {
   gap: 8px;
   border-radius: 8px;
   padding: 16px 24px;
 }
 
-form.system-modules .module-matrix-wrapper.top .module-matrix-sidebar .material-icons {
+form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar .material-icons {
   margin: 0;
   margin-left: 8px;
 }
 
-form.system-modules .module-matrix-sidebar a span.on {
+form#system-modules .module-matrix-sidebar a span.on {
   padding: 3px 8px 3px 0;
   border-radius: 12px;
 }
 
-form.system-modules .module-matrix-sidebar a span.off {
+form#system-modules .module-matrix-sidebar a span.off {
   padding: 3px 0 3px 8px;
   border-radius: 4px;
 }
 
-form.system-modules .module-matrix-sidebar a span.total {
+form#system-modules .module-matrix-sidebar a span.total {
   padding: 3px 6px;
   border-radius: 12px;
 }

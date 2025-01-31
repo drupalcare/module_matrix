@@ -6,49 +6,49 @@
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
-form.system-modules .module-matrix-wrapper {
+form#system-modules .module-matrix-wrapper {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-form.system-modules .module-matrix-wrapper.top {
+form#system-modules .module-matrix-wrapper.top {
   justify-content: center;
   align-items: initial !important;
   gap: 24px;
 }
 
-form.system-modules .module-matrix-wrapper.right,
-form.system-modules .module-matrix-wrapper.left {
+form#system-modules .module-matrix-wrapper.right,
+form#system-modules .module-matrix-wrapper.left {
   justify-content: start;
   align-items: start;
 }
 
-form.system-modules .module-matrix-wrapper.left .module-matrix-sidebar,
-form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
+form#system-modules .module-matrix-wrapper.left .module-matrix-sidebar,
+form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
   flex: 0 0 100%;
   max-width: 100%;
   width: 100%;
 }
 
 @media (min-width:992px) {
-  form.system-modules .module-matrix-wrapper.right {
+  form#system-modules .module-matrix-wrapper.right {
     flex-direction: row-reverse;
   }
 
-  form.system-modules .module-matrix-wrapper.left {
+  form#system-modules .module-matrix-wrapper.left {
     flex-direction: row;
   }
 
-  form.system-modules .module-matrix-wrapper.left .module-matrix-sidebar,
-  form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
+  form#system-modules .module-matrix-wrapper.left .module-matrix-sidebar,
+  form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
     width: auto;
     flex: 0 0 30%;
     max-width: 30%;
   }
 
-  form.system-modules .module-matrix-wrapper.left .module-matrix-list,
-  form.system-modules .module-matrix-wrapper.right .module-matrix-list {
+  form#system-modules .module-matrix-wrapper.left .module-matrix-list,
+  form#system-modules .module-matrix-wrapper.right .module-matrix-list {
     flex: 1 1 auto;
     flex-grow: 1;
   }
@@ -56,8 +56,8 @@ form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
 }
 
 @media (min-width:1200px) {
-  form.system-modules .module-matrix-wrapper.left .module-matrix-sidebar,
-  form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
+  form#system-modules .module-matrix-wrapper.left .module-matrix-sidebar,
+  form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
     flex: 0 0 26%;
     max-width: 26%;
   }
@@ -65,15 +65,15 @@ form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
 }
 
 @media (min-width:1400px) {
-  form.system-modules .module-matrix-wrapper.left .module-matrix-sidebar,
-  form.system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
+  form#system-modules .module-matrix-wrapper.left .module-matrix-sidebar,
+  form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
     flex: 0 0 22%;
     max-width: 22%;
   }
 
 }
 
-form.system-modules .module-matrix-wrapper.top .module-matrix-sidebar {
+form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar {
   display: flex !important;
   flex-direction: row !important;
   overflow-x: auto !important;
@@ -82,12 +82,12 @@ form.system-modules .module-matrix-wrapper.top .module-matrix-sidebar {
   gap: 16px;
 }
 
-form.system-modules .module-matrix-wrapper.top .module-matrix-sidebar > a {
+form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar > a {
   flex-direction: row-reverse;
   white-space: nowrap;
 }
 
-form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list {
+form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
   grid-auto-rows: auto;
@@ -96,40 +96,43 @@ form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list {
   justify-content: start;
 }
 
-form.system-modules .module-matrix-wrapper.grid-layout.top .module-matrix-list {
+form#system-modules .module-matrix-wrapper.grid-layout.top .module-matrix-list {
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 
 @media (max-width:110px) {
-  form.system-modules .module-matrix-wrapper.grid-layout.top .module-matrix-list {
+  form#system-modules .module-matrix-wrapper.grid-layout.top .module-matrix-list {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 }
 
-form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner {
+form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-item-details,
-form.system-modules .module-matrix-wrapper.grid-layout.compact .name-package {
+form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-item-details,
+form#system-modules .module-matrix-wrapper.grid-layout.compact .name-package {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
-form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-item-details details {
+form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-item-details details {
   flex-grow: 1;
 }
 
-form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
-  border: 1px solid #ddd;
+form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
   padding: 12px;
   border-radius: 8px;
 }
 
-form.system-modules .enabled-scroll.module-matrix-wrapper .module-matrix-sidebar:not(.top.module-matrix-wrapper .module-matrix-sidebar) {
+.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
+  border: 1px solid #ddd;
+}
+
+form#system-modules .enabled-scroll.module-matrix-wrapper .module-matrix-sidebar:not(.top.module-matrix-wrapper .module-matrix-sidebar) {
   max-height: 80vh;
   overflow-y: auto;
   padding-right: 10px;
@@ -137,7 +140,7 @@ form.system-modules .enabled-scroll.module-matrix-wrapper .module-matrix-sidebar
 }
 
 @media (max-width:992px) {
-  form.system-modules .enabled-scroll.module-matrix-wrapper .module-matrix-sidebar:not(.top.module-matrix-wrapper .module-matrix-sidebar) {
+  form#system-modules .enabled-scroll.module-matrix-wrapper .module-matrix-sidebar:not(.top.module-matrix-wrapper .module-matrix-sidebar) {
     max-height: 60vh;
   }
 

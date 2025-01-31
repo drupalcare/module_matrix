@@ -6,66 +6,76 @@
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
-form.system-modules .module-matrix-filters > .fieldset__wrapper {
+form#system-modules .module-matrix-filters > .fieldset__wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
 }
 
-form.system-modules .module-matrix-filters > .fieldset__wrapper {
+form#system-modules .module-matrix-filters > .fieldset__wrapper {
   flex-wrap: wrap;
 }
 
-form.system-modules .module-matrix-filters > .fieldset__wrapper > * {
+form#system-modules .module-matrix-filters > .fieldset__wrapper > * {
   margin: 0;
 }
 
-form.system-modules .module-matrix-filters .form-item--text {
+form#system-modules .module-matrix-filters .form-item--text {
   width: 100%;
   display: grid;
 }
 
-form.system-modules .module-matrix-filters .form-item--text label {
+form#system-modules .module-matrix-filters .form-item--text label {
   display: none;
   height: 0;
   width: 0;
 }
 
-form.system-modules .module-matrix-filters fieldset.form-checkboxes {
+form#system-modules .module-matrix-filters fieldset.form-checkboxes {
   border: 0 !important;
 }
 
 @media (min-width:1200px) {
-  form.system-modules .module-matrix-filters > .fieldset__wrapper {
+  form#system-modules .module-matrix-filters > .fieldset__wrapper {
     gap: 3rem;
   }
 
 }
 
-form.system-modules .module-matrix-filters fieldset.form-checkboxes {
+form#system-modules .module-matrix-filters fieldset.form-checkboxes {
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: start;
 }
 
-form.system-modules .module-matrix-filters fieldset.form-checkboxes > * {
+form#system-modules .module-matrix-filters fieldset.form-checkboxes > * {
   margin: 0;
 }
 
-form.system-modules .module-matrix-filters fieldset.form-checkboxes legend span {
+form#system-modules .module-matrix-filters fieldset.form-checkboxes legend span {
   margin-right: 16px;
 }
 
-form.system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes {
+form#system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+  justify-content: start;
+  align-items: center;
 }
 
-form.system-modules .module-matrix-filters .reset-button {
+form#system-modules .module-matrix-filters .reset-button {
   margin-left: auto;
   margin-left: auto;
   margin-top: auto;
   display: flex;
+}
+
+form#system-modules .module-matrix-filters .form-checkboxes legend span {
+  margin-bottom: 12px;
+}
+
+form#system-modules .module-matrix-filters .form-checkboxes .form-checkboxes > *:first-child {
+  margin: 0;
 }

@@ -34,8 +34,14 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
 
     $config = $this->config('module_matrix.settings');
 
+    // Grouped container for module options settings.
+    $form['module_options_settings'] = [
+      '#type' => 'container',
+      '#title' => $this->t('Module Options Settings'),
+    ];
+
     // Add a message at the top of the form with a description.
-    $form['intro_message'] = [
+    $form['module_options_settings']['intro_message'] = [
       '#type' => 'markup',
       '#markup' => '<p>' . $this->t('This form allows you to configure module-related settings. Toggle the options below to enable or disable specific module features: Machine Name, Version, Lifecycle, Requires, Required By, Status, Project, Subpath, Last Modified, Stability, Links (Help, Permissions, Configure), Issue Link, Usage Link. These settings affect the <a href=":url" target="_blank">module administration page</a>.', [
         ':url' => Url::fromRoute('system.modules_list')->toString(),
@@ -61,19 +67,24 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
     ];
 
     foreach ($fields as $field_key => $label) {
-      $form[$field_key] = [
+      $form['module_options_settings'][$field_key] = [
         '#type' => 'checkbox',
         '#title' => $label,
         '#default_value' => $config->get($field_key) ?? 1,
         '#states' => [
-              // Disabled by compact layout.
+          // Disabled by compact layout.
           'disabled' => [':input.compact-layout-toggle' => ['checked' => TRUE]],
         ],
       ];
     }
 
+    $form['appearance_settings'] = [
+      '#type' => 'container',
+      '#title' => $this->t('Module Options Settings'),
+    ];
+
     // Scrollable sidebar checkbox.
-    $form['scrollable_sidebar'] = [
+    $form['appearance_settings']['scrollable_sidebar'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable Scrollable Sidebar'),
       '#default_value' => $config->get('scrollable_sidebar') ?? 0,
@@ -81,23 +92,15 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
     ];
 
     // New "Grid Layout" checkbox.
-    $form['grid_layout'] = [
+    $form['appearance_settings']['grid_layout'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable Grid Layout'),
       '#default_value' => $config->get('grid_layout') ?? 0,
       '#description' => $this->t('Switch to a grid layout to transform the list into a responsive grid.'),
     ];
 
-    // New "Disable Library" checkbox.
-    $form['disable_library'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Disable Library'),
-      '#default_value' => $config->get('disable_library') ?? 0,
-      '#description' => $this->t('Check this to disable a library. Custom styles like colors and shadows will be removed, giving the list a plain appearance.'),
-    ];
-
     // Add "Compact Layout" checkbox.
-    $form['compact_layout'] = [
+    $form['appearance_settings']['compact_layout'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Compact Layout'),
       '#default_value' => $config->get('compact_layout') ?? 0,
@@ -105,7 +108,44 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
       '#attributes' => ['class' => ['compact-layout-toggle']],
     ];
 
-    $form['layout'] = [
+    // New "Style Mode" radio buttons.
+    $form['appearance_settings']['style_mode'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Style Mode'),
+      '#options' => [
+        'light' => $this->t('Light'),
+        'dark' => $this->t('Dark'),
+        'none' => $this->t('None'),
+      ],
+      '#default_value' => $config->get('style_mode') ?? 'light',
+      '#description' => $this->t('Select a style mode for the interface. Choose Light or Dark to apply a theme with an accent color, or select None to disable styling and use the default appearance.'),
+    ];
+
+    // New "Accent Color" radio buttons.
+    $form['appearance_settings']['accent_color'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Accent Color'),
+      '#options' => [
+        'teal' => $this->t('Teal'),
+        'coral' => $this->t('Coral'),
+        'indigo' => $this->t('Indigo'),
+        'gold' => $this->t('Gold'),
+        'slate' => $this->t('Slate'),
+        'neutral' => $this->t('Neutral'),
+      ],
+      '#default_value' => $config->get('accent_color') ?? 'neutral',
+      '#description' => $this->t('Choose an accent color to apply when a style mode is selected. This option is disabled if styling is turned off.'),
+      '#states' => [
+        'disabled' => [
+          ':input[name="style_mode"]' => ['value' => 'none'],
+        ],
+      ],
+      '#after_build' => [
+          [get_called_class(), 'addDataAccent'],
+      ],
+    ];
+
+    $form['appearance_settings']['layout'] = [
       '#type' => 'radios',
       '#title' => $this->t('Choose the layout for displaying modules and packages'),
       '#default_value' => $config->get('layout') ?? 'left',
@@ -118,6 +158,16 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
     ];
 
     return parent::buildForm($form, $form_state);
+  }
+
+  /**
+   * Adds data-accent attributes to each radio button.
+   */
+  public static function addDataAccent($element) {
+    foreach ($element['#options'] as $key => $label) {
+      $element[$key]['#attributes']['data-accent'] = $label;
+    }
+    return $element;
   }
 
   /**

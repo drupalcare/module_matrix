@@ -7,21 +7,21 @@
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
 form.module-matrix-settings-form {
+  --checkbox-bg: #b5b5b5;
+  --checkbox-border: #8d8d8d;
+  --checkbox-knob: #f7f7f7;
+  --checkbox-checked-bg: #3b945e;
+  --checkbox-checked-knob: #f7f7f7;
+  --checkbox-disabled: #7d7d7d;
+}
+
+form.module-matrix-settings-form {
+  max-width: 1000px;
+  margin: 0 auto;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 24px;
   justify-content: space-between;
-}
-
-form.module-matrix-settings-form .intro-message-class {
-  flex: 0 0 100%;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-form.module-matrix-settings-form > *:not(p,
-.form-actions) {
-  margin-top: 24px!important;
 }
 
 form.module-matrix-settings-form .form-actions {
@@ -29,4 +29,162 @@ form.module-matrix-settings-form .form-actions {
   margin-top: auto;
   display: flex;
   gap: 8px;
+}
+
+form.module-matrix-settings-form #edit-module-options-settings p {
+  flex: 0 0 100%;
+  margin-bottom: 20px;
+}
+
+form.module-matrix-settings-form #edit-appearance-settings,
+form.module-matrix-settings-form #edit-module-options-settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+}
+
+form.module-matrix-settings-form #edit-style-mode--wrapper,
+form.module-matrix-settings-form #edit-accent-color--wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+form.module-matrix-settings-form #edit-style-mode--wrapper .form-boolean-group,
+form.module-matrix-settings-form #edit-accent-color--wrapper .form-boolean-group {
+  display: flex;
+  flex-direction: row;
+  gap: 48px;
+}
+
+form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio {
+  display: none;
+}
+
+form.module-matrix-settings-form #edit-accent-color--wrapper label.form-item__label {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  transition: transform 0.2s ease, border 0.2s ease, padding 0.2s ease, height  0.2s ease, width  0.2s ease, box-shadow 0.2s;
+  position: relative;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+
+/* Apply individual colors */
+form.module-matrix-settings-form #edit-accent-color--wrapper label[for="edit-accent-color-teal"] {
+  background-color: #009688;
+}
+
+form.module-matrix-settings-form #edit-accent-color--wrapper label[for="edit-accent-color-coral"] {
+  background-color: #ff5252;
+}
+
+form.module-matrix-settings-form #edit-accent-color--wrapper label[for="edit-accent-color-indigo"] {
+  background-color: #3f51b5;
+}
+
+form.module-matrix-settings-form #edit-accent-color--wrapper label[for="edit-accent-color-gold"] {
+  background-color: #ffc107;
+}
+
+form.module-matrix-settings-form #edit-accent-color--wrapper label[for="edit-accent-color-slate"] {
+  background-color: #607d8b;
+}
+
+form.module-matrix-settings-form #edit-accent-color--wrapper label[for="edit-accent-color-neutral"] {
+  background-color: #f2f2f2;
+}
+
+form.module-matrix-settings-form .accent-tooltip {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -35px; /* Moves tooltip below */
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 12px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+form.module-matrix-settings-form #edit-accent-color .form-item--accent-color {
+  position: relative;
+  display: inline-block;
+}
+
+form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio + label {
+  box-shadow: rgba(244, 67, 54, 0.7) 0 4px 16px;
+}
+
+form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:checked + label {
+  height: 40px;
+  width: 40px;
+  box-shadow: rgba(76, 175, 80, 0.7) 0 8px 32px;
+  cursor: default;
+}
+
+form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:disabled + label {
+  cursor: default;
+  box-shadow: none;
+  border: none;
+}
+
+form#module-matrix-settings-form input[type="checkbox"] {
+  all: unset;
+  appearance: none;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
+  width: 2.5rem;
+  height: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  clip-path: circle(1.5rem at 50% 50%);
+  border-radius: 0.75rem;
+  box-sizing: border-box;
+  background: var(--checkbox-bg);
+  border: 2px solid var(--checkbox-border);
+  transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+form#module-matrix-settings-form input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  top: 50%;
+  left: 0.2rem;
+  transform: translateY(-50%);
+  background-color: var(--checkbox-knob);
+  transition: left 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+/* Checked State */
+form#module-matrix-settings-form input[type="checkbox"]:checked {
+  background: var(--checkbox-checked-bg);
+  border-color: var(--checkbox-checked-bg);
+}
+
+form#module-matrix-settings-form input[type="checkbox"]:checked::before {
+  left: 1.1rem;
+  background-color: var(--checkbox-checked-knob);
+}
+
+/* Disabled State */
+form#module-matrix-settings-form input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background: var(--checkbox-disabled);
+  border-color: var(--checkbox-disabled);
 }

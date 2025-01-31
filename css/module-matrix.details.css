@@ -6,61 +6,61 @@
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
-form.system-modules .module-matrix-list .name-package,
-form.system-modules .module-matrix-list .module-matrix-item-details {
+.name-package,
+.module-matrix-item-details {
   border: 1px solid #ddd;
   border-radius: 6px;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details {
+form#system-modules .module-matrix-list .module-matrix-item-details {
   font-size: 14px;
   overflow: hidden;
 }
 
-form.system-modules .module-matrix-list .description-only {
+form#system-modules .module-matrix-list .description-only {
   font-size: 14px;
 }
 
-form.system-modules .module-matrix-list .name-package,
-form.system-modules .module-matrix-list .description-only,
-form.system-modules .module-matrix-list .matrix-details-header,
-form.system-modules .module-matrix-list .module-matrix-item-details.count-1 {
+form#system-modules .module-matrix-list .name-package,
+form#system-modules .module-matrix-list .description-only,
+form#system-modules .module-matrix-list .matrix-details-header,
+form#system-modules .module-matrix-list .module-matrix-item-details.count-1 {
   padding: 12px;
 }
 
-form.system-modules .module-matrix-list .compact-top,
-form.system-modules .module-matrix-list .name-package:not(.compact .name-package) {
+form#system-modules .module-matrix-list .compact-top,
+form#system-modules .module-matrix-list .name-package:not(.compact .name-package) {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
 
-form.system-modules .module-matrix-list .name-package > *:not(.compact .name-package > *) {
+form#system-modules .module-matrix-list .name-package > *:not(.compact .name-package > *) {
   display: inline-block;
 }
 
-form.system-modules .module-matrix-list .name-package:not(.compact .name-package) {
+form#system-modules .module-matrix-list .name-package:not(.compact .name-package) {
   flex-wrap: wrap;
 }
 
-form.system-modules .compact .module-matrix-list .name-package {
+form#system-modules .compact .module-matrix-list .name-package {
   flex-direction: row;
 }
 
-form.system-modules .module-matrix-list .name-package .name .material-icons {
+form#system-modules .module-matrix-list .name-package .name .material-icons {
   font-size: 14px;
   margin: 0 4px;
 }
 
-form.system-modules .compact .module-matrix-list .compact-bottom {
+form#system-modules .compact .module-matrix-list .compact-bottom {
   display: flex;
   font-size: 14px;
   margin-top: 12px;
   gap: 8px;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details-content {
+form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-content {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
@@ -72,31 +72,25 @@ form.system-modules .module-matrix-list .module-matrix-item-details .matrix-deta
   transition: height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
 }
 
-form.system-modules .module-matrix-list .matrix-details-content > * {
+form#system-modules .module-matrix-list .matrix-details-content > * {
   padding: 0 12px;
 }
 
-form.system-modules .module-matrix-list .matrix-details-content > *:not(.grid-layout .matrix-details-content > *) {
+form#system-modules .module-matrix-list .matrix-details-content > *:not(.grid-layout .matrix-details-content > *) {
   margin-bottom: 12px;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details summary {
-  font-weight: normal;
-  cursor: pointer;
-  background-color: transparent;
-}
-
-form.system-modules .module-matrix-list .name-package .package {
+form#system-modules .module-matrix-list .name-package .package {
   font-size: 14px;
   margin-left: auto;
 }
 
-form.system-modules .module-matrix-wrapper.right .name-package .package {
+form#system-modules .module-matrix-wrapper.right .name-package .package {
   margin-left: 0;
   margin-right: auto;
 }
 
-form.system-modules .module-matrix-list .name-package .name {
+form#system-modules .module-matrix-list .name-package .name {
   font-weight: normal;
   text-decoration: none;
   font-size: 16px;
@@ -104,37 +98,37 @@ form.system-modules .module-matrix-list .name-package .name {
   font-weight: normal;
 }
 
-form.system-modules .module-matrix-list .name-package .state-indicator {
+form#system-modules .module-matrix-list .name-package .state-indicator {
   margin-right: 5px;
   font-weight: bold;
   color: inherit;
 }
 
-form.system-modules .module-matrix-list .name-package .checkbox .form-item {
+form#system-modules .module-matrix-list .name-package .checkbox .form-item {
   margin: 0;
 }
 
-form.system-modules .matrix-details-content {
+form#system-modules .matrix-details-content {
   height: 0;
   overflow: hidden;
   transition: height 0.3s ease;
 }
 
-form.system-modules .module-matrix-item-description {
+form#system-modules .module-matrix-item-description {
   font-size: 14px;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header-icon {
-  transition: transform 0.3s ease;
+form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header-icon {
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
   line-height: 14px;
   margin-top: 5px;
 }
 
-form.system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
+form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
   gap: 12px;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header {
+form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header {
   display: flex;
   align-items: start;
   justify-content: space-between;
@@ -144,12 +138,12 @@ form.system-modules .module-matrix-list .module-matrix-item-details .matrix-deta
   transition: background 0.3s ease;
 }
 
-form.system-modules .module-matrix-wrapper.right .module-matrix-list .matrix-details-header {
+form#system-modules .module-matrix-wrapper.right .module-matrix-list .matrix-details-header {
   flex-direction: row-reverse;
   text-align: right;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details .matrix-details-content {
+form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-content {
   overflow: hidden;
   height: 0;
   opacity: 0;
@@ -157,14 +151,14 @@ form.system-modules .module-matrix-list .module-matrix-item-details .matrix-deta
   transition: height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details.open .matrix-details-content {
+form#system-modules .module-matrix-list .module-matrix-item-details.open .matrix-details-content {
   opacity: 1 !important;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details.open .matrix-details-header-icon {
+form#system-modules .module-matrix-list .module-matrix-item-details.open .matrix-details-header-icon {
   transform: rotate(180deg) !important;
 }
 
-form.system-modules .module-matrix-list .module-matrix-item-details.count-1 {
+form#system-modules .module-matrix-list .module-matrix-item-details.count-1 {
   cursor: default;
 }

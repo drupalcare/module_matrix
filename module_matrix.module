@@ -122,6 +122,8 @@ function module_matrix_get_visibility_settings($config): array {
     'layout' => $config->get('layout') ?? 'left',
     'disable_library' => $config->get('disable_library') ?? 0,
     'grid_layout' => $config->get('grid_layout') ?? 0,
+    'style_mode' => $config->get('style_mode') ?? 'light',
+    'accent_color' => $config->get('accent_color') ?? 'neutral',
   ];
 }
 

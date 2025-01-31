@@ -1,12 +1,23 @@
+matrix-settings:
+  css:
+    theme:
+      css/module-matrix.settings.css: { weight: 0 }
+  js:
+    js/module-matrix.settings.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+ # This is /admin/modules
 main:
   css:
     theme:
-      css/module-matrix.layout.css: {}
-      css/module-matrix.main.css: {}
-      css/module-matrix.inner.css: {}
-      css/module-matrix.filter.css: {}
-      css/module-matrix.package.css: {}
-      css/module-matrix.details.css: {}
+      css/module-matrix.layout.css: { weight: -30}
+      css/module-matrix.main.css:  { weight: -30}
+      css/module-matrix.inner.css:  { weight: -30}
+      css/module-matrix.filter.css:  { weight: -30}
+      css/module-matrix.package.css: { weight: -30}
+      css/module-matrix.details.css: { weight: -30}
   js:
     js/module-matrix.main.js: {}
   dependencies:
@@ -17,9 +28,64 @@ main:
 matrix-style:
   css:
     theme:
-      css/module-matrix.style.css: {}
+      css/style/module-matrix.style.css: { weight: -10}
 
-matrix-settings:
+matrix-style-light-teal:
   css:
     theme:
-      css/module-matrix.settings.css: {}
+      css/accent/module-matrix.light.teal.css: { weight: 0}
+
+matrix-style-light-coral:
+  css:
+    theme:
+      css/accent/module-matrix.light.coral.css: { weight: 0}
+
+matrix-style-light-indigo:
+  css:
+    theme:
+      css/accent/module-matrix.light.indigo.css: { weight: 0}
+
+matrix-style-light-gold:
+  css:
+    theme:
+      css/accent/module-matrix.light.gold.css: { weight: 0}
+
+matrix-style-light-slate:
+  css:
+    theme:
+      css/accent/module-matrix.light.slate.css: { weight: 0}
+
+matrix-style-light-neutral:
+  css:
+    theme:
+      css/accent/module-matrix.light.neutral.css: { weight: 0}
+
+matrix-style-dark-teal:
+  css:
+    theme:
+      css/accent/module-matrix.dark.teal.css: { weight: 0}
+
+matrix-style-dark-coral:
+  css:
+    theme:
+      css/accent/module-matrix.dark.coral.css: { weight: 0}
+
+matrix-style-dark-indigo:
+  css:
+    theme:
+      css/accent/module-matrix.dark.indigo.css: { weight: 0}
+
+matrix-style-dark-gold:
+  css:
+    theme:
+      css/accent/module-matrix.dark.gold.css: { weight: 0}
+
+matrix-style-dark-slate:
+  css:
+    theme:
+      css/accent/module-matrix.dark.slate.css: { weight: 0}
+
+matrix-style-dark-neutral:
+  css:
+    theme:
+      css/accent/module-matrix.dark.neutral.css: { weight: 0}

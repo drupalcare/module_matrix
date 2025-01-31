@@ -6,12 +6,12 @@
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
-form.system-modules,
-form.system-modules * {
+form#system-modules,
+form#system-modules * {
   box-sizing: border-box;
 }
 
-form.system-modules .intro-message-class {
+form#system-modules .intro-message-class {
   display: flex;
   width: 100%;
   justify-content: start;
@@ -19,20 +19,22 @@ form.system-modules .intro-message-class {
   padding: 0;
 }
 
-form.system-modules .intro-message-class * {
+form#system-modules .intro-message-class * {
   margin: 0;
   padding: 0;
   font-size: 14px;
   text-decoration: none;
 }
-form.system-modules .intro-message-class .material-icons {
+
+form#system-modules .intro-message-class .material-icons {
   font-size: 24px;
 }
-form.system-modules .module-matrix-filters {
+
+form#system-modules .module-matrix-filters {
   margin-top: 0;
 }
 
-form.system-modules .material-icons {
+form#system-modules .material-icons {
   font-family: 'Material Icons';
   display: inline-block;
   vertical-align: middle;
@@ -61,14 +63,18 @@ form.system-modules .material-icons {
 
 }
 
-form.system-modules .module-matrix-list,
-form.system-modules .module-matrix-sidebar {
-  border: 1px solid #ddd;
+form#system-modules .module-matrix-list,
+form#system-modules .module-matrix-sidebar {
   border-radius: 5px;
   padding: 16px;
 }
 
-form.system-modules .matrix-animate-combined {
+.module-matrix-list,
+.module-matrix-sidebar {
+  border: 1px solid #ddd;
+}
+
+form#system-modules .matrix-animate-combined {
   position: relative;
   animation: scaleAndSlide 0.3s cubic-bezier(0.1, 0.9, 1, 0.1);
 }

@@ -9,7 +9,7 @@
 
 ((Drupal, drupalSettings, once) => {
   'use strict';
-  const formContext = document.querySelector('form.system-modules');
+  const formContext = document.querySelector('form#system-modules');
   if (!formContext) return;
   const filterInput = formContext.querySelector('#edit-text');
   const mainList = formContext.querySelector('.module-matrix-list');
@@ -89,7 +89,13 @@
       link.addEventListener('click', (event) => {
         event.preventDefault();
         activePackage = link.dataset.package || 'all';
-        applyFiltersWithAnimation(mainList, activePackage, data);
+
+        if (activePackage === 'all') {
+          resetFiltersWithAnimation(mainList, sidebarSelector, data);
+        } else {
+          applyFiltersWithAnimation(mainList, activePackage, data);
+        }
+
         updateActivePackageLink(sidebarSelector, activePackage);
       });
     });

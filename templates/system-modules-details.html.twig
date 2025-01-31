@@ -24,9 +24,13 @@
  * @ingroup themeable
  */
 #}
-{% if not visibility.disable_library %}
-{{ attach_library('module_matrix/matrix-style') }}
+{% if visibility.style_mode != 'none' and visibility.accent_color %}
+  {% set style_libraries = 'matrix-style-' ~ visibility.style_mode ~ '-' ~ visibility.accent_color %}
+  {{ attach_library('module_matrix/matrix-style') }}
+  {{ attach_library('module_matrix/' ~ style_libraries) }}
+
 {% endif %}
+
 {{ attach_library('module_matrix/main') }}
 {% set count = 'count-' ~ enabled_count %}
 {% set compact_layout = visibility.compact_layout ? ' compact' : ''  %}
