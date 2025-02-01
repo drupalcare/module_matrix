@@ -91,24 +91,25 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
 }
 
 /**
- * Retrieves visibility settings for the template.
+ * Retrieves module options settings for templates.
  */
 function module_matrix_get_modules_options($config): array {
   return [
-    'module_description' => 1,
-    'module_machine_name' => $config->get('module_machine_name') ?? 1,
-    'module_version' => $config->get('module_version') ?? 1,
-    'module_lifecycle' => $config->get('module_lifecycle') ?? 1,
-    'module_requires' => $config->get('module_requires') ?? 1,
-    'module_required_by' => $config->get('module_required_by') ?? 1,
-    'module_status' => $config->get('module_status') ?? 1,
-    'module_project' => $config->get('module_project') ?? 1,
-    'module_mtime' => $config->get('module_mtime') ?? 1,
-    'module_subpath' => $config->get('module_subpath') ?? 1,
-    'module_stability' => $config->get('module_stability') ?? 1,
-    'module_links' => $config->get('module_links') ?? 1,
-    'module_issue_link' => $config->get('module_issue_link') ?? 1,
-    'module_usage_link' => $config->get('module_usage_link') ?? 1,
+    // These are enabled by default to ensure they appear on first install.
+    'module_description' => TRUE,
+    'module_machine_name' => $config->get('module_machine_name') ?? TRUE,
+    'module_version' => $config->get('module_version') ?? TRUE,
+    'module_lifecycle' => $config->get('module_lifecycle') ?? TRUE,
+    'module_requires' => $config->get('module_requires') ?? TRUE,
+    'module_required_by' => $config->get('module_required_by') ?? TRUE,
+    'module_status' => $config->get('module_status') ?? TRUE,
+    'module_project' => $config->get('module_project') ?? TRUE,
+    'module_mtime' => $config->get('module_mtime') ?? TRUE,
+    'module_subpath' => $config->get('module_subpath') ?? TRUE,
+    'module_stability' => $config->get('module_stability') ?? TRUE,
+    'module_links' => $config->get('module_links') ?? TRUE,
+    'module_issue_link' => $config->get('module_issue_link') ?? TRUE,
+    'module_usage_link' => $config->get('module_usage_link') ?? TRUE,
   ];
 }
 
@@ -117,11 +118,12 @@ function module_matrix_get_modules_options($config): array {
  */
 function module_matrix_get_visibility_settings($config): array {
   return [
-    'compact_layout' => $config->get('compact_layout') ?? 0,
-    'scrollable_sidebar' => $config->get('scrollable_sidebar') ?? 0,
+    // These are disabled by default but prevent null errors in templates.
+    'compact_layout' => $config->get('compact_layout') ?? FALSE,
+    'scrollable_sidebar' => $config->get('scrollable_sidebar') ?? FALSE,
     'layout' => $config->get('layout') ?? 'left',
-    'disable_library' => $config->get('disable_library') ?? 0,
-    'grid_layout' => $config->get('grid_layout') ?? 0,
+    'disable_library' => $config->get('disable_library') ?? FALSE,
+    'grid_layout' => $config->get('grid_layout') ?? FALSE,
     'style_mode' => $config->get('style_mode') ?? 'light',
     'accent_color' => $config->get('accent_color') ?? 'neutral',
   ];

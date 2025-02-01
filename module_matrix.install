@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the module_matrix module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function module_matrix_install(): void {
+  \Drupal::state()->set('module_matrix.installed', \Drupal::time()->getRequestTime());
+  $config = \Drupal::configFactory()->getEditable('module_matrix.settings');
+
+  // Default settings.
+  $defaults = [
+    'module_machine_name' => TRUE,
+    'module_version' => TRUE,
+    'module_lifecycle' => TRUE,
+    'module_requires' => TRUE,
+    'module_required_by' => TRUE,
+    'module_status' => TRUE,
+    'module_project' => TRUE,
+    'module_subpath' => TRUE,
+    'module_mtime' => TRUE,
+    'module_stability' => TRUE,
+    'module_links' => TRUE,
+    'module_issue_link' => TRUE,
+    'module_usage_link' => TRUE,
+    'scrollable_sidebar' => FALSE,
+    'grid_layout' => FALSE,
+    'compact_layout' => FALSE,
+    'style_mode' => 'light',
+    'accent_color' => 'neutral',
+    'layout' => 'left',
+  ];
+
+  // **FORCE SAVE all defaults on install.**
+  foreach ($defaults as $key => $value) {
+    $config->set($key, $value);
+  }
+
+  // Save immediately.
+  $config->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function module_matrix_uninstall(): void {
+  \Drupal::configFactory()->getEditable('module_matrix.settings')->delete();
+  \Drupal::state()->delete('module_matrix.installed');
+}

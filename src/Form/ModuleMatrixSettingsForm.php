@@ -70,7 +70,7 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
       $form['module_options_settings'][$field_key] = [
         '#type' => 'checkbox',
         '#title' => $label,
-        '#default_value' => $config->get($field_key) ?? 1,
+        '#default_value' => $config->get($field_key) ?? TRUE,
         '#states' => [
           // Disabled by compact layout.
           'disabled' => [':input.compact-layout-toggle' => ['checked' => TRUE]],
@@ -87,7 +87,7 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
     $form['appearance_settings']['scrollable_sidebar'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable Scrollable Sidebar'),
-      '#default_value' => $config->get('scrollable_sidebar') ?? 0,
+      '#default_value' => $config->get('scrollable_sidebar') ?? FALSE,
       '#description' => $this->t('Make the sidebar scrollable when there are too many items.'),
     ];
 
@@ -95,7 +95,7 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
     $form['appearance_settings']['grid_layout'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable Grid Layout'),
-      '#default_value' => $config->get('grid_layout') ?? 0,
+      '#default_value' => $config->get('grid_layout') ?? FALSE,
       '#description' => $this->t('Switch to a grid layout to transform the list into a responsive grid.'),
     ];
 
@@ -103,7 +103,7 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
     $form['appearance_settings']['compact_layout'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Compact Layout'),
-      '#default_value' => $config->get('compact_layout') ?? 0,
+      '#default_value' => $config->get('compact_layout') ?? FALSE,
       '#description' => $this->t("Enable Compact Layout to simplify the interface. When enabled, the following settings will be disabled: Description, Machine Name, Lifecycle, Requires, Required By, Status, Project, Last Modified, Stability, Issue Link, and Usage Link. Note that the Name and Package options are alawys displayed."),
       '#attributes' => ['class' => ['compact-layout-toggle']],
     ];
@@ -174,11 +174,28 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $config = $this->config('module_matrix.settings');
-    foreach ($form_state->getValues() as $key => $value) {
-      $config->set($key, $value);
-    }
-    $config->save();
+    $this->config('module_matrix.settings')
+      ->set('module_machine_name', $form_state->getValue('module_machine_name'))
+      ->set('module_version', $form_state->getValue('module_version'))
+      ->set('module_lifecycle', $form_state->getValue('module_lifecycle'))
+      ->set('module_requires', $form_state->getValue('module_requires'))
+      ->set('module_required_by', $form_state->getValue('module_required_by'))
+      ->set('module_status', $form_state->getValue('module_status'))
+      ->set('module_project', $form_state->getValue('module_project'))
+      ->set('module_subpath', $form_state->getValue('module_subpath'))
+      ->set('module_mtime', $form_state->getValue('module_mtime'))
+      ->set('module_stability', $form_state->getValue('module_stability'))
+      ->set('module_links', $form_state->getValue('module_links'))
+      ->set('module_issue_link', $form_state->getValue('module_issue_link'))
+      ->set('module_usage_link', $form_state->getValue('module_usage_link'))
+      ->set('scrollable_sidebar', $form_state->getValue('scrollable_sidebar'))
+      ->set('grid_layout', $form_state->getValue('grid_layout'))
+      ->set('compact_layout', $form_state->getValue('compact_layout'))
+      ->set('style_mode', $form_state->getValue('style_mode'))
+      ->set('accent_color', $form_state->getValue('accent_color'))
+      ->set('layout', $form_state->getValue('layout'))
+      ->save();
+
     parent::submitForm($form, $form_state);
   }
 
