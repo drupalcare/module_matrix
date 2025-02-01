@@ -31,6 +31,13 @@ form.module-matrix-settings-form .form-actions {
   gap: 8px;
 }
 
+form.module-matrix-settings-form #edit-appearance-settings,
+form.module-matrix-settings-form #edit-module-options-settings {
+  padding: 16px;
+  border: 2px solid #7d7d7d;
+  border-radius: 8px;
+}
+
 form.module-matrix-settings-form #edit-module-options-settings p {
   flex: 0 0 100%;
   margin-bottom: 20px;
