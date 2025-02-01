@@ -1,0 +1,76 @@
+module_matrix.settings:
+  type: config_object
+  label: 'Module Matrix settings'
+  mapping:
+    module_machine_name:
+      type: boolean
+      label: 'Machine Name'
+    module_version:
+      type: boolean
+      label: 'Version'
+    module_lifecycle:
+      type: boolean
+      label: 'Lifecycle'
+    module_requires:
+      type: boolean
+      label: 'Requires'
+    module_required_by:
+      type: boolean
+      label: 'Required By'
+    module_status:
+      type: boolean
+      label: 'Status'
+    module_project:
+      type: boolean
+      label: 'Project'
+    module_subpath:
+      type: boolean
+      label: 'Subpath'
+    module_mtime:
+      type: boolean
+      label: 'Last Modified'
+    module_stability:
+      type: boolean
+      label: 'Stability'
+    module_links:
+      type: boolean
+      label: 'Links (Help, Permissions, Configure)'
+    module_issue_link:
+      type: boolean
+      label: 'Issue Link'
+    module_usage_link:
+      type: boolean
+      label: 'Usage Link'
+    scrollable_sidebar:
+      type: boolean
+      label: 'Enable Scrollable Sidebar'
+    grid_layout:
+      type: boolean
+      label: 'Enable Grid Layout'
+    compact_layout:
+      type: boolean
+      label: 'Compact Layout'
+    style_mode:
+      type: string
+      label: 'Style Mode'
+      allowed_values:
+        - 'light'
+        - 'dark'
+        - 'none'
+    accent_color:
+      type: string
+      label: 'Accent Color'
+      allowed_values:
+        - 'teal'
+        - 'coral'
+        - 'indigo'
+        - 'gold'
+        - 'slate'
+        - 'neutral'
+    layout:
+      type: string
+      label: 'Choose the layout for displaying modules and packages'
+      allowed_values:
+        - 'left'
+        - 'right'
+        - 'top'
