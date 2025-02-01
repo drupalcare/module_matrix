@@ -55,13 +55,16 @@ form.module-matrix-settings-form #edit-accent-color--wrapper {
   display: flex;
   flex-direction: column;
   justify-content: start;
+  width: 100%;
 }
 
 form.module-matrix-settings-form #edit-style-mode--wrapper .form-boolean-group,
 form.module-matrix-settings-form #edit-accent-color--wrapper .form-boolean-group {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   gap: 48px;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio {
@@ -80,7 +83,7 @@ form.module-matrix-settings-form #edit-accent-color--wrapper label.form-item__la
   transition: transform 0.2s ease, border 0.2s ease, padding 0.2s ease, height  0.2s ease, width  0.2s ease, box-shadow 0.2s;
   position: relative;
   text-indent: -9999px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* Apply individual colors */
@@ -134,10 +137,25 @@ form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio + 
 }
 
 form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:checked + label {
-  height: 40px;
-  width: 40px;
+  transform: scale(1.2);
   box-shadow: rgba(76, 175, 80, 0.7) 0 8px 32px;
   cursor: default;
+}
+
+form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:checked + label::after {
+  content: "✔";
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-indent: 0;
+}
+
+form.module-matrix-settings-form #edit-accent-color--wrapper input#edit-accent-color-neutral:checked + label::after {
+  color: gray;
 }
 
 form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:disabled + label {
