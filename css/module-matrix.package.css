@@ -27,6 +27,10 @@ form#system-modules .module-matrix-sidebar .package-link-right {
   align-items: center;
 }
 
+form#system-modules .module-matrix-sidebar .package-link-left {
+  gap: 4px;
+}
+
 form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar a,
 form#system-modules .module-matrix-wrapper.left .module-matrix-sidebar a {
   width: 100%;

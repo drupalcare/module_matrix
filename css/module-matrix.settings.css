@@ -158,6 +158,13 @@ form.module-matrix-settings-form #edit-accent-color--wrapper input#edit-accent-c
   color: gray;
 }
 
+form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:disabled + label::after {
+  content: ""!important;
+  font-size: 0!important;
+  visibility: hidden!important;
+}
+
+
 form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:disabled + label {
   cursor: default;
   box-shadow: none;
