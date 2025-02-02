@@ -15,13 +15,15 @@ form#system-modules * {
   --text-color: #2c3e3c;
   --link-color: #009688;
   --link-color-hover: #00796b;
-  --button-bg: #d4f0ee;
-  --button-bg-hover: #e0fcfa;
+  --button-bg-hover: #d4f0ee;
+  --button-bg: var(--accent-color);
+  --button-color: var(--background-color);
+  --button-color-hover: var(--text-color);
   --details-bg: #ffffff;
   --filter-bg: #e0f2f1;
   --package-bg: var(--details-bg);
   --package-color: var(--text-color);
-  --package-bg-hover: var(--button-bg-hover);
+  --package-bg-hover: #e0fcfa;
   --icon-color-open: var(--link-color);
   --main-shadow: rgba(0, 150, 136, 0.15) 0 4px 16px;
   --focus-shadow: inset 0 -1px 3px rgba(0, 150, 136, 0.2), inset 0 -2px 6px rgba(0, 121, 107, 0.3), inset 0 -4px 12px rgba(0, 105, 92, 0.4);

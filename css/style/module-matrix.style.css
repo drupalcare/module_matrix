@@ -263,9 +263,14 @@ form#system-modules .module-matrix-list a {
 }
 
 form#system-modules input.button {
-  color: var(--text-color);
-  box-shadow: var(--focus-shadow);
+  color: var(--button-color);
   background: var(--button-bg);
+}
+
+form#system-modules input.button:hover {
+  box-shadow: var(--focus-shadow);
+  color: var(--button-color-hover);
+  background: var(--button-bg-hover);
 }
 
 form#system-modules .module-matrix-item-details {
@@ -279,11 +284,6 @@ form#system-modules .module-matrix-sidebar a {
 
 form#system-modules .module-matrix-list .module-matrix-item-details.open .matrix-details-header-icon {
   color: var(--icon-color-open);
-}
-
-form#system-modules input.button:hover {
-  color: var(--accent-color);
-  background: var(--button-bg-hover);
 }
 
 form#system-modules .module-matrix-list a:hover {
