@@ -16,7 +16,7 @@ form#system-modules .module-matrix-list .module-matrix-item-details {
   font-size: 14px;
   overflow: hidden;
 }
-
+form#system-modules .module-matrix-list .admin-requirements,
 form#system-modules .module-matrix-list .description-only {
   font-size: 14px;
 }

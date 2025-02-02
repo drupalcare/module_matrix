@@ -31,7 +31,7 @@ form#system-modules .intro-message-class .material-icons {
 }
 
 form#system-modules .module-matrix-filters {
-  margin-top: 0;
+  margin: 0 auto;
 }
 
 form#system-modules .material-icons {

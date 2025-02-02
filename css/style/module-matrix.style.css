@@ -76,8 +76,11 @@ form#system-modules .module-matrix-sidebar a {
 }
 
 form#system-modules {
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 8px!important;
+  padding: 16px!important;
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
 }
 
 form#system-modules input[type="text"],
@@ -229,9 +232,10 @@ form.system-modules * {
 }
 
 form.system-modules .module-matrix-filters {
-  border: 1px dashed var(--border-color);
+  border: 1px dashed var(--border-color)!important;
   box-shadow: var(--main-shadow);
   background: var(--filter-bg);
+  width: auto;
 }
 
 form#system-modules * {

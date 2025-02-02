@@ -351,3 +351,29 @@ function module_matrix_form_system_modules_alter(array &$form, FormStateInterfac
   ];
 
 }
+
+/**
+ * Implements hook_theme_suggestions_fieldset_alter().
+ */
+function module_matrix_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
+  // Get the current route name.
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  // Apply only on 'admin/modules' and 'module_matrix.settings_form'.
+  if (in_array($route_name, ['system.modules_list', 'module_matrix.settings_form'])) {
+    $suggestions[] = 'fieldset__module_matrix';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function module_matrix_theme($existing, $type, $theme, $path) {
+  return [
+    'fieldset__module_matrix' => [
+      'base hook' => 'fieldset',
+      'template' => 'fieldset--module-matrix',
+      'path' => $path . '/templates',
+    ],
+  ];
+}
