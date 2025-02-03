@@ -305,7 +305,7 @@ function module_matrix_form_system_modules_alter(array &$form, FormStateInterfac
       '#type' => 'checkboxes',
       '#title' => t('Filter by lifecycle'),
       '#options' => [
-        'stable' => t('Active'),
+        'stable' => t('Stable'),
         'deprecated' => t('Deprecated'),
         'experimental' => t('Experimental'),
         'obsolete' => t('Obsolete'),
@@ -329,7 +329,7 @@ function module_matrix_form_system_modules_alter(array &$form, FormStateInterfac
         'rc' => t('Release Candidate'),
         'beta' => t('Beta'),
         'alpha' => t('Alpha'),
-        'dev' => t('Dev'),
+        'dev' => t('Development'),
       ],
       '#default_value' => [],
       '#attributes' => [
