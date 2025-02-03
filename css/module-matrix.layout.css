@@ -91,9 +91,14 @@ form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar {
 
 form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar > a {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+[dir="rtl"] form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar > a {
+  margin-left: 0;
+    flex-direction: row-reverse;
 }
 
 form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list {
