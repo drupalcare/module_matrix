@@ -13,9 +13,13 @@ form#system-modules .module-matrix-wrapper {
 }
 
 form#system-modules .module-matrix-wrapper.top {
-  justify-content: center;
-  align-items: initial !important;
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
   gap: 24px;
+  justify-content: center;
 }
 
 form#system-modules .module-matrix-wrapper.right,
@@ -80,11 +84,16 @@ form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar {
   flex-wrap: nowrap !important;
   padding: 32px 0 24px 0;
   gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  align-items: center;
 }
 
 form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar > a {
+  display: flex;
   flex-direction: row-reverse;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list {
@@ -104,6 +113,7 @@ form#system-modules .module-matrix-wrapper.grid-layout.top .module-matrix-list {
   form#system-modules .module-matrix-wrapper.grid-layout.top .module-matrix-list {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
+
 }
 
 form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner {
