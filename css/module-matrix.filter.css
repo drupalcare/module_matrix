@@ -7,6 +7,19 @@
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
 
+form#system-modules .intro-message-class,
+form#system-modules .module-matrix-filters {
+  font-family: inherit;
+  color: inherit;
+  padding: 12px 16px;
+  margin: 0;
+}
+
+form#system-modules .module-matrix-filters fieldset.form-checkboxes {
+  background: transparent;
+  border-radius: 0;
+}
+
 form#system-modules .module-matrix-filters label {
   font-weight: normal;
 }
@@ -15,17 +28,11 @@ form#system-modules .module-matrix-filters > .fieldset-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-  padding: 16px;
-  margin-top: 12px;
+  padding: 0;
+  margin: 0;
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
-}
-
-@media (min-width: 1200px) {
-  form#system-modules .module-matrix-filters > .fieldset-wrapper {
-    gap: 3rem;
-  }
 }
 
 form#system-modules .module-matrix-filters > .fieldset-wrapper > * {
@@ -59,7 +66,7 @@ form#system-modules .module-matrix-filters fieldset.form-checkboxes {
 }
 
 form#system-modules .module-matrix-filters fieldset.form-checkboxes legend {
-  padding: 4px 8px;
+  padding: 4px 0;
   display: inline-block;
   margin-bottom: 8px;
   font-size: 1rem;
@@ -122,15 +129,4 @@ form#system-modules .module-matrix-filters .reset-button {
 [dir="rtl"] form#system-modules .module-matrix-filters fieldset.form-checkboxes legend span {
   margin-right: 0;
   margin-left: 16px;
-}
-
-/* Override potential unwanted theme styles */
-form#system-modules .module-matrix-filters {
-  font-family: inherit;
-  color: inherit;
-}
-
-form#system-modules .module-matrix-filters fieldset.form-checkboxes {
-  background: transparent;
-  border-radius: 0;
 }

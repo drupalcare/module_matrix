@@ -98,7 +98,7 @@ form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar > a {
 
 [dir="rtl"] form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar > a {
   margin-left: 0;
-    flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list {

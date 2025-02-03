@@ -75,12 +75,27 @@ form#system-modules .module-matrix-sidebar a {
   margin: 5px 0;
 }
 
-form#system-modules {
-  border-radius: 8px!important;
-  padding: 16px!important;
-  display: flex;
-  gap: 16px;
-  flex-direction: column;
+@media (min-width:576px) {
+  form#system-modules {
+    border-radius: 8px !important;
+    padding: 16px !important;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    position: relative;
+  }
+
+  form#system-modules #edit-actions {
+    position: absolute;
+    top: 21px;
+    margin: 0;
+    right: 32px;
+  }
+
+  form#system-modules #edit-actions input {
+    margin: 0;
+  }
+
 }
 
 form#system-modules input[type="text"],
@@ -89,6 +104,7 @@ form#system-modules input[type="submit"] {
 }
 
 form#system-modules input[type="text"] {
+  border: 3px solid transparent;
   width: 100%;
   padding: 16px 12px;
   border-radius: 4px;
@@ -232,7 +248,7 @@ form.system-modules * {
 }
 
 form.system-modules .module-matrix-filters {
-  border: 1px dashed var(--border-color)!important;
+  border: 1px dashed var(--border-color) !important;
   box-shadow: var(--main-shadow);
   background: var(--filter-bg);
   width: auto;
@@ -331,8 +347,11 @@ form#system-modules input[type="checkbox"]:checked::before {
 form#system-modules input[type="text"]:hover,
 form#system-modules input[type="text"]:focus {
   box-shadow: var(--focus-shadow);
-  border: 3px solid var(--input-focus-border);
   outline: none;
+}
+
+form#system-modules input[type="text"]:focus {
+  border-color: var(--accent-color);
 }
 
 form#system-modules .module-matrix-sidebar a.active,
@@ -358,5 +377,9 @@ form#system-modules input::placeholder {
 }
 
 form#system-modules input[type="submit"] {
-  border: none!important;
+  border: none !important;
+}
+
+form#system-modules .intro-message-class {
+  background: var(--filter-bg);
 }

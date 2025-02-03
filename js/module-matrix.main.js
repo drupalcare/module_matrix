@@ -20,7 +20,7 @@
   let activePackage = 'all';
   Drupal.behaviors.moduleMatrixMain = {
     attach: function(context, settings) {
-      const wrapperSelector = 'form.system-modules .module-matrix-wrapper';
+      const wrapperSelector = 'form.system-modules .package-listing';
       const sidebarSelector = '.module-matrix-sidebar';
       const listSelector = '.module-matrix-list';
       const unifiedWrapper = unifyModuleMatrix(wrapperSelector);
@@ -89,13 +89,11 @@
       link.addEventListener('click', (event) => {
         event.preventDefault();
         activePackage = link.dataset.package || 'all';
-
         if (activePackage === 'all') {
           resetFiltersWithAnimation(mainList, sidebarSelector, data);
         } else {
           applyFiltersWithAnimation(mainList, activePackage, data);
         }
-
         updateActivePackageLink(sidebarSelector, activePackage);
       });
     });
@@ -138,7 +136,7 @@
       );
     });
   }
-    // Apply filters
+  // Apply filters
   function applyFilters(mainList, activePackage, data) {
     const query = filterInput?.value.toLowerCase().trim() || '';
     const selectedStatuses = Array.from(statusCheckboxes)
@@ -150,63 +148,51 @@
     const selectedStability = Array.from(stabilityCheckboxes)
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.value);
-
     // Get all modules
     const allModules = Array.from(mainList.querySelectorAll('.module-matrix-list-inner'));
-
     // Filter and collect visible modules
     const visibleModules = allModules.filter((module) => {
       const moduleDetails = module.querySelector('.name-package');
       if (!moduleDetails) return false;
-
       const moduleName = moduleDetails.dataset.name?.toLowerCase() || '';
       const moduleDescription = moduleDetails.dataset.description?.toLowerCase() || '';
       const modulePackage = moduleDetails.dataset.package || '';
       const moduleStatus = moduleDetails.dataset.status || '';
       const moduleLifecycle = moduleDetails.dataset.lifecycle || '';
       const moduleStability = moduleDetails.dataset.stability || '';
-
       const matchesQuery = query === '' || moduleName.includes(query) || moduleDescription.includes(query);
       const matchesPackage = activePackage === 'all' || modulePackage === activePackage;
       const matchesStatus = selectedStatuses.length === 0 || selectedStatuses.includes(moduleStatus);
       const matchesLifecycle = selectedLifecycles.length === 0 || selectedLifecycles.includes(moduleLifecycle);
       const matchesStability = selectedStability.length === 0 || selectedStability.includes(moduleStability);
-
       return matchesQuery && matchesPackage && matchesStatus && matchesLifecycle && matchesStability;
     });
-
     // Sort the filtered modules alphabetically by `data-name`
     const sortedVisibleModules = visibleModules.sort((a, b) => {
       const nameA = a.querySelector('.name-package')?.dataset.name?.toLowerCase() || '';
       const nameB = b.querySelector('.name-package')?.dataset.name?.toLowerCase() || '';
       return nameA.localeCompare(nameB);
     });
-
     // Hide all modules and then show only the filtered and sorted ones
     allModules.forEach((module) => module.classList.add('hidden'));
     sortedVisibleModules.forEach((module) => module.classList.remove('hidden'));
-
     // Debugging
     //console.log(`Visible modules after filtering and sorting: ${sortedVisibleModules.length}`);
   }
-
   // Update active package link visually
   function updateActivePackageLink(sidebarSelector, activePackage) {
     const sidebar = document.querySelector(sidebarSelector);
     if (!sidebar) return;
-
     // Remove "active" class from all links
     sidebar.querySelectorAll('.package-link').forEach((link) => {
       link.classList.remove('active');
     });
-
     // Add "active" class to the selected link
     const activeLink = sidebar.querySelector(`[data-package="${activePackage}"]`);
     if (activeLink) {
       activeLink.classList.add('active');
     }
   }
-
   // Reset all filters
   function resetFilters(mainList, sidebarSelector, data) {
     if (!data) {
@@ -222,25 +208,39 @@
   }
 
   function unifyModuleMatrix(wrapperSelector) {
+    const systemModules = document.querySelector('form.system-modules');
+    if (!systemModules) return null;
     const wrappers = Array.from(document.querySelectorAll(wrapperSelector));
     if (wrappers.length === 0) return null;
-    const mainWrapper = wrappers[0];
+    let mainWrapper = null;
+    let allModuleWrappers = [];
+    wrappers.forEach((wrapper) => {
+      const moduleWrapper = wrapper.querySelector('.module-matrix-wrapper');
+      if (moduleWrapper) {
+        systemModules.appendChild(moduleWrapper);
+        allModuleWrappers.push(moduleWrapper);
+        if (!mainWrapper) {
+          mainWrapper = moduleWrapper;
+        }
+      }
+    });
+    wrappers.forEach((wrapper) => wrapper.remove());
+    if (!mainWrapper) return null;
     const mainSidebar = mainWrapper.querySelector('.module-matrix-sidebar');
     const mainList = mainWrapper.querySelector('.module-matrix-list');
     if (!mainSidebar || !mainList) {
-      // console.error('Main sidebar or list not found in the first wrapper');
       return null;
     }
-    // Initialize `data` using the wrapper
+    // Merge all additional module-matrix-wrappers into the main one
+    allModuleWrappers.slice(1).forEach((extraWrapper) => {
+      mergeWrappers([extraWrapper], mainSidebar, mainList);
+    });
+    // Initialize `data` using the unified wrapper
     const data = initializeModuleData(mainWrapper);
-    // Ensure `data` is valid
-    if (!data) {
-      // console.error('Failed to initialize module data');
-      return null;
-    }
+    if (!data) return null;
     // Pass `data` to the sidebar initialization
     initializeSidebar(mainSidebar, mainList, data);
-    mergeWrappers(wrappers, mainSidebar, mainList);
+    mergeWrappers(allModuleWrappers, mainSidebar, mainList);
     return mainWrapper;
   }
 
@@ -425,7 +425,7 @@
       'All Modules',
       '#',
       'all',
-      ['package-link', 'package-link-all' , 'active'],
+      ['package-link', 'package-link-all', 'active'],
       true, // This marks it as the "All Modules" link
       totalModules,
       totalEnabled,
@@ -453,70 +453,58 @@
   }
 
   function createSidebarLink(label, href, packageName, classList = [], isAllModulesLink = false, total = 0, enabled = 0, disabled = 0, data = null) {
-    const link = generateLinkElement(label, href, { package: packageName });
+    const link = generateLinkElement(label, href, {
+      package: packageName
+    });
     classList.forEach((className) => link.classList.add(className));
-
     // Create container for left side (icon + text)
     const leftContainer = document.createElement('div');
     leftContainer.className = 'package-link-left';
-
     // Add the material-icons span to the left container
     const iconSpan = document.createElement('span');
     iconSpan.className = 'material-icons';
     iconSpan.textContent = 'category';
-
     // Add the label to the left container
     const labelSpan = document.createElement('span');
     labelSpan.className = 'package-label';
     labelSpan.textContent = label;
-
     leftContainer.appendChild(iconSpan);
     leftContainer.appendChild(labelSpan);
-
     // Create container for right side (totals)
     const rightContainer = document.createElement('div');
     rightContainer.className = 'package-link-right';
-
     // Add total, enabled, and disabled spans to the right container
     const totalSpan = document.createElement('span');
     totalSpan.className = 'total';
     totalSpan.textContent = total;
-
     const onSpan = document.createElement('span');
     onSpan.className = 'on';
     onSpan.textContent = enabled;
-
     const separator = document.createElement('span');
     separator.textContent = '/';
-
     const offSpan = document.createElement('span');
     offSpan.className = 'off';
     offSpan.textContent = disabled;
-
     rightContainer.appendChild(totalSpan);
     rightContainer.appendChild(onSpan);
     rightContainer.appendChild(separator);
     rightContainer.appendChild(offSpan);
-
     // Append both left and right containers to the link
     link.innerHTML = ''; // Clear link content
     link.appendChild(leftContainer);
     link.appendChild(rightContainer);
-
     return link;
   }
 
   function storeAllModules(containerSelector, modules) {
     const container = document.querySelector(containerSelector);
     if (!container) return;
-
     // Sort modules alphabetically by `data-name`
     const sortedModules = modules.sort((a, b) => {
       const nameA = a.element.querySelector('.name-package')?.dataset.name?.toLowerCase() || '';
       const nameB = b.element.querySelector('.name-package')?.dataset.name?.toLowerCase() || '';
       return nameA.localeCompare(nameB);
     });
-
     clearAndAppend(container, sortedModules.map((module) => module.element));
   }
 
@@ -550,7 +538,6 @@
     fragment.appendChild(offSpan);
     return fragment;
   }
-
   // Add animation to <details> elements
   function animateDetails() {
     document.querySelectorAll('.module-matrix-item-details').forEach((details) => {
@@ -558,15 +545,11 @@
       const content = details.querySelector('.matrix-details-content');
       if (!header && !content) return;
       const icon = header.querySelector('.matrix-details-header-icon');
-
       header.addEventListener('click', () => {
         const isOpen = details.classList.toggle('open');
-
         if (isOpen) {
           content.style.height = content.scrollHeight + 'px'; // Set height for animation
           header.setAttribute('aria-expanded', 'true');
-
-
           content.addEventListener(
             'transitionend',
             function onExpand() {
@@ -579,67 +562,51 @@
           requestAnimationFrame(() => {
             content.style.height = '0px'; // Collapse smoothly
           });
-
           header.setAttribute('aria-expanded', 'false');
-
         }
       });
     });
   }
-
-
   // function getUpdateFunctions(modules) {
   //   return modules.filter((module) => {
   //     const details = module.element.querySelector('.name-package');
   //     return details && details.dataset.update === '1';
   //   });
   // }
-
   // function sortAlphabetically(array, key) {
   //   return [...array].sort((a, b) => a[key].localeCompare(b[key]));
   // }
-
   /**
    * Utility functions for data manipulation
    */
   // function getTotalModules(data) {
   //   return data.totalModules;
   // }
-
   // function getTotalEnabled(data) {
   //   return data.totalEnabled;
   // }
-
   // function getTotalDisabled(data) {
   //   return data.totalDisabled;
   // }
-
   // function getPackageCounts(data) {
   //   return data.packageCounts;
   // }
-
   // function getPackageEnabledCounts(data) {
   //   return data.packageEnabledCounts;
   // }
-
   // function getPackageDisabledCounts(data) {
   //   return data.packageDisabledCounts;
   // }
-
   // function getModulesByDate(data) {
   //   return sortAlphabetically(data.modulesByDate, 'date');
   // }
-
   // function getModulesByStability(data) {
   //   return sortAlphabetically(data.modulesByStability, 'stability');
   // }
-
   // function getModulesByLifecycle(data) {
   //   return sortAlphabetically(data.modulesByLifecycle, 'lifecycle');
   // }
-
   // function getModulesByName(data) {
   //   return sortAlphabetically(data.modulesByName, 'name');
   // }
-
 })(Drupal, drupalSettings, once);
