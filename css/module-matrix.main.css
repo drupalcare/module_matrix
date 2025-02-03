@@ -11,6 +11,14 @@ form#system-modules * {
   box-sizing: border-box;
 }
 
+.block-system::after,
+.block-system::before,
+.block-system .solo-clear::after,
+.block-system .solo-clear::before {
+  content: none !important;
+  display: none !important;
+}
+
 form#system-modules .intro-message-class {
   display: flex;
   width: 100%;
@@ -23,6 +31,7 @@ form#system-modules .intro-message-class * {
   margin: 0;
   padding: 0;
   font-size: 14px;
+  line-height: 1.4;
   text-decoration: none;
 }
 
@@ -31,7 +40,7 @@ form#system-modules .intro-message-class .material-icons {
 }
 
 form#system-modules .module-matrix-filters {
-  margin: 0 auto;
+  margin: 0;
 }
 
 form#system-modules .material-icons {

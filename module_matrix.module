@@ -81,9 +81,8 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
   }
 
   // Add visibility settings and enabled count to variables.
-  // Add visibility settings and enabled count to variables.
   $module_options = module_matrix_get_modules_options($config);
-  $variables['enabled_count'] = count(array_filter($module_options, fn($value) => $value === 1));
+  $variables['enabled_count'] = count(array_filter($module_options, fn($value) => $value === TRUE));
 
   // Merge module options with visibility settings.
   $variables['visibility'] = array_merge($module_options, module_matrix_get_visibility_settings($config));

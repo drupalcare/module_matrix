@@ -11,14 +11,26 @@
   border: 1px solid #ddd;
   border-radius: 6px;
 }
+.admin-requirements,
+form#system-modules .module-matrix-list-inner a {
+  background: none !important;
+  padding: 0;
+}
 
+form#system-modules .admin-requirements * {
+  background: none !important;
+  color: inherit;
+}
 form#system-modules .module-matrix-list .module-matrix-item-details {
   font-size: 14px;
+  line-height: 1.4;
   overflow: hidden;
 }
+
 form#system-modules .module-matrix-list .admin-requirements,
 form#system-modules .module-matrix-list .description-only {
   font-size: 14px;
+  line-height: 1.4;
 }
 
 form#system-modules .module-matrix-list .name-package,
@@ -36,8 +48,10 @@ form#system-modules .module-matrix-list .name-package:not(.compact .name-package
   gap: 12px;
 }
 
+form#system-modules .module-matrix-list .compact-top > *,
 form#system-modules .module-matrix-list .name-package > *:not(.compact .name-package > *) {
-  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 
 form#system-modules .module-matrix-list .name-package:not(.compact .name-package) {
@@ -49,15 +63,25 @@ form#system-modules .compact .module-matrix-list .name-package {
 }
 
 form#system-modules .module-matrix-list .name-package .name .material-icons {
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.4;
   margin: 0 4px;
 }
 
 form#system-modules .compact .module-matrix-list .compact-bottom {
   display: flex;
+  flex-wrap: wrap;
   font-size: 14px;
+  line-height: 1.4;
   margin-top: 12px;
   gap: 8px;
+}
+
+form#system-modules .compact .module-matrix-list .compact-bottom > * {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 4px;
 }
 
 form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-content {
@@ -65,6 +89,7 @@ form#system-modules .module-matrix-list .module-matrix-item-details .matrix-deta
   gap: 12px;
   flex-wrap: wrap;
   font-size: 14px;
+  line-height: 1.4;
   overflow: hidden;
   height: 0;
   opacity: 0;
@@ -82,6 +107,7 @@ form#system-modules .module-matrix-list .matrix-details-content > *:not(.grid-la
 
 form#system-modules .module-matrix-list .name-package .package {
   font-size: 14px;
+  line-height: 1.4;
   margin-left: auto;
 }
 
@@ -94,7 +120,7 @@ form#system-modules .module-matrix-list .name-package .name {
   font-weight: normal;
   text-decoration: none;
   font-size: 16px;
-  line-height: 14px;
+  line-height: 1.4;
   font-weight: normal;
 }
 
@@ -116,13 +142,7 @@ form#system-modules .matrix-details-content {
 
 form#system-modules .module-matrix-item-description {
   font-size: 14px;
-  line-height: 16px;
-}
-
-form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header-icon {
-  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
-  line-height: 16px;
-  margin-top: 5px;
+  line-height: 1.4;
 }
 
 form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
@@ -130,8 +150,8 @@ form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner
 }
 
 form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header {
-  line-height: 16px;
   font-size: 14px;
+  line-height: 1.4;
   display: flex;
   align-items: start;
   justify-content: space-between;
@@ -139,6 +159,14 @@ form#system-modules .module-matrix-list .module-matrix-item-details .matrix-deta
   cursor: pointer;
   flex-direction: row;
   transition: background 0.3s ease;
+}
+
+form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header-icon {
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 14px;
+  margin-top: 2px;
 }
 
 form#system-modules .module-matrix-wrapper.right .module-matrix-list .matrix-details-header {

@@ -38,16 +38,31 @@ form.module-matrix-settings-form #edit-module-options-settings {
   border-radius: 8px;
 }
 
+form.module-matrix-settings-form .solo-clear::after,
+form.module-matrix-settings-form .solo-clear::before {
+  content: none !important;
+  display: none !important;
+}
+
 form.module-matrix-settings-form #edit-module-options-settings p {
   flex: 0 0 100%;
   margin-bottom: 20px;
 }
 
+form.module-matrix-settings-form #edit-style-mode--wrapper .form-radios,
+form.module-matrix-settings-form #edit-accent-color--wrapper .form-radios,
 form.module-matrix-settings-form #edit-appearance-settings,
 form.module-matrix-settings-form #edit-module-options-settings {
   display: flex;
   flex-wrap: wrap;
   gap: 48px;
+}
+
+form.module-matrix-settings-form #edit-style-mode--wrapper .form-radios > *,
+form.module-matrix-settings-form #edit-accent-color--wrapper .form-radios > *,
+form.module-matrix-settings-form #edit-appearance-settings > *,
+form.module-matrix-settings-form #edit-module-options-settings > * {
+  width: auto;
 }
 
 form.module-matrix-settings-form #edit-style-mode--wrapper,
@@ -159,11 +174,10 @@ form.module-matrix-settings-form #edit-accent-color--wrapper input#edit-accent-c
 }
 
 form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:disabled + label::after {
-  content: ""!important;
-  font-size: 0!important;
-  visibility: hidden!important;
+  content: "" !important;
+  font-size: 0 !important;
+  visibility: hidden !important;
 }
-
 
 form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:disabled + label {
   cursor: default;
