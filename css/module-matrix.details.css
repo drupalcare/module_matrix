@@ -116,11 +116,12 @@ form#system-modules .matrix-details-content {
 
 form#system-modules .module-matrix-item-description {
   font-size: 14px;
+  line-height: 16px;
 }
 
 form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header-icon {
   transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
-  line-height: 14px;
+  line-height: 16px;
   margin-top: 5px;
 }
 
@@ -129,6 +130,8 @@ form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner
 }
 
 form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header {
+  line-height: 16px;
+  font-size: 14px;
   display: flex;
   align-items: start;
   justify-content: space-between;
