@@ -167,7 +167,7 @@
           <div class="matrix-details-header"  aria-controls="{{ module_enable_id }}" role="button" aria-expanded="false">
             <span class="text module-matrix-item-description">{{ module_description ? module_description : 'No description available'|t }}
            </span>
-           <span class="matrix-details-header-icon material-icons">expand_more</span>
+           <span class="matrix-details-header-icon material-icons">keyboard_arrow_down</span>
         </div>
 
           <div class="matrix-details-content">
@@ -175,49 +175,49 @@
             {% if visibility.module_project and module_project %}
             <div class="admin-requirements project">
               <span class="material-icons">folder_open</span>
-              {{ 'Project: @project'|t({'@project': module_project|replace({'_': ' '})|capitalize|title }) }}
+              <span class="details-option">{{ 'Project: @project'|t({'@project': module_project|replace({'_': ' '})|capitalize|title }) }}</span>
             </div>
             {% endif %}
 
             {% if visibility.module_status and module_status %}
             <div class="admin-requirements status">
               <span class="material-icons">check_circle</span>
-              {{ 'Status: @status'|t({'@status': module_status|capitalize }) }}
+              <span class="details-option">{{ 'Status: @status'|t({'@status': module_status|capitalize }) }}</span>
             </div>
             {% endif %}
 
             {% if visibility.module_version and module_version %}
             <div class="admin-requirements version">
               <span class="material-icons">label</span>
-              {{ 'Version: @module-version'|t({'@module-version': module_version }) }}
+              <span class="details-option">{{ 'Version: @module-version'|t({'@module-version': module_version }) }}</span>
             </div>
             {% endif %}
 
             {% if visibility.module_mtime and module_mtime %}
             <div class="admin-requirements mtime">
               <span class="material-icons">schedule</span>
-              {{ 'Last modified: @mtime'|t({'@mtime': module_mtime}) }}
+              <span class="details-option">{{ 'Last modified: @mtime'|t({'@mtime': module_mtime}) }}</span>
             </div>
             {% endif %}
 
             {% if visibility.module_stability and module_stability %}
             <div class="admin-requirements stability">
               <span class="material-icons">security</span>
-              {{ 'Stability: @stability'|t({'@stability': module_stability|capitalize }) }}
+              <span class="details-option">{{ 'Stability: @stability'|t({'@stability': module_stability|capitalize }) }}</span>
             </div>
             {% endif %}
 
             {% if visibility.module_lifecycle and module_lifecycle %}
             <div class="admin-requirements lifecycle">
               <span class="material-icons">loop</span>
-              {{ 'Lifecycle: @lifecycle'|t({'@lifecycle': module_lifecycle|capitalize }) }}
+              <span class="details-option">{{ 'Lifecycle: @lifecycle'|t({'@lifecycle': module_lifecycle|capitalize }) }}</span>
             </div>
             {% endif %}
 
             {% if visibility.module_machine_name and module_machine_name %}
             <div class="admin-requirements machine-name">
               <span class="material-icons">memory</span>
-              {{ 'Machine name: @machine-name'|t({'@machine-name': module_machine_name}) }}
+              <span class="details-option">{{ 'Machine name: @machine-name'|t({'@machine-name': module_machine_name}) }}</span>
             </div>
             {% endif %}
 
@@ -227,17 +227,17 @@
                 {% if link_type == 'help' %}
                   <div class="admin-requirements help-link">
                     <span class="material-icons">help_outline</span>
-                    {{ module.links[link_type] }}
+                    <span class="details-option">{{ module.links[link_type] }}</span>
                   </div>
                 {% elseif link_type == 'permissions' %}
                   <div class="admin-requirements permissions-link">
                     <span class="material-icons">lock</span>
-                    {{ module.links[link_type] }}
+                    <span class="details-option">{{ module.links[link_type] }}</span>
                   </div>
                 {% elseif link_type == 'configure' %}
                   <div class="admin-requirements configure-link">
                     <span class="material-icons">settings</span>
-                    {{ module.links[link_type] }}
+                    <span class="details-option">{{ module.links[link_type] }}</span>
                   </div>
                 {% endif %}
               {% endif %}
@@ -248,7 +248,7 @@
             <div class="admin-requirements issue-link">
               <span class="material-icons">bug_report</span>
               <a href="{{ module.issue_link }}" target="_blank">
-                {{ 'Create Issue'|t }}
+                <span class="details-option">{{ 'Create Issue'|t }}</span>
               </a>
             </div>
             {% endif %}
@@ -257,7 +257,7 @@
             <div class="admin-requirements usage-link">
               <span class="material-icons">bar_chart</span>
               <a href="{{ module.usage_link }}" target="_blank">
-                {{ 'Usage Stats'|t }}
+                <span class="details-option">{{ 'Usage Stats'|t }}</span>
               </a>
             </div>
             {% endif %}
@@ -265,21 +265,21 @@
             {% if visibility.module_subpath and module_subpath %}
             <div class="admin-requirements subpath">
               <span class="material-icons">folder</span>
-              {{ 'Subpath: @subpath'|t({'@subpath': module_subpath}) }}
+              <span class="details-option">{{ 'Subpath: @subpath'|t({'@subpath': module_subpath}) }}</span>
             </div>
             {% endif %}
 
             {% if visibility.module_requires and module.requires %}
             <div class="admin-requirements requires">
               <span class="material-icons">link</span>
-              {{ 'Requires: @module-list'|t({'@module-list': module.requires}) }}
+              <span class="details-option">{{ 'Requires: @module-list'|t({'@module-list': module.requires}) }}</span>
             </div>
             {% endif %}
 
             {% if visibility.module_required_by and module.required_by %}
             <div class="admin-requirements required_by">
               <span class="material-icons">link_off</span>
-              {{ 'Required by: @module-list'|t({'@module-list': module.required_by}) }}
+              <span class="details-option">{{ 'Required by: @module-list'|t({'@module-list': module.required_by}) }}</span>
             </div>
             {% endif %}
 

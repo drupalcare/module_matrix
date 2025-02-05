@@ -161,8 +161,8 @@ form#system-modules input[type="checkbox"]:disabled {
 
 form#system-modules .module-matrix-sidebar a.active,
 form#system-modules .module-matrix-sidebar a:hover {
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   transition: all 0.3s ease-in-out;
 }
 

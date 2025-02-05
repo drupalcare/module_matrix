@@ -7,14 +7,27 @@
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
 form#system-modules .module-matrix-sidebar a {
+  line-height: 1.8;
   display: flex;
   font-weight: normal;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   text-decoration: none;
-  padding: 8px;
-  border-radius: 3px;
+  padding: 4px 8px;
+  border-radius: 4px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, padding 0.3s ease, color 0.3s ease;
+}
+
+form#system-modules .top .module-matrix-sidebar a {
+  align-items: top;
+}
+
+form#system-modules .module-matrix-sidebar a .package-link-left {
+  text-align: left;
+}
+
+form#system-modules .module-matrix-sidebar a .package-link-right {
+  text-align: right;
 }
 
 .module-matrix-sidebar a {
@@ -24,6 +37,14 @@ form#system-modules .module-matrix-sidebar a {
 form#system-modules .module-matrix-sidebar .package-link-left,
 form#system-modules .module-matrix-sidebar .package-link-right {
   display: flex;
+}
+
+form#system-modules .module-matrix-sidebar .package-link-right * {
+  font-size: 14px;
+}
+
+form#system-modules .top .module-matrix-sidebar .package-link-left,
+form#system-modules .top .module-matrix-sidebar .package-link-right {
   align-items: center;
 }
 
@@ -34,13 +55,6 @@ form#system-modules .module-matrix-sidebar .package-link-left {
 form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar a,
 form#system-modules .module-matrix-wrapper.left .module-matrix-sidebar a {
   width: 100%;
-  line-height: 1.4;
-  font-size: 16px;
-}
-
-form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar a {
-  line-height: 1.6;
-  font-size: 18px;
 }
 
 form#system-modules .module-matrix-sidebar {
@@ -51,20 +65,27 @@ form#system-modules .module-matrix-sidebar {
 }
 
 form#system-modules .module-matrix-sidebar .material-icons {
-  margin-right: 8px;
   font-size: 18px;
+  line-height: 1.5;
 }
 
-form#system-modules .module-matrix-sidebar a span {
+form#system-modules .top .module-matrix-sidebar .material-icons {
+  margin-right: 8px;
+}
+
+form#system-modules .module-matrix-sidebar span {
   font-weight: normal !important;
+}
+
+form#system-modules .module-matrix-sidebar .package-link-right {
   display: inline-flex;
   justify-content: center;
   align-items: center;
 }
 
-form#system-modules .module-matrix-sidebar a span:not(.material-icons) {
-  font-size: 14px;
-  line-height: 1.4;
+form#system-modules .module-matrix-sidebar a .package-label {
+  font-size: 16px;
+  line-height: 1.8;
 }
 
 form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar .package-link-left,
