@@ -7,14 +7,6 @@
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
 
-/**
- * @file
- * Unified Styles for System and Uninstall Forms.
- *
- * Filename:     style-uninstall.css
- * Description:  Custom styles for module management interfaces.
- */
-
 /* Base Form Styling */
 form#system-modules,
 form#system-modules-uninstall {
@@ -53,9 +45,12 @@ form#system-modules-uninstall a:hover {
 }
 
 /* Text Input Fields */
+form#system-modules input[type="search"],
+form#system-modules-uninstall input[type="search"],
 form#system-modules input[type="text"],
 form#system-modules-uninstall input[type="text"] {
   background: var(--input-bg);
+  color: var(--text-color);
 }
 
 /* Labels */
@@ -146,6 +141,10 @@ form#system-modules-uninstall input[type="checkbox"]:disabled::before {
 }
 
 /* Hover & Focus Effects */
+form#system-modules input[type="search"]:hover,
+form#system-modules input[type="search"]:focus,
+form#system-modules-uninstall input[type="search"]:hover,
+form#system-modules-uninstall input[type="search"]:focus,
 form#system-modules input[type="text"]:hover,
 form#system-modules input[type="text"]:focus,
 form#system-modules-uninstall input[type="text"]:hover,
@@ -189,7 +188,7 @@ form#system-modules-uninstall .module-matrix-wrapper .module-matrix-list-inner:h
 form#system-modules input::placeholder,
 form#system-modules-uninstall input::placeholder {
   color: var(--accent-color);
-  opacity: 0.7;
+  opacity: 0.9;
 }
 
 form#system-modules input[type="submit"],
