@@ -25,10 +25,30 @@ main:
     - core/drupalSettings
     - core/once
 
+main-uninstall:
+  css:
+    theme:
+      css/module-matrix.uninstall.css: { weight: -30}
+  js:
+    js/module-matrix.main.uninstall.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+
+
+
 matrix-style:
   css:
     theme:
       css/style/module-matrix.style.css: { weight: -10}
+      css/style/module-matrix.style.accent.css: { weight: -10}
+
+matrix-style-uninstall:
+  css:
+    theme:
+      css/style/module-matrix.style.uninstall.css: { weight: -10}
+      css/style/module-matrix.style.accent.css: { weight: -10}
 
 matrix-style-light-teal:
   css:

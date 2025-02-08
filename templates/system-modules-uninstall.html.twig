@@ -22,27 +22,30 @@
  */
 #}
 {{ form.filters }}
+{% if visibility.style_mode != 'none' and visibility.accent_color %}
+  {% set style_libraries = 'matrix-style-' ~ visibility.style_mode ~ '-' ~ visibility.accent_color %}
+  {{ attach_library('module_matrix/matrix-style-uninstall') }}
+  {{ attach_library('module_matrix/' ~ style_libraries) }}
 
-<table class="responsive-enabled">
-  <thead>
-    <tr>
-      <th>{{ 'Uninstall'|t }}</th>
-      <th>{{ 'Name'|t }}</th>
-      <th>{{ 'Description'|t }}</th>
-    </tr>
-  </thead>
-  <tbody>
+{% endif %}
+
+{{ attach_library('module_matrix/main-uninstall') }}
+{% set compact_layout = visibility.compact_layout ? ' compact' : ''  %}
+{% set grid_layout = (visibility.grid_layout or visibility.compact_layout) ? ' grid-layout' : '' %}
+
+<div class="module-matrix-wrapper uninstall {{ grid_layout }}{{ compact_layout }}">
+  <div class="module-matrix-list">
     {% for module in modules %}
-      {% set zebra = cycle(['odd', 'even'], loop.index0) -%}
-      <tr{{ module.attributes.addClass(zebra) }}>
-        <td align="center">
-          {{- module.checkbox -}}
-        </td>
-        <td>
-          <label for="{{ module.checkbox_id }}" class="module-name table-filter-text-source">{{ module.name }}</label>
-        </td>
-        <td class="description">
-          <span class="text module-description">{{ module.description }}</span>
+      <div class="module-matrix-list-inner">
+        <div class="name-package">
+          <span class="checkbox">
+            {{ module.checkbox }}
+          </span>
+          <label for="{{ module.checkbox_id }}" class="module-name table-filter-text-source name">{{ module.name }}</label>
+        </div>
+        <div class="module-matrix-item-details description">
+          <span class="text module-matrix-item-description text module-description">{{ module.description }}
+          </span>
           {% if module.reasons_count > 0 %}
             <div class="admin-requirements">
               {%- trans -%}
@@ -53,23 +56,30 @@
               <div class="item-list">
                 <ul>
                   {%- for reason in module.validation_reasons -%}
-                    <li>{{ reason }}</li>
+                    <li class="reason">
+                    <span class="material-icons">error_outline</span>
+                    <span>{{ reason }}</span>
+                  </li>
                   {%- endfor -%}
                   {%- if module.required_by -%}
-                    <li>{{ 'Required by: @module-list'|t({'@module-list': module.required_by|safe_join(', ')}) }}</li>
+                    <li class="required-by">
+                    <span class="material-icons">link_off</span>
+                   <span>{{ 'Required by: @module-list'|t({'@module-list': module.required_by|safe_join(', ')}) }}</span>
+                    </li>
                   {%- endif -%}
                 </ul>
               </div>
             </div>
           {% endif %}
-        </td>
-      </tr>
+        </div>
+      </div>
     {% else %}
-      <tr class="odd">
-        <td colspan="3" class="empty message">{{ 'No modules are available to uninstall.'|t }}</td>
-      </tr>
+      <div class="module-matrix-list-inner empty-message">
+        {{ 'No modules are available to uninstall.'|t }}
+      </div>
     {% endfor %}
-  </tbody>
-</table>
+  </div>
+</div>
 
 {{ form|without('filters', 'modules', 'uninstall') }}
+

@@ -7,7 +7,9 @@
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
 form#system-modules,
-form#system-modules * {
+form#system-modules *,
+form#system-modules-uninstall,
+form#system-modules-uninstall * {
   --accent-color: #3f51b5;
   --border-color: #2d3062;
   --background-color: #101119;

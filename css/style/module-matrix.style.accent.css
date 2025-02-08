@@ -1,0 +1,203 @@
+/**
+ * @file
+ * Module Matrix Style Accent.
+ *
+ * Filename:     module-matrix.style.accent.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
+
+/**
+ * @file
+ * Unified Styles for System and Uninstall Forms.
+ *
+ * Filename:     style-uninstall.css
+ * Description:  Custom styles for module management interfaces.
+ */
+
+/* Base Form Styling */
+form#system-modules,
+form#system-modules-uninstall {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+form.system-modules *,
+form#system-modules-uninstall * {
+  color: var(--text-color);
+}
+
+form.system-modules .module-matrix-filters,
+form#system-modules-uninstall .module-matrix-filters {
+  border: 1px dashed var(--border-color) !important;
+  box-shadow: var(--main-shadow);
+  background: var(--filter-bg);
+  width: auto;
+}
+
+form#system-modules *,
+form#system-modules-uninstall * {
+  border-color: var(--border-color);
+}
+
+/* Links & Buttons */
+form.system-modules a,
+form#system-modules-uninstall a {
+  color: var(--link-color);
+}
+
+form.system-modules a:hover,
+form#system-modules-uninstall a:hover {
+  color: var(--link-color-hover);
+}
+
+/* Text Input Fields */
+form#system-modules input[type="text"],
+form#system-modules-uninstall input[type="text"] {
+  background: var(--input-bg);
+}
+
+/* Labels */
+form#system-modules label,
+form#system-modules .fieldset__label,
+form#system-modules-uninstall label,
+form#system-modules-uninstall .fieldset__label {
+  color: var(--link-color);
+}
+
+/* Module Lists */
+form#system-modules .module-matrix-list a,
+form#system-modules-uninstall .module-matrix-list a {
+  color: var(--link-color);
+}
+
+form#system-modules input.button,
+form#system-modules-uninstall input.button {
+  color: var(--button-color);
+  background: var(--button-bg);
+}
+
+form#system-modules input.button:hover,
+form#system-modules-uninstall input.button:hover {
+  box-shadow: var(--focus-shadow);
+  color: var(--button-color-hover);
+  background: var(--button-bg-hover);
+}
+
+form#system-modules .module-matrix-item-details,
+form#system-modules-uninstall .module-matrix-item-details {
+  background: var(--details-bg);
+}
+
+form#system-modules .module-matrix-sidebar a,
+form#system-modules-uninstall .module-matrix-sidebar a {
+  background: var(--package-bg);
+  color: var(--package-color);
+}
+
+form#system-modules .module-matrix-list .module-matrix-item-details.open .matrix-details-header-icon,
+form#system-modules-uninstall .module-matrix-list .module-matrix-item-details.open .matrix-details-header-icon {
+  color: var(--icon-color-open);
+}
+
+form#system-modules .module-matrix-list a:hover,
+form#system-modules-uninstall .module-matrix-list a:hover {
+  color: var(--accent-color);
+}
+
+/* Checkbox Styling */
+form#system-modules input[type="checkbox"],
+form#system-modules-uninstall input[type="checkbox"] {
+  background: var(--checkbox-bg);
+}
+
+form#system-modules input[type="checkbox"]::before,
+form#system-modules-uninstall input[type="checkbox"]::before {
+  background: var(--checkbox-check-circle);
+}
+
+/* Checked State */
+form#system-modules input[type="checkbox"]:checked,
+form#system-modules-uninstall input[type="checkbox"]:checked {
+  background: var(--checkbox-checked-bg);
+}
+
+form#system-modules input[type="checkbox"]:checked::before,
+form#system-modules-uninstall input[type="checkbox"]:checked::before {
+  background: var(--checkbox-checked-circle);
+}
+
+/* Focus State */
+form#system-modules input[type="checkbox"]:focus,
+form#system-modules-uninstall input[type="checkbox"]:focus {
+  outline: 2px solid var(--checkbox-focus-outline);
+}
+
+/* Disabled State */
+form#system-modules input[type="checkbox"]:disabled,
+form#system-modules-uninstall input[type="checkbox"]:disabled {
+  background: var(--checkbox-disabled-bg);
+}
+
+form#system-modules input[type="checkbox"]:disabled::before,
+form#system-modules-uninstall input[type="checkbox"]:disabled::before {
+  background: var(--checkbox-disabled-circle);
+}
+
+/* Hover & Focus Effects */
+form#system-modules input[type="text"]:hover,
+form#system-modules input[type="text"]:focus,
+form#system-modules-uninstall input[type="text"]:hover,
+form#system-modules-uninstall input[type="text"]:focus {
+  box-shadow: var(--focus-shadow);
+  outline: none;
+}
+
+form#system-modules input[type="text"]:focus,
+form#system-modules-uninstall input[type="text"]:focus {
+  border-color: var(--accent-color);
+}
+
+form#system-modules .module-matrix-sidebar a.active,
+form#system-modules .module-matrix-sidebar a:hover,
+form#system-modules .matrix-details-header:not(.count-1):hover,
+form#system-modules-uninstall .module-matrix-sidebar a.active,
+form#system-modules-uninstall .module-matrix-sidebar a:hover,
+form#system-modules-uninstall .matrix-details-header:not(.count-1):hover {
+  background: var(--package-bg-hover);
+}
+
+form#system-modules .module-matrix-sidebar a:hover *,
+form#system-modules .matrix-details-header:not(.count-1):hover *,
+form#system-modules-uninstall .module-matrix-sidebar a:hover *,
+form#system-modules-uninstall .matrix-details-header:not(.count-1):hover * {
+  color: var(--link-color-hover);
+}
+
+/* Shadows on Hover */
+form#system-modules .module-matrix-wrapper .module-matrix-sidebar a:hover,
+form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:hover,
+form#system-modules .module-matrix-wrapper .module-matrix-list-inner:hover > .module-matrix-item-details:not(.grid-layout.module-matrix-wrapper .module-matrix-list-inner > *),
+form#system-modules-uninstall .module-matrix-wrapper .module-matrix-sidebar a:hover,
+form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list-inner:hover,
+form#system-modules-uninstall .module-matrix-wrapper .module-matrix-list-inner:hover > .module-matrix-item-details:not(.grid-layout.module-matrix-wrapper .module-matrix-list-inner > *) {
+  box-shadow: var(--main-shadow);
+}
+
+/* Placeholder Styles */
+form#system-modules input::placeholder,
+form#system-modules-uninstall input::placeholder {
+  color: var(--accent-color);
+  opacity: 0.7;
+}
+
+form#system-modules input[type="submit"],
+form#system-modules-uninstall input[type="submit"] {
+  border: none !important;
+}
+
+form#system-modules .intro-message-class,
+form#system-modules-uninstall .intro-message-class {
+  background: var(--filter-bg);
+}

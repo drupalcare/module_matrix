@@ -70,6 +70,14 @@ form#system-modules .matrix-details-content .admin-requirements.subpath .materia
   color: #00acc1; /* Deep Cyan for Subpath */
 }
 
+form#system-modules .module-details-content .module-description .material-icons {
+  color: #3f51b5; /* Indigo for Description */
+}
+
+form#system-modules .matrix-details-content .reason .material-icons {
+  color: #f44336; /* Red for Reason */
+}
+
 /* Form */
 form#system-modules .module-matrix-sidebar a {
   margin: 5px 0;

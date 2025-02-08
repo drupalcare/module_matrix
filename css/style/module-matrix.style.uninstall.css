@@ -1,0 +1,201 @@
+/**
+ * @file
+ * Module Matrix Style Uninstall.
+ *
+ * Filename:     module-matrix-style-uninstall.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
+form#system-modules-uninstall .module-matrix-item-details .module-description .material-icons {
+  color: #3f51b5!important; /* Indigo for Description */
+}
+
+form#system-modules-uninstall .module-matrix-item-details .reason .material-icons {
+  color: #f44336!important; /* Red for Reason */
+}
+
+form#system-modules-uninstall .module-matrix-item-details .required-by .material-icons {
+  color: #f44336!important; /* Red for Required By (Disabled) */
+}
+
+form#system-modules-uninstall {
+  border-radius: 8px !important;
+  padding: 16px !important;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  position: relative;
+}
+
+@media (min-width:576px) {
+  form#system-modules-uninstall #edit-actions {
+    position: absolute;
+    top: 115px;
+    margin: 0;
+    right: 16px;
+    width: auto;
+    padding: 0;
+  }
+
+  form#system-modules-uninstall #edit-actions input {
+    margin: 0;
+  }
+
+}
+
+/* Input styles */
+form#system-modules-uninstall input[type="search"],
+form#system-modules-uninstall input[type="text"],
+form#system-modules-uninstall input[type="submit"] {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, padding 0.3s ease, color 0.3s ease;
+}
+
+form#system-modules-uninstall input[type="search"],
+form#system-modules-uninstall input[type="text"] {
+  border: 3px solid var(--border-color);
+  width: 100%;
+  padding: 16px 12px;
+  border-radius: 4px;
+  outline: none;
+  background: var(--filter-bg);
+  color: var(--text-color);
+  outline-color: var(--link-color) !important;
+}
+
+form#system-modules-uninstall input[type="search"]:focus,
+form#system-modules-uninstall input[type="text"]:focus {
+  outline-color: var(--link-color) !important;
+  box-shadow: none;
+}
+
+form#system-modules-uninstall input.button {
+  border-radius: 4px;
+  padding: 12px 32px;
+  box-shadow: none;
+  line-height: 1.5;
+}
+
+/* Checkbox styling */
+form#system-modules-uninstall input[type="checkbox"] {
+  all: unset;
+  appearance: none;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
+  width: 2.5rem;
+  height: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  clip-path: circle(1.5rem at 50% 50%);
+  border-radius: 0.75rem;
+  box-sizing: border-box;
+  transition: background 0.3s ease, border 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+}
+
+form#system-modules-uninstall input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(16px);
+}
+
+form#system-modules-uninstall input[type="checkbox"]:checked::before {
+  transform: translateX(-16px);
+}
+
+form#system-modules-uninstall input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+form#system-modules-uninstall .module-matrix-list {
+  border: none;
+}
+
+/* Module description */
+form#system-modules-uninstall .module-matrix-item-details {
+  background: transparent !important;
+}
+
+form#system-modules-uninstall .module-matrix-list-inner {
+  border: 1px solid var(--border-color);
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* Hover effect */
+form#system-modules-uninstall .module-matrix-list-inner:hover {
+  box-shadow: var(--main-shadow);
+}
+
+/* Responsive Layout */
+@media (max-width:768px) {
+  form#system-modules-uninstall .module-matrix-list-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}
+
+/* Empty message styling */
+form#system-modules-uninstall .empty-message {
+  text-align: center;
+  font-style: italic;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+}
+
+form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list-inner {
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+
+form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list-inner > * {
+  border: none;
+  width: 100%;
+}
+
+form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list-inner > .name-package {
+  border-bottom: 1px solid var(--border-color);
+}
+
+form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  grid-auto-rows: auto;
+  gap: 16px;
+  align-items: start;
+  justify-content: start;
+}
+
+form#system-modules-uninstall  .module-matrix-wrapper.grid-layout .module-matrix-list {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+@media (max-width:110px) {
+  form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+}
+
+form#system-modules-uninstall .module-matrix-item-details {
+  border-color: var(--border-color);
+  transition: all 0.3s ease;
+}
+
+form#system-modules-uninstall .module-matrix-item-details:hover {
+  box-shadow: none !important;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+form#system-modules-uninstall .admin-requirements ul,
+form#system-modules-uninstall .admin-requirements li {
+  list-style: none;
+  margin: 0;
+}

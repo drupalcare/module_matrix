@@ -1,0 +1,118 @@
+/**
+ * @file
+ * Module Matrix Uninstall.
+ *
+ * Filename:     module-matrix-uninstall.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
+
+form#system-modules-uninstall,
+form#system-modules-uninstall * {
+  box-sizing: border-box;
+}
+
+.block-system::after,
+.block-system::before,
+.block-system .solo-clear::after,
+.block-system .solo-clear::before {
+  content: none !important;
+  display: none !important;
+}
+
+form#system-modules-uninstall .material-icons {
+  font-family: 'Material Icons';
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  src: url('../fonts/MaterialIcons-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+form#system-modules-uninstall .module-matrix-wrapper.uninstall {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+/* List container */
+form#system-modules-uninstall .module-matrix-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Module item - Two-column layout */
+form#system-modules-uninstall .module-matrix-list-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  border: 1px solid #ddd;
+  transition: box-shadow 0.3s ease;
+  gap: 16px;
+}
+
+form#system-modules-uninstall .module-matrix-list-inner > * {
+  padding: 6px 12px;
+}
+
+/* Checkbox and name section */
+form#system-modules-uninstall .module-matrix-list .name-package {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 12px;
+  gap: 6px;
+}
+
+/* Name formatting */
+form#system-modules-uninstall .module-matrix-list .name {
+  font-weight: normal;
+  font-size: 16px;
+}
+
+/* Module description on the right */
+form#system-modules-uninstall .module-matrix-item-details {
+  flex: 2;
+  font-size: 14px;
+  padding: 12px;
+  border-left: 1px solid #ddd;
+}
+
+/* Hover effect */
+form#system-modules-uninstall .module-matrix-list-inner:hover {
+  box-shadow: var(--main-shadow);
+}
+
+/* Empty message styling */
+form#system-modules-uninstall .empty-message {
+  text-align: center;
+  font-style: italic;
+  padding: 16px;
+  border: 1px solid #ddd;
+}
+
+form#system-modules-uninstall .name-package .checkbox * {
+  margin: 0;
+}
+
+@media (max-width:768px) {
+  form#system-modules-uninstall .module-matrix-list-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  form#system-modules-uninstall .module-matrix-item-details {
+    border-left: none;
+  }
+
+}

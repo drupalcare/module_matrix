@@ -56,8 +56,19 @@ function _module_matrix_helper_render_readme(): string {
  * Implements hook_theme_registry_alter().
  */
 function module_matrix_theme_registry_alter(array &$theme_registry): void {
-  // Alter the system-modules-details template to include applicable classes.
-  $theme_registry['system_modules_details']['path'] = \Drupal::service('extension.list.module')->getPath('module_matrix') . '/templates';
+  $templates = [
+    'system_modules_uninstall' => 'system-modules-uninstall',
+    'system_modules_details' => 'system-modules-details',
+  ];
+
+  $module_path = \Drupal::service('extension.list.module')->getPath('module_matrix') . '/templates';
+
+  foreach ($templates as $key => $template) {
+    if (isset($theme_registry[$key])) {
+      $theme_registry[$key]['path'] = $module_path;
+      $theme_registry[$key]['template'] = $template;
+    }
+  }
 }
 
 /**
@@ -87,6 +98,14 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
   // Merge module options with visibility settings.
   $variables['visibility'] = array_merge($module_options, module_matrix_get_visibility_settings($config));
 
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for system_modules_uninstall.
+ */
+function module_matrix_preprocess_system_modules_uninstall(array &$variables): void {
+  $config = \Drupal::config('module_matrix.settings');
+  $variables['visibility'] = module_matrix_get_visibility_settings($config);
 }
 
 /**
@@ -359,7 +378,9 @@ function module_matrix_theme_suggestions_fieldset_alter(array &$suggestions, arr
   $route_name = \Drupal::routeMatch()->getRouteName();
 
   // Apply only on 'admin/modules' and 'module_matrix.settings_form'.
-  if (in_array($route_name, ['system.modules_list', 'module_matrix.settings_form'])) {
+  if (in_array($route_name, ['system.modules_list',
+    'module_matrix.settings_form',
+  ])) {
     $suggestions[] = 'fieldset__module_matrix';
   }
 }
