@@ -43,8 +43,9 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
     // Add a message at the top of the form with a description.
     $form['module_options_settings']['intro_message'] = [
       '#type' => 'markup',
-      '#markup' => '<p>' . $this->t('This form allows you to configure module-related settings. Toggle the options below to enable or disable specific module features: Machine Name, Version, Lifecycle, Requires, Required By, Status, Project, Subpath, Last Modified, Stability, Links (Help, Permissions, Configure), Issue Link, Usage Link. These settings affect the <a href=":url" target="_blank">module administration page</a>.', [
-        ':url' => Url::fromRoute('system.modules_list')->toString(),
+      '#markup' => '<p>' . $this->t('This form allows you to configure module-related settings. Toggle the options below to enable or disable specific module features: Machine Name, Version, Lifecycle, Requires, Required By, Status, Project, Subpath, Last Modified, Stability, Links (Help, Permissions, Configure), Issue Link, and Usage Link. These settings apply to the <a href=":modules_url" target="_blank">module administration page</a>. The <a href=":uninstall_url" target="_blank">module uninstall page</a> has a fixed layout and only displays the module <strong>Name</strong>, <strong>Description</strong>, and <strong>Required By</strong>.', [
+        ':modules_url' => Url::fromRoute('system.modules_list')->toString(),
+        ':uninstall_url' => Url::fromRoute('system.modules_uninstall')->toString(),
       ]) . '</p>',
       '#attributes' => ['class' => ['intro-message-class']],
     ];
