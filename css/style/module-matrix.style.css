@@ -274,3 +274,9 @@ form.system-modules a {
 form.system-modules a:hover {
   color: var(--link-color-hover);
 }
+
+form#system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes > * {
+  margin-top: 8px!important;
+  margin-bottom: 8px!important;
+  flex-direction: column;
+}
