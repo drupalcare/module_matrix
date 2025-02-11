@@ -275,8 +275,48 @@ form.system-modules a:hover {
   color: var(--link-color-hover);
 }
 
+
 form#system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes > * {
+  width: auto;
+  display: flex;
   margin-top: 8px!important;
   margin-bottom: 8px!important;
+  margin-right: 24px!important;
+  margin-left: 0!important;
   flex-direction: column;
 }
+
+[dir="rtl"] form#system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes > * {
+  margin-right: 0 !important;
+  margin-left: 24px !important;
+}
+
+form#system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes > *:first-child {
+  margin: 0;
+}
+
+form#system-modules .module-matrix-filters .reset-button {
+  margin-left: auto;
+  margin-top: auto;
+  display: flex;
+}
+
+/* Ensure RTL themes align elements correctly */
+[dir="rtl"] form#system-modules .module-matrix-filters fieldset.form-checkboxes legend {
+  text-align: right;
+}
+
+[dir="rtl"] form#system-modules .module-matrix-filters .reset-button {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir="rtl"] form#system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes {
+  justify-content: flex-end;
+}
+
+[dir="rtl"] form#system-modules .module-matrix-filters fieldset.form-checkboxes legend span {
+  margin-right: 0;
+  margin-left: 16px;
+}
+
