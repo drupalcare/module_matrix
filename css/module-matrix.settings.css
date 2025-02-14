@@ -191,29 +191,31 @@ form#module-matrix-settings-form input[type="checkbox"] {
   cursor: pointer;
   display: inline-block;
   vertical-align: top;
-  width: 2.5rem;
-  height: 1.5rem;
   position: relative;
   overflow: hidden;
   clip-path: circle(1.5rem at 50% 50%);
-  border-radius: 0.75rem;
-  box-sizing: border-box;
+  border-radius: 12px!important;
+  border: none!important;
+  padding: 0!important;
+  height: 24px!important;
+  width: 48px!important;
+  box-sizing: border-box!important;
+  transition: background 0.3s ease, border 0.3s ease, color 0.3s ease, opacity 0.3s ease;
   background: var(--checkbox-bg);
-  border: 2px solid var(--checkbox-border);
-  transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
 form#module-matrix-settings-form input[type="checkbox"]::before {
   content: "";
   position: absolute;
-  width: 1.2rem;
-  height: 1.2rem;
-  border-radius: 50%;
-  top: 50%;
-  left: 0.2rem;
-  transform: translateY(-50%);
+  border: none!important;
+  margin: 2px!important;
+  width: calc(100% - 26px)!important;
+  height: calc(100% - 4px)!important;
+  border-radius: 50%!important;
+  transition: transform 0.3s ease-in-out, background 0.3s ease, border 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+  transform: translateX(2px)!important;
+  box-shadow: none!important;
   background-color: var(--checkbox-knob);
-  transition: left 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 /* Checked State */
@@ -223,7 +225,8 @@ form#module-matrix-settings-form input[type="checkbox"]:checked {
 }
 
 form#module-matrix-settings-form input[type="checkbox"]:checked::before {
-  left: 1.1rem;
+  transform: translateX(20px)!important;
+  box-shadow: none;
   background-color: var(--checkbox-checked-knob);
 }
 
