@@ -187,12 +187,12 @@ form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:di
 
 form#module-matrix-settings-form input[type="checkbox"] {
   all: unset;
-  appearance: none;
+  appearance: none!important;
   cursor: pointer;
-  display: inline-block;
-  vertical-align: top;
-  position: relative;
-  overflow: hidden;
+  display: inline-block!important;
+  vertical-align: top!important;
+  position: relative!important;
+  overflow: hidden!important;
   clip-path: circle(1.5rem at 50% 50%);
   border-radius: 12px!important;
   border: none!important;
