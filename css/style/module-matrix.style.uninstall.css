@@ -7,15 +7,15 @@
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
 form#system-modules-uninstall .module-matrix-item-details .module-description .material-icons {
-  color: #3f51b5!important; /* Indigo for Description */
+  color: #3f51b5 !important; /* Indigo for Description */
 }
 
 form#system-modules-uninstall .module-matrix-item-details .reason .material-icons {
-  color: #f44336!important; /* Red for Reason */
+  color: #f44336 !important; /* Red for Reason */
 }
 
 form#system-modules-uninstall .module-matrix-item-details .required-by .material-icons {
-  color: #f44336!important; /* Red for Required By (Disabled) */
+  color: #f44336 !important; /* Red for Required By (Disabled) */
 }
 
 form#system-modules-uninstall {
@@ -27,10 +27,23 @@ form#system-modules-uninstall {
   position: relative;
 }
 
+form#system-modules-uninstall #edit-filters,
+form#system-modules-uninstall #edit-filters > * {
+  margin: 0;
+}
+
+form#system-modules-uninstall #edit-filters input {
+  max-height: 60px;
+}
+
+form#system-modules-uninstall input[type="submit"] {
+  max-height: 48px;
+}
+
 @media (min-width:576px) {
   form#system-modules-uninstall #edit-actions {
     position: absolute;
-    top: 115px;
+    top: 80px;
     margin: 0;
     right: 16px;
     width: auto;
