@@ -94,11 +94,11 @@ form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar .package
 }
 
 form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar a span.off {
-  padding: 3px 8px 3px 0;
+  padding: 3px 3px 3px 0;
 }
 
 form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar a span.on {
-  padding: 3px 0 3px 8px;
+  padding: 3px 0 3px 3px;
 }
 
 form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar a .material-icons {
@@ -122,12 +122,12 @@ form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar .material-
 }
 
 form#system-modules .module-matrix-sidebar a span.on {
-  padding: 3px 8px 3px 0;
+  padding: 3px 3px 3px 0;
   border-radius: 12px;
 }
 
 form#system-modules .module-matrix-sidebar a span.off {
-  padding: 3px 0 3px 8px;
+  padding: 3px 0 3px 3px;
   border-radius: 4px;
 }
 

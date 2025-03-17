@@ -6,7 +6,6 @@
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
-
 ((Drupal, drupalSettings, once) => {
   'use strict';
   const formContext = document.querySelector('form#system-modules');
@@ -46,42 +45,26 @@
   // Attach filtering logic
   function attachFilters(unifiedWrapper, mainList, sidebarSelector, data) {
     const packageLinks = unifiedWrapper.querySelectorAll('.package-link');
+    // Helper function to attach change event listeners
+    const attachCheckboxFilter = (checkboxes) => {
+      checkboxes.forEach((checkbox) =>
+        checkbox.addEventListener('change', () => applyAndResetFilters(mainList, sidebarSelector, data))
+      );
+    };
     // Attach input filter
     if (filterInput) {
-      filterInput.addEventListener('input', () => {
-        activePackage = 'all';
-        applyFiltersWithAnimation(mainList, activePackage, data);
-        updateActivePackageLink(sidebarSelector, 'all');
-      });
+      filterInput.addEventListener('input', () => applyAndResetFilters(mainList, sidebarSelector, data));
     }
     // Attach checkbox filters
-    statusCheckboxes.forEach((checkbox) =>
-      checkbox.addEventListener('change', () => {
-        activePackage = 'all';
-        applyFiltersWithAnimation(mainList, activePackage, data);
-        updateActivePackageLink(sidebarSelector, 'all');
-      })
-    );
-    lifecycleCheckboxes.forEach((checkbox) =>
-      checkbox.addEventListener('change', () => {
-        activePackage = 'all';
-        applyFiltersWithAnimation(mainList, activePackage, data);
-        updateActivePackageLink(sidebarSelector, 'all');
-      })
-    );
-    stabilityCheckboxes.forEach((checkbox) =>
-      checkbox.addEventListener('change', () => {
-        activePackage = 'all';
-        applyFiltersWithAnimation(mainList, activePackage, data);
-        updateActivePackageLink(sidebarSelector, 'all');
-      })
-    );
+    attachCheckboxFilter(statusCheckboxes);
+    attachCheckboxFilter(lifecycleCheckboxes);
+    attachCheckboxFilter(stabilityCheckboxes);
     // Attach reset button
     if (resetButton) {
       resetButton.addEventListener('click', (e) => {
-        activePackage = 'all';
         e.preventDefault();
-        resetFiltersWithAnimation(mainList, sidebarSelector, data);
+        activePackage = 'all';
+        animateFilteredModules(mainList, sidebarSelector, data, true);
       });
     }
     // Attach package links
@@ -90,23 +73,30 @@
         event.preventDefault();
         activePackage = link.dataset.package || 'all';
         if (activePackage === 'all') {
-          resetFiltersWithAnimation(mainList, sidebarSelector, data);
+          animateFilteredModules(mainList, sidebarSelector, data, true);
         } else {
-          applyFiltersWithAnimation(mainList, activePackage, data);
+          animateFilteredModules(mainList, sidebarSelector, data, false);
         }
         updateActivePackageLink(sidebarSelector, activePackage);
       });
     });
   }
-  // Apply filters with animation
-  function applyFiltersWithAnimation(mainList, activePackage, data) {
-    // Get filtered modules
-    const filteredModules = Array.from(mainList.querySelectorAll('.module-matrix-list-inner'));
-    // Apply filtering logic
-    applyFilters(mainList, activePackage, data);
-    // Apply animation to visible modules
-    filteredModules.forEach((module) => {
-      if (!module.classList.contains('hidden')) {
+  // Helper function to apply filters and reset active package
+  function applyAndResetFilters(mainList, sidebarSelector, data) {
+    activePackage = 'all';
+    animateFilteredModules(mainList, sidebarSelector, data, false);
+    updateActivePackageLink(sidebarSelector, 'all');
+  }
+
+  function animateFilteredModules(mainList, sidebarSelector, data, isReset = false) {
+    if (isReset) {
+      resetFilters(mainList, sidebarSelector, data);
+    } else {
+      applyFilters(mainList, activePackage, data);
+    }
+    const modules = mainList.querySelectorAll('.module-matrix-list-inner');
+    modules.forEach((module) => {
+      if (isReset || !module.classList.contains('hidden')) {
         module.classList.add('matrix-animate-combined');
         module.addEventListener(
           'animationend',
@@ -119,65 +109,57 @@
       }
     });
   }
-  // Reset filters with animation
-  function resetFiltersWithAnimation(mainList, sidebarSelector, data) {
-    resetFilters(mainList, sidebarSelector, data);
-    // Animate all modules after reset
-    const allModules = mainList.querySelectorAll('.module-matrix-list-inner');
-    allModules.forEach((module) => {
-      module.classList.add('matrix-animate-combined');
-      module.addEventListener(
-        'animationend',
-        () => {
-          module.classList.remove('matrix-animate-combined');
-        }, {
-          once: true
-        }
-      );
-    });
-  }
   // Apply filters
   function applyFilters(mainList, activePackage, data) {
-    const query = filterInput?.value.toLowerCase().trim() || '';
-    const selectedStatuses = Array.from(statusCheckboxes)
-      .filter((checkbox) => checkbox.checked)
-      .map((checkbox) => checkbox.value);
-    const selectedLifecycles = Array.from(lifecycleCheckboxes)
-      .filter((checkbox) => checkbox.checked)
-      .map((checkbox) => checkbox.value);
-    const selectedStability = Array.from(stabilityCheckboxes)
-      .filter((checkbox) => checkbox.checked)
-      .map((checkbox) => checkbox.value);
+    const query = getFilterQuery();
+    const selectedStatuses = getSelectedValues(statusCheckboxes);
+    const selectedLifecycles = getSelectedValues(lifecycleCheckboxes);
+    const selectedStability = getSelectedValues(stabilityCheckboxes);
     // Get all modules
     const allModules = Array.from(mainList.querySelectorAll('.module-matrix-list-inner'));
     // Filter and collect visible modules
-    const visibleModules = allModules.filter((module) => {
-      const moduleDetails = module.querySelector('.name-package');
-      if (!moduleDetails) return false;
-      const moduleName = moduleDetails.dataset.name?.toLowerCase() || '';
-      const moduleDescription = moduleDetails.dataset.description?.toLowerCase() || '';
-      const modulePackage = moduleDetails.dataset.package || '';
-      const moduleStatus = moduleDetails.dataset.status || '';
-      const moduleLifecycle = moduleDetails.dataset.lifecycle || '';
-      const moduleStability = moduleDetails.dataset.stability || '';
-      const matchesQuery = query === '' || moduleName.includes(query) || moduleDescription.includes(query);
-      const matchesPackage = activePackage === 'all' || modulePackage === activePackage;
-      const matchesStatus = selectedStatuses.length === 0 || selectedStatuses.includes(moduleStatus);
-      const matchesLifecycle = selectedLifecycles.length === 0 || selectedLifecycles.includes(moduleLifecycle);
-      const matchesStability = selectedStability.length === 0 || selectedStability.includes(moduleStability);
-      return matchesQuery && matchesPackage && matchesStatus && matchesLifecycle && matchesStability;
-    });
+    const visibleModules = allModules.filter((module) => matchesFilters(module, query, activePackage, selectedStatuses, selectedLifecycles, selectedStability));
     // Sort the filtered modules alphabetically by `data-name`
-    const sortedVisibleModules = visibleModules.sort((a, b) => {
+    const sortedVisibleModules = sortModulesByName(visibleModules);
+    // Hide all modules and then show only the filtered and sorted ones
+    allModules.forEach((module) => module.classList.add('hidden'));
+    sortedVisibleModules.forEach((module) => module.classList.remove('hidden'));
+  }
+  // Helper function to get the filter query
+  function getFilterQuery() {
+    return filterInput?.value.toLowerCase().trim() || '';
+  }
+  // Helper function to get selected values from checkboxes
+  function getSelectedValues(checkboxes) {
+    return Array.from(checkboxes)
+      .filter((checkbox) => checkbox.checked)
+      .map((checkbox) => checkbox.value);
+  }
+  // Helper function to check if a module matches the filters
+  function matchesFilters(module, query, activePackage, selectedStatuses, selectedLifecycles, selectedStability) {
+    const moduleDetails = module.querySelector('.name-package');
+    if (!moduleDetails) return false;
+    const moduleName = moduleDetails.dataset.name?.toLowerCase() || '';
+    const moduleDescription = moduleDetails.dataset.description?.toLowerCase() || '';
+    const modulePackage = moduleDetails.dataset.package || '';
+    const moduleStatus = moduleDetails.dataset.status || '';
+    const moduleLifecycle = moduleDetails.dataset.lifecycle || '';
+    const moduleStability = moduleDetails.dataset.stability || '';
+    return (
+      (query === '' || moduleName.includes(query) || moduleDescription.includes(query)) &&
+      (activePackage === 'all' || modulePackage === activePackage) &&
+      (selectedStatuses.length === 0 || selectedStatuses.includes(moduleStatus)) &&
+      (selectedLifecycles.length === 0 || selectedLifecycles.includes(moduleLifecycle)) &&
+      (selectedStability.length === 0 || selectedStability.includes(moduleStability))
+    );
+  }
+  // Helper function to sort modules alphabetically by `data-name`
+  function sortModulesByName(modules) {
+    return modules.sort((a, b) => {
       const nameA = a.querySelector('.name-package')?.dataset.name?.toLowerCase() || '';
       const nameB = b.querySelector('.name-package')?.dataset.name?.toLowerCase() || '';
       return nameA.localeCompare(nameB);
     });
-    // Hide all modules and then show only the filtered and sorted ones
-    allModules.forEach((module) => module.classList.add('hidden'));
-    sortedVisibleModules.forEach((module) => module.classList.remove('hidden'));
-    // Debugging
-    //console.log(`Visible modules after filtering and sorting: ${sortedVisibleModules.length}`);
   }
   // Update active package link visually
   function updateActivePackageLink(sidebarSelector, activePackage) {
@@ -252,33 +234,20 @@
     });
   }
 
+  function mergeElements(source, target, selector) {
+    if (!source || !target) return;
+    Array.from(source.querySelectorAll(selector)).forEach((element) => {
+      if (!target.querySelector(`[data-package="${element.dataset.package}"]`)) {
+        target.appendChild(element);
+      }
+    });
+  }
+
   function mergeWrappers(wrappers, mainSidebar, mainList) {
     wrappers.slice(1).forEach((wrapper) => {
-      mergeSidebar(wrapper.querySelector('.module-matrix-sidebar'), mainSidebar);
-      mergeList(wrapper.querySelector('.module-matrix-list'), mainList);
+      mergeElements(wrapper.querySelector('.module-matrix-sidebar'), mainSidebar, 'a');
+      mergeElements(wrapper.querySelector('.module-matrix-list'), mainList, '.module-matrix-list-inner');
       wrapper.remove();
-    });
-  }
-
-  function mergeSidebar(sidebar, mainSidebar) {
-    if (!sidebar) return;
-    Array.from(sidebar.querySelectorAll('a')).forEach((link) => {
-      if (!mainSidebar.querySelector(`[data-package="${link.dataset.package}"]`)) {
-        mainSidebar.appendChild(link);
-      }
-    });
-    if (!mainSidebar.querySelector('.package-link.active')) {
-      const allModulesLink = mainSidebar.querySelector('.package-link-all');
-      if (allModulesLink) {
-        allModulesLink.classList.add('active'); // Default to "All Modules".
-      }
-    }
-  }
-
-  function mergeList(list, mainList) {
-    if (!list) return;
-    Array.from(list.querySelectorAll('.module-matrix-list-inner')).forEach((module) => {
-      mainList.appendChild(module);
     });
   }
   // Filtering Logic
@@ -312,12 +281,6 @@
     const moduleItems = Array.from(moduleList.querySelectorAll('.module-matrix-list-inner'));
     // console.log(`Found ${moduleItems.length} individual modules (.module-matrix-list-inner)`);
     moduleItems.forEach((item, index) => processModuleItem(item, index, data));
-    // Validate counts after initialization
-    // console.log('Initialized Data:', {
-    //   totalModules: getTotalModules(data),
-    //   totalEnabled: getTotalEnabled(data),
-    //   totalDisabled: getTotalDisabled(data),
-    // });
     return data;
   }
 
@@ -343,17 +306,18 @@
 
   function processModuleItem(item, index, data) {
     const namePackage = item.querySelector('.name-package');
-    const details = item.querySelector('.name-package');
-    if (!namePackage || !details) {
-      // console.warn(`Module #${index + 1} missing name-package or name-package`);
+    if (!namePackage) {
+      // console.warn(`Module #${index + 1} missing .name-package`);
       return;
     }
-    const packageName = details.dataset.package || 'unknown';
-    const isEnabled = details.dataset.status && parseInt(details.dataset.status) === 1;
+
+    const packageName = namePackage.dataset.package || 'unknown';
+    const isEnabled = parseInt(namePackage.dataset.status) === 1;
     const moduleName = namePackage.textContent.trim() || '';
-    const moduleDate = details.dataset.date || '';
-    const moduleLifecycle = details.dataset.lifecycle || '';
-    const moduleStability = details.dataset.stability || '';
+    const moduleDate = namePackage.dataset.date || '';
+    const moduleLifecycle = namePackage.dataset.lifecycle || '';
+    const moduleStability = namePackage.dataset.stability || '';
+
     updateModuleCounts(data, packageName, isEnabled);
     updateModuleLists(data, item, packageName, moduleName, moduleDate, moduleStability, moduleLifecycle);
   }
@@ -371,29 +335,30 @@
   }
 
   function updateModuleLists(data, item, packageName, moduleName, moduleDate, moduleStability, moduleLifecycle) {
-    data.modules.push({
+    const moduleData = {
       element: item,
       packageName,
       name: moduleName,
       date: moduleDate,
       stability: moduleStability,
-      lifecycle: moduleLifecycle,
-    });
+      lifecycle: moduleLifecycle
+    };
+    data.modules.push(moduleData);
     data.modulesByDate.push({
       element: item,
-      date: moduleDate,
+      date: moduleDate
     });
     data.modulesByLifecycle.push({
       element: item,
-      lifecycle: moduleLifecycle,
+      lifecycle: moduleLifecycle
     });
     data.modulesByStability.push({
       element: item,
-      stability: moduleStability,
+      stability: moduleStability
     });
     data.modulesByName.push({
       element: item,
-      name: moduleName,
+      name: moduleName
     });
   }
   //Helper Functions
@@ -456,44 +421,39 @@
     const link = generateLinkElement(label, href, {
       package: packageName
     });
-    classList.forEach((className) => link.classList.add(className));
-    // Create container for left side (icon + text)
+    classList.forEach(className => link.classList.add(className));
     const leftContainer = document.createElement('div');
     leftContainer.className = 'package-link-left';
-    // Add the material-icons span to the left container
     const iconSpan = document.createElement('span');
     iconSpan.className = 'material-icons';
     iconSpan.textContent = 'category';
-    // Add the label to the left container
     const labelSpan = document.createElement('span');
     labelSpan.className = 'package-label';
     labelSpan.textContent = label;
-    leftContainer.appendChild(iconSpan);
-    leftContainer.appendChild(labelSpan);
-    // Create container for right side (totals)
+    leftContainer.append(iconSpan, labelSpan);
     const rightContainer = document.createElement('div');
     rightContainer.className = 'package-link-right';
-    // Add total, enabled, and disabled spans to the right container
-    const totalSpan = document.createElement('span');
-    totalSpan.className = 'total';
-    totalSpan.textContent = total;
-    const onSpan = document.createElement('span');
-    onSpan.className = 'on';
-    onSpan.textContent = enabled;
-    const separator = document.createElement('span');
-    separator.textContent = '/';
-    const offSpan = document.createElement('span');
-    offSpan.className = 'off';
-    offSpan.textContent = disabled;
-    rightContainer.appendChild(totalSpan);
-    rightContainer.appendChild(onSpan);
-    rightContainer.appendChild(separator);
-    rightContainer.appendChild(offSpan);
-    // Append both left and right containers to the link
-    link.innerHTML = ''; // Clear link content
-    link.appendChild(leftContainer);
-    link.appendChild(rightContainer);
+    rightContainer.appendChild(createCountSpans(total, enabled, disabled));
+    link.innerHTML = '';
+    link.append(leftContainer, rightContainer);
     return link;
+  }
+  // Function to create count spans for total, enabled, and disabled
+  function createCountSpans(total = 0, enabled = 0, disabled = 0) {
+    const fragment = document.createDocumentFragment();
+    const createSpan = (className, text) => {
+      const span = document.createElement('span');
+      span.className = className;
+      span.textContent = text;
+      return span;
+    };
+    fragment.append(
+      createSpan('total', total),
+      createSpan('on', enabled),
+      document.createTextNode('/'),
+      createSpan('off', disabled)
+    );
+    return fragment;
   }
 
   function storeAllModules(containerSelector, modules) {
@@ -514,99 +474,26 @@
     elements.forEach((element) => fragment.appendChild(element));
     container.appendChild(fragment);
   }
-
-  function createCountSpans(total = 0, enabled = 0, disabled = 0) {
-    const fragment = document.createDocumentFragment();
-    // Create total span
-    const totalSpan = document.createElement('span');
-    totalSpan.className = 'total';
-    totalSpan.textContent = total;
-    fragment.appendChild(totalSpan);
-    // Create enabled span
-    const onSpan = document.createElement('span');
-    onSpan.className = 'on';
-    onSpan.textContent = enabled;
-    fragment.appendChild(onSpan);
-    // Create separator span
-    const separator = document.createElement('span');
-    separator.textContent = '/';
-    fragment.appendChild(separator);
-    // Create disabled span
-    const offSpan = document.createElement('span');
-    offSpan.className = 'off';
-    offSpan.textContent = disabled;
-    fragment.appendChild(offSpan);
-    return fragment;
-  }
   // Add animation to <details> elements
   function animateDetails() {
-    document.querySelectorAll('.module-matrix-item-details').forEach((details) => {
+    document.querySelectorAll('.module-matrix-item-details').forEach(details => {
       const header = details.querySelector('.matrix-details-header');
       const content = details.querySelector('.matrix-details-content');
-      if (!header && !content) return;
-      const icon = header.querySelector('.matrix-details-header-icon');
+      if (!header || !content) return;
       header.addEventListener('click', () => {
         const isOpen = details.classList.toggle('open');
+        header.setAttribute('aria-expanded', isOpen.toString());
         if (isOpen) {
-          content.style.height = content.scrollHeight + 'px'; // Set height for animation
-          header.setAttribute('aria-expanded', 'true');
-          content.addEventListener(
-            'transitionend',
-            function onExpand() {
-              content.style.height = 'auto'; // Allow content to adjust dynamically
-              content.removeEventListener('transitionend', onExpand);
-            }
-          );
-        } else {
-          content.style.height = content.scrollHeight + 'px'; // Set current height before collapsing
-          requestAnimationFrame(() => {
-            content.style.height = '0px'; // Collapse smoothly
+          content.style.height = content.scrollHeight + 'px';
+          content.addEventListener('transitionend', function onExpand() {
+            content.style.height = 'auto';
+            content.removeEventListener('transitionend', onExpand);
           });
-          header.setAttribute('aria-expanded', 'false');
+        } else {
+          content.style.height = content.scrollHeight + 'px';
+          requestAnimationFrame(() => (content.style.height = '0px'));
         }
       });
     });
   }
-  // function getUpdateFunctions(modules) {
-  //   return modules.filter((module) => {
-  //     const details = module.element.querySelector('.name-package');
-  //     return details && details.dataset.update === '1';
-  //   });
-  // }
-  // function sortAlphabetically(array, key) {
-  //   return [...array].sort((a, b) => a[key].localeCompare(b[key]));
-  // }
-  /**
-   * Utility functions for data manipulation
-   */
-  // function getTotalModules(data) {
-  //   return data.totalModules;
-  // }
-  // function getTotalEnabled(data) {
-  //   return data.totalEnabled;
-  // }
-  // function getTotalDisabled(data) {
-  //   return data.totalDisabled;
-  // }
-  // function getPackageCounts(data) {
-  //   return data.packageCounts;
-  // }
-  // function getPackageEnabledCounts(data) {
-  //   return data.packageEnabledCounts;
-  // }
-  // function getPackageDisabledCounts(data) {
-  //   return data.packageDisabledCounts;
-  // }
-  // function getModulesByDate(data) {
-  //   return sortAlphabetically(data.modulesByDate, 'date');
-  // }
-  // function getModulesByStability(data) {
-  //   return sortAlphabetically(data.modulesByStability, 'stability');
-  // }
-  // function getModulesByLifecycle(data) {
-  //   return sortAlphabetically(data.modulesByLifecycle, 'lifecycle');
-  // }
-  // function getModulesByName(data) {
-  //   return sortAlphabetically(data.modulesByName, 'name');
-  // }
 })(Drupal, drupalSettings, once);
