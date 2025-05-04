@@ -93,7 +93,7 @@
 
       {% if module_name and module_project and module_package is defined and module_package|lower != 'core' and module_package|lower != 'custom' %}
       <a class="name" href="https://drupal.org/project/{{ module_project }}" target="_blank" title="Visit the {{ module_name }} project on Drupal.org">
-        <span>{{ module_name }}</span><span class="material-icons">open_in_new</span>
+        <span>{{ module_name }} <span class="material-icons">open_in_new</span></span>
       </a>
 
       {% else %}

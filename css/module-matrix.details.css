@@ -70,8 +70,8 @@ form#system-modules .module-matrix-list .module-matrix-item-details.count-1 {
 form#system-modules .module-matrix-list .compact-top,
 form#system-modules .module-matrix-list .name-package:not(.compact .name-package) {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: start;
+  justify-content: space-evenly;
   gap: 12px;
 }
 
@@ -82,7 +82,8 @@ form#system-modules .module-matrix-list .name-package > *:not(.compact .name-pac
 }
 
 form#system-modules .module-matrix-list .name-package:not(.compact .name-package) {
-  flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 form#system-modules .compact .module-matrix-list .name-package {
@@ -94,9 +95,9 @@ form#system-modules .module-matrix-list .name-package .checkbox {
 }
 
 form#system-modules .module-matrix-list .name-package .name .material-icons {
-  font-size: 16px;
-  line-height: 1.4;
-  margin: 0 4px;
+  font-size: 1rem;
+  line-height: 1;
+  margin: 0;
 }
 
 form#system-modules .compact .module-matrix-list .compact-bottom {
