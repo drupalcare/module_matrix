@@ -24,7 +24,7 @@ form#system-modules-uninstall .material-icons {
   font-family: 'Material Icons';
   display: inline-block;
   vertical-align: middle;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 @font-face {
@@ -76,13 +76,13 @@ form#system-modules-uninstall .module-matrix-list .name-package {
 /* Name formatting */
 form#system-modules-uninstall .module-matrix-list .name {
   font-weight: normal;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 /* Module description on the right */
 form#system-modules-uninstall .module-matrix-item-details {
   flex: 2;
-  font-size: 14px;
+  font-size: 0.875rem;
   padding: 12px;
   border-left: 1px solid #ddd;
 }

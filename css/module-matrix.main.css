@@ -31,13 +31,13 @@ form#system-modules .intro-message-class {
 form#system-modules .intro-message-class * {
   margin: 0;
   padding: 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.4;
   text-decoration: none;
 }
 
 form#system-modules .intro-message-class .material-icons {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 form#system-modules .module-matrix-filters {
@@ -48,7 +48,7 @@ form#system-modules .material-icons {
   font-family: 'Material Icons';
   display: inline-block;
   vertical-align: middle;
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 @font-face {
@@ -67,6 +67,10 @@ form#system-modules .module-matrix-sidebar {
 .module-matrix-list,
 .module-matrix-sidebar {
   border: 1px solid #ddd;
+}
+
+form#system-modules .name-package a.name .material-icons {
+  opacity: 0.7;
 }
 
 @keyframes fadeSlideUp {

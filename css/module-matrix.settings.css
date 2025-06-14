@@ -133,7 +133,7 @@ form.module-matrix-settings-form .accent-tooltip {
   bottom: -35px; /* Moves tooltip below */
   background-color: rgba(0, 0, 0, 0.75);
   color: #fff;
-  font-size: 12px;
+  font-size: 0.75rem;
   padding: 5px 8px;
   border-radius: 4px;
   white-space: nowrap;
@@ -159,7 +159,7 @@ form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:ch
 
 form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:checked + label::after {
   content: "✔";
-  font-size: 20px;
+  font-size: 1.25rem;
   color: white;
   font-weight: bold;
   position: absolute;

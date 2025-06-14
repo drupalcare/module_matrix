@@ -40,7 +40,7 @@ form#system-modules .module-matrix-sidebar .package-link-right {
 }
 
 form#system-modules .module-matrix-sidebar .package-link-right * {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 form#system-modules .top .module-matrix-sidebar .package-link-left,
@@ -65,7 +65,7 @@ form#system-modules .module-matrix-sidebar {
 }
 
 form#system-modules .module-matrix-sidebar .material-icons {
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1.5;
 }
 
@@ -84,7 +84,7 @@ form#system-modules .module-matrix-sidebar .package-link-right {
 }
 
 form#system-modules .module-matrix-sidebar a .package-label {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.8;
 }
 
@@ -134,4 +134,17 @@ form#system-modules .module-matrix-sidebar a span.off {
 form#system-modules .module-matrix-sidebar a span.total {
   padding: 3px 6px;
   border-radius: 12px;
+}
+
+form#system-modules .module-matrix-sidebar a[data-package="Core"] .material-icons {
+  display: inline-block;
+  width: 24px;
+  line-height: 24px;
+  margin-right: 8px;
+  background: url('../images/icons/drupal-logo.svg') no-repeat center;
+  background-size: contain;
+  vertical-align: middle;
+  text-indent: -9999px;
+  margin: 0;
+  transition: all 0.3s ease;
 }

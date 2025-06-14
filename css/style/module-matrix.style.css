@@ -175,17 +175,17 @@ form#system-modules input[type="checkbox"]:disabled {
 
 form#system-modules .module-matrix-sidebar a.active,
 form#system-modules .module-matrix-sidebar a:hover {
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   transition: all 0.3s ease-in-out;
 }
 
 /* Form style */
 form#system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-layout .module-matrix-list-inner):hover {
   cursor: pointer;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  transition: all 0.s ease-in-out;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  transition: all 0.3s ease-in-out;
 }
 
 form#system-modules .module-matrix-wrapper .module-matrix-list .name-package {
@@ -258,7 +258,7 @@ form#system-modules {
   border-color: var(--border-color);
 }
 
-form.system-modules * {
+form.system-modules *:not(a) {
   color: var(--text-color);
 }
 
@@ -273,11 +273,13 @@ form#system-modules * {
   border-color: var(--border-color);
 }
 
-form.system-modules a {
+form.system-modules a:not(.package-link),
+form.system-modules a:not(.package-link) * {
   color: var(--link-color);
 }
 
-form.system-modules a:hover {
+form.system-modules a:hover,
+form.system-modules a:hover * {
   color: var(--link-color-hover);
 }
 
