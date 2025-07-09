@@ -11,7 +11,7 @@ form#system-modules .module-matrix-sidebar a {
   display: flex;
   font-weight: normal;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
   text-decoration: none;
   padding: 4px 8px;
   border-radius: 4px;
@@ -19,7 +19,7 @@ form#system-modules .module-matrix-sidebar a {
 }
 
 form#system-modules .top .module-matrix-sidebar a {
-  align-items: top;
+  align-items: center;
 }
 
 form#system-modules .module-matrix-sidebar a .package-link-left {
@@ -36,16 +36,12 @@ form#system-modules .module-matrix-sidebar a .package-link-right {
 
 form#system-modules .module-matrix-sidebar .package-link-left,
 form#system-modules .module-matrix-sidebar .package-link-right {
-  display: flex;
+  display: inline-flex;
+  align-items: center;
 }
 
 form#system-modules .module-matrix-sidebar .package-link-right * {
   font-size: 0.875rem;
-}
-
-form#system-modules .top .module-matrix-sidebar .package-link-left,
-form#system-modules .top .module-matrix-sidebar .package-link-right {
-  align-items: center;
 }
 
 form#system-modules .module-matrix-sidebar .package-link-left {
@@ -84,8 +80,7 @@ form#system-modules .module-matrix-sidebar .package-link-right {
 }
 
 form#system-modules .module-matrix-sidebar a .package-label {
-  font-size: 1rem;
-  line-height: 1.8;
+  font-size: 0.875rem;
 }
 
 form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar .package-link-left,
@@ -113,12 +108,11 @@ form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar a {
 form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar a {
   gap: 8px;
   border-radius: 8px;
-  padding: 16px 24px;
+  padding: 8px 16px;
 }
 
 form#system-modules .module-matrix-wrapper.top .module-matrix-sidebar .material-icons {
   margin: 0;
-  margin-left: 8px;
 }
 
 form#system-modules .module-matrix-sidebar a span.on {

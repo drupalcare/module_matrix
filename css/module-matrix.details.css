@@ -70,13 +70,9 @@ form#system-modules .module-matrix-list .module-matrix-item-details.count-1 {
 form#system-modules .module-matrix-list .compact-top,
 form#system-modules .module-matrix-list .name-package:not(.compact .name-package) {
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-evenly;
   gap: 12px;
-}
-
-form#system-modules .module-matrix-list .compact-top {
-  align-items: center;
 }
 
 form#system-modules .module-matrix-wrapper.right a.name,
@@ -168,14 +164,14 @@ form#system-modules .module-matrix-wrapper.right .name-package .package {
 
 form#system-modules .module-matrix-list .name-package .name {
   font-weight: normal;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.4;
   font-weight: normal;
 }
 
 form#system-modules .module-matrix-list .name-package a.name {
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 2px;
 }
 
 form#system-modules .module-matrix-list .name-package .state-indicator {
