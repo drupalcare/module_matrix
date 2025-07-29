@@ -22,9 +22,18 @@ form#system-modules-uninstall * {
 
 form#system-modules-uninstall .material-icons {
   font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.25rem;
   display: inline-block;
   vertical-align: middle;
-  font-size: 1.25rem;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 @font-face {
@@ -32,6 +41,7 @@ form#system-modules-uninstall .material-icons {
   src: url('../fonts/MaterialIcons-Regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 form#system-modules-uninstall .module-matrix-wrapper.uninstall {

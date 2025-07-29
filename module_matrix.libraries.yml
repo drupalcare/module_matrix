@@ -19,7 +19,15 @@ main:
       css/module-matrix.package.css: { weight: -30}
       css/module-matrix.details.css: { weight: -30}
   js:
-    js/module-matrix.main.js: {}
+    js/module-matrix/constants.js: {}
+    js/module-matrix/utilities.js: {}
+    js/module-matrix/data-manager.js: {}
+    js/module-matrix/module-unifier.js: {}
+    js/module-matrix/filter-manager.js: {}
+    js/module-matrix/event-manager.js: {}
+    js/module-matrix/animation-manager.js: {}
+    js/module-matrix/ui-generator.js: {}
+    js/module-matrix/main.js: {}
   dependencies:
     - core/drupal
     - core/drupalSettings
