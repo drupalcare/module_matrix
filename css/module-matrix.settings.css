@@ -6,12 +6,13 @@
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
-form.module-matrix-settings-form {
+form.module-matrix-settings-form,
+form#module-matrix-settings-form input[type="checkbox"] {
   --checkbox-bg: #b5b5b5;
   --checkbox-border: #8d8d8d;
   --checkbox-knob: #f7f7f7;
   --checkbox-checked-bg: #3b945e;
-  --checkbox-checked-knob: #f7f7f7;
+  --checkbox-checked-knob: #008000;
   --checkbox-disabled: #7d7d7d;
 }
 
@@ -185,55 +186,76 @@ form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:di
   border: none;
 }
 
-form#module-matrix-settings-form input[type="checkbox"] {
+form#module-matrix-settings-form input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio) {
   all: unset;
-  appearance: none!important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
   cursor: pointer;
-  display: inline-block!important;
-  vertical-align: top!important;
-  position: relative!important;
-  overflow: hidden!important;
-  clip-path: circle(1.5rem at 50% 50%);
-  border-radius: 12px!important;
-  border: none!important;
-  padding: 0!important;
-  height: 24px!important;
-  width: 48px!important;
-  box-sizing: border-box!important;
-  transition: background 0.3s ease, border 0.3s ease, color 0.3s ease, opacity 0.3s ease;
-  background: var(--checkbox-bg);
+  display: inline-block !important;
+  vertical-align: middle;
+  position: relative !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  background: var(--checkbox-bg) !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border-radius: 999px !important;
+  border: 2px solid #666 !important;
+  height: 1.5rem !important;
+  width: 2.5rem !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+  transition: background 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-form#module-matrix-settings-form input[type="checkbox"]::before {
+form#module-matrix-settings-form input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio)::before {
   content: "";
   position: absolute;
-  border: none!important;
-  margin: 2px!important;
-  width: calc(100% - 26px)!important;
-  height: calc(100% - 4px)!important;
-  border-radius: 50%!important;
-  transition: transform 0.3s ease-in-out, background 0.3s ease, border 0.3s ease, color 0.3s ease, opacity 0.3s ease;
-  transform: translateX(2px)!important;
-  box-shadow: none!important;
-  background-color: var(--checkbox-knob);
+  border: none !important;
+  margin: 1px !important;
+  width: 1.125rem !important;
+  height: 1.125rem !important;
+  border-radius: 50% !important;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateX(2px) !important;
+  box-shadow: none !important;
+  background: var(--checkbox-border);
 }
 
 /* Checked State */
-form#module-matrix-settings-form input[type="checkbox"]:checked {
+form#module-matrix-settings-form input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio):checked {
   background: var(--checkbox-checked-bg);
   border-color: var(--checkbox-checked-bg);
 }
 
-form#module-matrix-settings-form input[type="checkbox"]:checked::before {
-  transform: translateX(20px)!important;
+form#module-matrix-settings-form input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio):checked::before {
+  transform: translateX(14px)!important;
   box-shadow: none;
   background-color: var(--checkbox-checked-knob);
 }
 
 /* Disabled State */
-form#module-matrix-settings-form input[type="checkbox"]:disabled {
+form#module-matrix-settings-form input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio):disabled {
   cursor: not-allowed;
   opacity: 0.6;
   background: var(--checkbox-disabled);
   border-color: var(--checkbox-disabled);
+}
+
+[dir="rtl"] form#module-matrix-settings-form input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio)::before {
+  transform: translateX(14px) !important;
+}
+
+[dir="rtl"] form#module-matrix-settings-form input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio):checked::before {
+  transform: translateX(2px) !important;
 }
