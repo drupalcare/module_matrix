@@ -78,6 +78,58 @@ form#system-modules .matrix-details-content .reason .material-icons {
   color: #f44336; /* Red for Reason */
 }
 
+/* Missing and Disabled Module Indicators */
+form#system-modules .matrix-details-content .admin-requirements.requires .details-option,
+form#system-modules .matrix-details-content .admin-requirements.required_by .details-option {
+  line-height: 1.6;
+}
+
+/* Style for (missing) text */
+form#system-modules .matrix-details-content .admin-requirements.requires .details-option *:not(a),
+form#system-modules .matrix-details-content .admin-requirements.required_by .details-option *:not(a) {
+  font-weight: normal;
+  color: inherit;
+}
+
+/* Target text containing "(missing)" - using CSS attribute selector */
+form#system-modules .matrix-details-content .admin-requirements.requires .details-option,
+form#system-modules .matrix-details-content .admin-requirements.required_by .details-option {
+  word-wrap: break-word;
+}
+
+/* Bold and red styling for missing indicator */
+form#system-modules .matrix-details-content .admin-requirements.requires .admin-missing,
+form#system-modules .matrix-details-content .admin-requirements.required_by .admin-missing {
+  color: #d32f2f !important;
+  font-weight: 700 !important;
+  background-color: rgba(211, 47, 47, 0.08);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(211, 47, 47, 0.3);
+  display: inline-block;
+  margin: 0 2px;
+}
+
+/* Styling for disabled indicator */
+form#system-modules .matrix-details-content .admin-requirements.requires .admin-disabled,
+form#system-modules .matrix-details-content .admin-requirements.required_by .admin-disabled {
+  color: #f57c00 !important;
+  font-weight: 600 !important;
+  background-color: rgba(245, 124, 0, 0.08);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(245, 124, 0, 0.3);
+  display: inline-block;
+  margin: 0 2px;
+}
+
+/* Styling for enabled modules (subtle) */
+form#system-modules .matrix-details-content .admin-requirements.requires .admin-enabled,
+form#system-modules .matrix-details-content .admin-requirements.required_by .admin-enabled {
+  color: #388e3c;
+  font-weight: 400;
+}
+
 /* Form */
 form#system-modules .module-matrix-sidebar a {
   margin: 5px 0;

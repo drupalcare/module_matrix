@@ -226,6 +226,7 @@ form#system-modules .module-matrix-wrapper.right .module-matrix-list .matrix-det
 
 form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-content {
   overflow: hidden;
+  cursor: default;
   height: 0;
   opacity: 0;
   padding: 0;

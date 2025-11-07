@@ -212,3 +212,38 @@ form#system-modules-uninstall .admin-requirements li {
   list-style: none;
   margin: 0;
 }
+
+/* Missing and Disabled Module Indicators - Uninstall Page */
+form#system-modules-uninstall .module-matrix-item-details .required-by .details-option {
+  line-height: 1.6;
+}
+
+/* Bold and red styling for missing indicator */
+form#system-modules-uninstall .module-matrix-item-details .admin-missing {
+  color: #d32f2f !important;
+  font-weight: 700 !important;
+  background-color: rgba(211, 47, 47, 0.08);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(211, 47, 47, 0.3);
+  display: inline-block;
+  margin: 0 2px;
+}
+
+/* Styling for disabled indicator */
+form#system-modules-uninstall .module-matrix-item-details .admin-disabled {
+  color: #f57c00 !important;
+  font-weight: 600 !important;
+  background-color: rgba(245, 124, 0, 0.08);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(245, 124, 0, 0.3);
+  display: inline-block;
+  margin: 0 2px;
+}
+
+/* Styling for enabled modules (subtle) */
+form#system-modules-uninstall .module-matrix-item-details .admin-enabled {
+  color: #388e3c;
+  font-weight: 400;
+}

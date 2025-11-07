@@ -12,10 +12,12 @@
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
-use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
  * Implements hook_help().
@@ -91,6 +93,18 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
     }
   }
 
+  foreach ($variables['modules'] as &$module) {
+    // Process "requires" field to style missing/disabled modules.
+    if (!empty($module['requires'])) {
+      $module['requires'] = module_matrix_style_dependency_status($module['requires']);
+    }
+
+    // Process "required_by" field to style missing/disabled modules.
+    if (!empty($module['required_by'])) {
+      $module['required_by'] = module_matrix_style_dependency_status($module['required_by']);
+    }
+  }
+
   // Add visibility settings and enabled count to variables.
   $module_options = module_matrix_get_modules_options($config);
   $variables['enabled_count'] = count(array_filter($module_options, fn($value) => $value === TRUE));
@@ -106,6 +120,48 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
 function module_matrix_preprocess_system_modules_uninstall(array &$variables): void {
   $config = \Drupal::config('module_matrix.settings');
   $variables['visibility'] = module_matrix_get_visibility_settings($config);
+  foreach ($variables['modules'] as &$module) {
+    // Process "required_by" field for uninstall page.
+    if (!empty($module['required_by'])) {
+      $module['required_by'] = module_matrix_style_dependency_status($module['required_by']);
+    }
+  }
+}
+
+/**
+ * Styles dependency status indicators.
+ *
+ * Wraps (missing), (disabled), and (enabled) indicators in styled spans.
+ *
+ * @param string|\Drupal\Core\StringTranslation\TranslatableMarkup $dependency_list
+ *   The dependency list string or renderable markup.
+ *
+ * @return \Drupal\Core\Render\Markup
+ *   Styled dependency list with wrapped status indicators.
+ */
+function module_matrix_style_dependency_status(string|TranslatableMarkup $dependency_list): Markup {
+  // Convert to string if it's a TranslatableMarkup object.
+  $list_string = (string) $dependency_list;
+
+  // Define status patterns and their replacement styles.
+  $replacements = [
+    // Missing modules - red, bold, with background.
+    '/\(missing\)/i' => '<span class="admin-missing">(missing)</span>',
+
+    // Disabled modules - orange, bold, with background.
+    '/\(disabled\)/i' => '<span class="admin-disabled">(disabled)</span>',
+
+    // Enabled modules - subtle green (optional).
+    '/\(enabled\)/i' => '<span class="admin-enabled">(enabled)</span>',
+  ];
+
+  // Apply all replacements using regex for case-insensitive matching.
+  foreach ($replacements as $pattern => $replacement) {
+    $list_string = preg_replace($pattern, $replacement, $list_string);
+  }
+
+  // Return as Markup to allow HTML rendering.
+  return Markup::create($list_string);
 }
 
 /**
