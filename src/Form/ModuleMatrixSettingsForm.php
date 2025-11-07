@@ -34,96 +34,75 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
 
     $config = $this->config('module_matrix.settings');
 
-    // Grouped container for module options settings.
-    $form['module_options_settings'] = [
-      '#type' => 'container',
-      '#title' => $this->t('Module Options Settings'),
+    // =========================================================================
+    // SECTION 1: Layout & Display Settings
+    // =========================================================================
+    $form['layout_display'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Layout & Display Settings'),
+      '#description' => $this->t('Configure how modules and packages are displayed on the administration page.'),
+      '#open' => TRUE,
+      '#weight' => 0,
     ];
 
-    // Add a message at the top of the form with a description.
-    $form['module_options_settings']['intro_message'] = [
-      '#type' => 'markup',
-      '#markup' => '<p>' . $this->t('This form allows you to configure module-related settings. Toggle the options below to enable or disable specific module features: Machine Name, Version, Lifecycle, Requires, Required By, Status, Project, Subpath, Last Modified, Stability, Links (Help, Permissions, Configure), Issue Link, and Usage Link. These settings apply to the <a href=":modules_url" target="_blank">module administration page</a>. The <a href=":uninstall_url" target="_blank">module uninstall page</a> has a fixed layout and only displays the module <strong>Name</strong>, <strong>Description</strong>, and <strong>Required By</strong>.', [
-        ':modules_url' => Url::fromRoute('system.modules_list')->toString(),
-        ':uninstall_url' => Url::fromRoute('system.modules_uninstall')->toString(),
-      ]) . '</p>',
-      '#attributes' => ['class' => ['intro-message-class']],
+    $form['layout_display']['layout'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Layout Position'),
+      '#default_value' => $config->get('layout') ?? 'left',
+      '#options' => [
+        'left' => $this->t('<strong>Left:</strong> Packages on the left, modules on the right'),
+        'right' => $this->t('<strong>Right:</strong> Packages on the right, modules on the left'),
+        'top' => $this->t('<strong>Top:</strong> Packages at the top, modules at the bottom'),
+      ],
+      '#description' => $this->t('Choose where package navigation appears relative to the module list.'),
     ];
 
-    // Additional settings that can be toggled.
-    $fields = [
-      'module_machine_name' => $this->t('Machine Name'),
-      'module_version' => $this->t('Version'),
-      'module_lifecycle' => $this->t('Lifecycle'),
-      'module_requires' => $this->t('Requires'),
-      'module_required_by' => $this->t('Required By'),
-      'module_status' => $this->t('Status'),
-      'module_project' => $this->t('Project'),
-      'module_subpath' => $this->t('Subpath'),
-      'module_mtime' => $this->t('Last Modified'),
-      'module_stability' => $this->t('Stability'),
-      'module_links' => $this->t('Links (Help, Permissions, Configure)'),
-      'module_issue_link' => $this->t('Issue Link'),
-      'module_usage_link' => $this->t('Usage Link'),
-    ];
-
-    foreach ($fields as $field_key => $label) {
-      $form['module_options_settings'][$field_key] = [
-        '#type' => 'checkbox',
-        '#title' => $label,
-        '#default_value' => $config->get($field_key) ?? TRUE,
-        '#states' => [
-          // Disabled by compact layout.
-          'disabled' => [':input.compact-layout-toggle' => ['checked' => TRUE]],
-        ],
-      ];
-    }
-
-    $form['appearance_settings'] = [
-      '#type' => 'container',
-      '#title' => $this->t('Module Options Settings'),
-    ];
-
-    // Scrollable sidebar checkbox.
-    $form['appearance_settings']['scrollable_sidebar'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Enable Scrollable Sidebar'),
-      '#default_value' => $config->get('scrollable_sidebar') ?? FALSE,
-      '#description' => $this->t('Make the sidebar scrollable when there are too many items.'),
-    ];
-
-    // New "Grid Layout" checkbox.
-    $form['appearance_settings']['grid_layout'] = [
+    $form['layout_display']['grid_layout'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable Grid Layout'),
       '#default_value' => $config->get('grid_layout') ?? FALSE,
-      '#description' => $this->t('Switch to a grid layout to transform the list into a responsive grid.'),
+      '#description' => $this->t('Transform the module list into a responsive grid layout instead of a traditional table.'),
     ];
 
-    // Add "Compact Layout" checkbox.
-    $form['appearance_settings']['compact_layout'] = [
+    $form['layout_display']['scrollable_sidebar'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable Scrollable Sidebar'),
+      '#default_value' => $config->get('scrollable_sidebar') ?? FALSE,
+      '#description' => $this->t('Make the package sidebar scrollable when there are many packages.'),
+    ];
+
+    $form['layout_display']['compact_layout'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Compact Layout'),
       '#default_value' => $config->get('compact_layout') ?? FALSE,
-      '#description' => $this->t("Enable Compact Layout to simplify the interface. When enabled, the following settings will be disabled: Description, Machine Name, Lifecycle, Requires, Required By, Status, Project, Last Modified, Stability, Issue Link, and Usage Link. Note that the Name and Package options are alawys displayed."),
+      '#description' => $this->t('Simplify the interface by hiding most optional fields. Only Name, Description, and Package will be displayed.'),
       '#attributes' => ['class' => ['compact-layout-toggle']],
     ];
 
-    // New "Style Mode" radio buttons.
-    $form['appearance_settings']['style_mode'] = [
+    // =========================================================================
+    // SECTION 2: Color Theme
+    // =========================================================================
+    $form['color_theme'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Color Theme'),
+      '#description' => $this->t('Customize the visual appearance with style modes and accent colors.'),
+      '#open' => FALSE,
+      '#weight' => 10,
+    ];
+
+    $form['color_theme']['style_mode'] = [
       '#type' => 'radios',
       '#title' => $this->t('Style Mode'),
       '#options' => [
         'light' => $this->t('Light'),
         'dark' => $this->t('Dark'),
-        'none' => $this->t('None'),
+        'none' => $this->t('None - Use default browser styles'),
       ],
       '#default_value' => $config->get('style_mode') ?? 'light',
-      '#description' => $this->t('Select a style mode for the interface. Choose Light or Dark to apply a theme with an accent color, or select None to disable styling and use the default appearance.'),
+      '#description' => $this->t('Select a color theme for the module administration interface.'),
     ];
 
-    // New "Accent Color" radio buttons.
-    $form['appearance_settings']['accent_color'] = [
+    $form['color_theme']['accent_color'] = [
       '#type' => 'radios',
       '#title' => $this->t('Accent Color'),
       '#options' => [
@@ -135,36 +114,104 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
         'neutral' => $this->t('Neutral'),
       ],
       '#default_value' => $config->get('accent_color') ?? 'neutral',
-      '#description' => $this->t('Choose an accent color to apply when a style mode is selected. This option is disabled if styling is turned off.'),
+      '#description' => $this->t('Choose the accent color for highlights and interactive elements.'),
       '#states' => [
         'disabled' => [
           ':input[name="style_mode"]' => ['value' => 'none'],
         ],
       ],
       '#after_build' => [
-          [get_called_class(), 'addDataAccent'],
+        [get_called_class(), 'addDataAccent'],
       ],
     ];
 
-    $form['appearance_settings']['layout'] = [
-      '#type' => 'radios',
-      '#title' => $this->t('Choose the layout for displaying modules and packages'),
-      '#default_value' => $config->get('layout') ?? 'left',
-      '#options' => [
-        'left' => $this->t('<strong>Left:</strong> Packages are displayed on the left, and modules are displayed on the right.'),
-        'right' => $this->t('<strong>Right:</strong> Packages are displayed on the right, and modules are displayed on the left.'),
-        'top' => $this->t('<strong>Top:</strong> Packages are displayed at the top, and modules are displayed at the bottom.'),
+    // =========================================================================
+    // SECTION 3: Module Information Fields
+    // =========================================================================
+    $form['module_fields'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Module Information Fields'),
+      '#description' => $this->t('Choose which information fields to display for each module. These settings apply to the <a href=":modules_url" target="_blank">module administration page</a>. The <a href=":uninstall_url" target="_blank">uninstall page</a> has a fixed layout showing only Name, Description, and Required By.', [
+        ':modules_url' => Url::fromRoute('system.modules_list')->toString(),
+        ':uninstall_url' => Url::fromRoute('system.modules_uninstall')->toString(),
+      ]),
+      '#open' => TRUE,
+      '#weight' => 20,
+      '#states' => [
+        'visible' => [
+          ':input[name="compact_layout"]' => ['checked' => FALSE],
+        ],
       ],
-      '#description' => $this->t('Select the layout that works best for your display.'),
     ];
+
+    // Module field options grouped by category.
+    $field_groups = [
+      'basic_info' => [
+        'title' => $this->t('Basic Information'),
+        'fields' => [
+          'module_machine_name' => $this->t('Machine Name'),
+          'module_version' => $this->t('Version'),
+          'module_status' => $this->t('Status'),
+        ],
+      ],
+      'dependencies' => [
+        'title' => $this->t('Dependencies'),
+        'fields' => [
+          'module_requires' => $this->t('Requires'),
+          'module_required_by' => $this->t('Required By'),
+        ],
+      ],
+      'project_info' => [
+        'title' => $this->t('Project Information'),
+        'fields' => [
+          'module_project' => $this->t('Project'),
+          'module_subpath' => $this->t('Subpath'),
+          'module_lifecycle' => $this->t('Lifecycle'),
+          'module_stability' => $this->t('Stability'),
+          'module_mtime' => $this->t('Last Modified'),
+        ],
+      ],
+      'links' => [
+        'title' => $this->t('Links & Resources'),
+        'fields' => [
+          'module_links' => $this->t('Help, Permissions, Configure'),
+          'module_issue_link' => $this->t('Issue Queue Link'),
+          'module_usage_link' => $this->t('Usage Statistics Link'),
+        ],
+      ],
+    ];
+
+    foreach ($field_groups as $group_key => $group_data) {
+      $form['module_fields'][$group_key] = [
+        '#type' => 'fieldset',
+        '#title' => $group_data['title'],
+      ];
+
+      foreach ($group_data['fields'] as $field_key => $label) {
+        $form['module_fields'][$group_key][$field_key] = [
+          '#type' => 'checkbox',
+          '#title' => $label,
+          '#default_value' => $config->get($field_key) ?? TRUE,
+          '#states' => [
+            'disabled' => [':input.compact-layout-toggle' => ['checked' => TRUE]],
+          ],
+        ];
+      }
+    }
 
     return parent::buildForm($form, $form_state);
   }
 
   /**
-   * Adds data-accent attributes to each radio button.
+   * Adds data-accent attributes to each radio button for visual styling.
+   *
+   * @param array $element
+   *   The form element being processed.
+   *
+   * @return array
+   *   The modified form element with data attributes added.
    */
-  public static function addDataAccent($element) {
+  public static function addDataAccent(array $element): array {
     foreach ($element['#options'] as $key => $label) {
       $element[$key]['#attributes']['data-accent'] = $label;
     }
@@ -175,27 +222,40 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this->config('module_matrix.settings')
-      ->set('module_machine_name', $form_state->getValue('module_machine_name'))
-      ->set('module_version', $form_state->getValue('module_version'))
-      ->set('module_lifecycle', $form_state->getValue('module_lifecycle'))
-      ->set('module_requires', $form_state->getValue('module_requires'))
-      ->set('module_required_by', $form_state->getValue('module_required_by'))
-      ->set('module_status', $form_state->getValue('module_status'))
-      ->set('module_project', $form_state->getValue('module_project'))
-      ->set('module_subpath', $form_state->getValue('module_subpath'))
-      ->set('module_mtime', $form_state->getValue('module_mtime'))
-      ->set('module_stability', $form_state->getValue('module_stability'))
-      ->set('module_links', $form_state->getValue('module_links'))
-      ->set('module_issue_link', $form_state->getValue('module_issue_link'))
-      ->set('module_usage_link', $form_state->getValue('module_usage_link'))
-      ->set('scrollable_sidebar', $form_state->getValue('scrollable_sidebar'))
+    $config = $this->config('module_matrix.settings');
+
+    // Save layout & display settings.
+    $config->set('layout', $form_state->getValue('layout'))
       ->set('grid_layout', $form_state->getValue('grid_layout'))
-      ->set('compact_layout', $form_state->getValue('compact_layout'))
-      ->set('style_mode', $form_state->getValue('style_mode'))
-      ->set('accent_color', $form_state->getValue('accent_color'))
-      ->set('layout', $form_state->getValue('layout'))
-      ->save();
+      ->set('scrollable_sidebar', $form_state->getValue('scrollable_sidebar'))
+      ->set('compact_layout', $form_state->getValue('compact_layout'));
+
+    // Save color theme settings.
+    $config->set('style_mode', $form_state->getValue('style_mode'))
+      ->set('accent_color', $form_state->getValue('accent_color'));
+
+    // Save module field settings.
+    $fields = [
+      'module_machine_name',
+      'module_version',
+      'module_lifecycle',
+      'module_requires',
+      'module_required_by',
+      'module_status',
+      'module_project',
+      'module_subpath',
+      'module_mtime',
+      'module_stability',
+      'module_links',
+      'module_issue_link',
+      'module_usage_link',
+    ];
+
+    foreach ($fields as $field) {
+      $config->set($field, $form_state->getValue($field));
+    }
+
+    $config->save();
 
     parent::submitForm($form, $form_state);
   }
