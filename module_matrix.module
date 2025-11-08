@@ -95,12 +95,12 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
 
   foreach ($variables['modules'] as &$module) {
     // Process "requires" field to style missing/disabled modules.
-    if (!empty($module['requires']['#markup'])) {
+    if (isset($module['requires']) && is_array($module['requires']) && !empty($module['requires']['#markup'])) {
       $module['requires']['#markup'] = module_matrix_style_dependency_status($module['requires']['#markup']);
     }
 
     // Process "required_by" field to style missing/disabled modules.
-    if (!empty($module['required_by']['#markup'])) {
+    if (isset($module['required_by']) && is_array($module['required_by']) && !empty($module['required_by']['#markup'])) {
       $module['required_by']['#markup'] = module_matrix_style_dependency_status($module['required_by']['#markup']);
     }
   }
@@ -122,7 +122,7 @@ function module_matrix_preprocess_system_modules_uninstall(array &$variables): v
   $variables['visibility'] = module_matrix_get_visibility_settings($config);
   foreach ($variables['modules'] as &$module) {
     // Process "required_by" field for uninstall page.
-    if (!empty($module['required_by']['#markup'])) {
+    if (isset($module['required_by']) && is_array($module['required_by']) && !empty($module['required_by']['#markup'])) {
       $module['required_by']['#markup'] = module_matrix_style_dependency_status($module['required_by']['#markup']);
     }
   }
