@@ -128,7 +128,7 @@ form.module-matrix-settings-form #edit-accent-color--wrapper .form-radios {
 }
 
 form.module-matrix-settings-form #edit-accent-color--wrapper input.form-radio {
-  display: none;
+  display: none!important;
 }
 
 form.module-matrix-settings-form #edit-accent-color--wrapper label.form-item__label {
