@@ -43,18 +43,27 @@ form#system-modules-uninstall input[type="submit"] {
 @media (min-width:576px) {
   form#system-modules-uninstall #edit-actions {
     position: absolute;
-    top: 80px;
+    top: 16px;
     margin: 0;
     right: 16px;
-    width: auto;
+    width: 130px;
     padding: 0;
+    min-height: 60px;
+
   }
 
-  form#system-modules-uninstall #edit-actions input {
+  form#system-modules-uninstall #edit-actions #edit-submit {
     margin: 0;
+    padding: 19px 12px;
+    width: 100%;
+    max-height: initial;
   }
-
+  form#system-modules-uninstall .table-filter {
+    width: calc(100% - 140px);
+  }
 }
+
+
 
 /* Input styles */
 form#system-modules-uninstall input[type="search"],
