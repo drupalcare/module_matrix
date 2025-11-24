@@ -19,7 +19,7 @@
     ],
     "support": {
         "issues": "https://www.drupal.org/project/issues/module_matrix",
-        "source": "https://git.drupalcode.org/project/module_matrix",
+        "source": "https://git.drupalcode.org/project/module_matrix"
     },
     "require": {
         "php": ">=8.1",
