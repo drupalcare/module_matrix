@@ -1,8 +1,9 @@
 name: 'Module Matrix'
 type: module
-description: 'Provides an enhanced module matrix UI for managing modules.'
+description: 'Enhanced module management interface with matrix view, bulk operations, and improved module organization.'
+package: 'Administration'
 core_version_requirement: ^10 || ^11
-package: Administration
+php: ^8.1
 dependencies:
   - drupal:system
 configure: module_matrix.settings_form
