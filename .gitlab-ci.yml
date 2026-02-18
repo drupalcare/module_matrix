@@ -1,0 +1,28 @@
+################
+# Drupal.org GitLab CI template for contrib modules.
+#
+# To use: place this file in the root of your module repository.
+# Drupal.org CI will automatically pick it up.
+#
+# @see https://www.drupal.org/docs/develop/git/using-gitlab-to-contribute-to-drupal/gitlab-ci
+################
+
+include:
+  - project: $_GITLAB_TEMPLATES_REPO
+    ref: $_GITLAB_TEMPLATES_REF
+    file:
+      - '/includes/include.drupalci.main.yml'
+      - '/includes/include.drupalci.variables.yml'
+      - '/includes/include.drupalci.workflows.yml'
+
+variables:
+  # Opt-in to Drupal.org's GitLab CI pipelines.
+  OPT_IN: 1
+  # Specify the core versions to test against.
+  _TARGET_CORE: $CORE_STABLE
+  # Skip specific test types if needed.
+  SKIP_ESLINT: '0'
+  SKIP_STYLELINT: '0'
+  SKIP_PHPCS: '0'
+  SKIP_PHPSTAN: '0'
+  SKIP_PHPUNIT: '0'

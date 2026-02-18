@@ -1,6 +1,6 @@
 name: 'Module Matrix'
 type: module
-description: 'Enhanced module management interface with matrix view, bulk operations, and improved module organization.'
+description: 'Enhanced module management interface with advanced filtering, package navigation, and customizable module details display.'
 package: 'Administration'
 core_version_requirement: ^10 || ^11
 php: ^8.1

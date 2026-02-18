@@ -1,6 +1,6 @@
 {
     "name": "drupal/module_matrix",
-    "description": "Enhanced module management interface with matrix view, bulk operations, and improved module organization.",
+    "description": "Enhanced module management interface with advanced filtering, package navigation, and customizable module details display.",
     "type": "drupal-module",
     "license": "GPL-2.0-or-later",
     "homepage": "https://www.drupal.org/project/module_matrix",

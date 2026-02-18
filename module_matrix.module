@@ -1,9 +1,15 @@
 <?php
 
+/**
+ * @file
+ */
+
 declare(strict_types=1);
 
 /**
  * @file
+ * Module matrix hooks and helper functions.
+ *
  * Provides the module implementation for module_matrix.
  *
  * Contains template preprocessing and theme definitions for Views.
@@ -79,8 +85,6 @@ function module_matrix_theme_registry_alter(array &$theme_registry): void {
  * Implements hook_preprocess_HOOK() for system_modules_details.
  */
 function module_matrix_preprocess_system_modules_details(array &$variables): void {
-  // Core uses this for module details.
-  $form = $variables['form'];
   $config = \Drupal::config('module_matrix.settings');
   $extension_list = \Drupal::service('extension.list.module')->getList();
 

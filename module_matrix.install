@@ -1,9 +1,15 @@
 <?php
 
+/**
+ * @file
+ */
+
 declare(strict_types=1);
 
 /**
  * @file
+ * Install and uninstall functions for module_matrix.
+ *
  * Install, update and uninstall functions for the module_matrix module.
  */
 

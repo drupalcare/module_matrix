@@ -80,6 +80,31 @@ The settings form allows users to:
 - Use a quick access link at `admin/config/system/module-matrix-settings`.
 - Assign permissions to restrict configuration access to specific roles.
 
+## Module Matrix vs Module Filter
+
+If you're already using
+[Module Filter](https://www.drupal.org/project/module_filter), here's how
+Module Matrix differs:
+
+| Feature | Module Matrix | Module Filter |
+|---------|---------------|---------------|
+| jQuery dependency | None (vanilla JS) | Requires jQuery |
+| Layout options | Left, Right, Top | Tabs or dropdown |
+| Filter by lifecycle | Yes | No |
+| Filter by stability | Yes | No |
+| Customizable detail fields | Yes (14 toggleable fields) | No |
+| Dark mode | Yes | No |
+| Accent color themes | 6 options | No |
+| Compact mode | Yes | No |
+| Grid layout | Yes | No |
+| Drupal.org links (issues, usage) | Yes | No |
+| Submodule detection | Yes | No |
+
+Module Filter is a mature, widely adopted module focused on filtering and
+tabbed navigation. Module Matrix takes a different approach with a richer,
+fully customizable interface including multiple layout modes, theme options,
+and deeper module metadata display. Choose the one that fits your workflow.
+
 ## Installation
 
 1. Download and enable Module Matrix.
