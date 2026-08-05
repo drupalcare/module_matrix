@@ -72,6 +72,7 @@ form#system-modules .module-matrix-list,
 form#system-modules .module-matrix-sidebar {
   border-radius: 5px;
   padding: 16px;
+  min-width: 0;
 }
 
 .module-matrix-list,
