@@ -66,3 +66,59 @@ form#system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-la
   }
 
 }
+
+/**
+ * Performance: skip layout and paint for rows that are off screen.
+ *
+ * A site with a large module tree renders one row per module on this page. On
+ * a shared docroot that can be a thousand rows and ~60,000 DOM nodes, and
+ * every scroll, filter and resize then pays a full layout over all of them —
+ * measured at ~158ms per layout pass, which is what makes the page feel
+ * frozen. Skipping offscreen rows takes that to ~2ms.
+ *
+ * `auto` in contain-intrinsic-size makes the browser remember each row real
+ * height once it has been rendered, so the scrollbar does not jump while
+ * scrolling. The 3.5rem placeholder only applies to rows never yet seen.
+ *
+ * SAFE WITH THE EXPAND ANIMATION, but for a specific reason worth keeping:
+ * AnimationManager.expandDetails() measures `content.scrollHeight`, which
+ * inside a skipped subtree would return the placeholder instead of the real
+ * height. `content-visibility: auto` only skips OFFSCREEN content, and a row
+ * can only be expanded by clicking its header, so the row being measured is
+ * always on screen and fully rendered. If a bulk "expand all" or an
+ * expand-on-deep-link is ever added, it must set `contentVisibility` to
+ * `visible` on the row before measuring.
+ *
+ * Ignored by browsers without support (Safari below 18), which lose the
+ * optimisation and nothing else.
+ */
+form#system-modules .module-matrix-list-inner {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 3.5rem;
+}
+
+/*
+ * The placeholder is per layout because a row's height changes with it, and a
+ * wrong estimate shows up as a jumpy scrollbar until each row has been seen
+ * once. Measured medians at a 1512px viewport: list 54px, grid 134px,
+ * compact 86px. The sidebar position (left/right) does not change row height,
+ * so it needs no rule of its own.
+ *
+ * Note `compact_layout` also sets the `grid-layout` class - the template uses
+ * `grid_layout or compact_layout` - so the compact rule has to come after the
+ * grid rule and be more specific, which it is.
+ */
+form#system-modules .grid-layout .module-matrix-list-inner {
+  contain-intrinsic-size: auto 8.5rem;
+}
+
+form#system-modules .grid-layout.compact .module-matrix-list-inner {
+  contain-intrinsic-size: auto 5.5rem;
+}
+
+/* Printing must render every row, not just the ones that were on screen. */
+@media print {
+  form#system-modules .module-matrix-list-inner {
+    content-visibility: visible;
+  }
+}
