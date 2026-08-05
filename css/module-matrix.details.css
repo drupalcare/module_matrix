@@ -200,6 +200,7 @@ form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner
 }
 
 form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header {
+  min-width: 0;
   font-size: 0.875rem;
   line-height: 1.4;
   display: flex;

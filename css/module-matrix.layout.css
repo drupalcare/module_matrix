@@ -6,10 +6,15 @@
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
+form#system-modules {
+  min-width: 0;
+}
+
 form#system-modules .module-matrix-wrapper {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-width: 0;
 }
 
 form#system-modules .module-matrix-wrapper.top {
@@ -55,6 +60,7 @@ form#system-modules .module-matrix-wrapper.right .module-matrix-sidebar {
   form#system-modules .module-matrix-wrapper.right .module-matrix-list {
     flex: 1 1 auto;
     flex-grow: 1;
+    min-width: 0;
   }
 
 }
