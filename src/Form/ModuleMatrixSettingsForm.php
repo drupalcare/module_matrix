@@ -190,13 +190,16 @@ class ModuleMatrixSettingsForm extends ConfigFormBase {
       ];
 
       foreach ($group_data['fields'] as $field_key => $label) {
+        // No '#states' => 'disabled' here. Compact layout already hides this
+        // whole section through the '#states' => 'visible' on
+        // $form['module_fields'], and hidden inputs still post their values.
+        // Disabling them instead stopped the browser from sending them at all,
+        // so saving the form while compact layout was on silently rewrote every
+        // one of these to FALSE and the user lost settings they never touched.
         $form['module_fields'][$group_key][$field_key] = [
           '#type' => 'checkbox',
           '#title' => $label,
           '#default_value' => $config->get($field_key) ?? TRUE,
-          '#states' => [
-            'disabled' => [':input.compact-layout-toggle' => ['checked' => TRUE]],
-          ],
         ];
       }
     }

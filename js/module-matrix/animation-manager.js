@@ -57,6 +57,16 @@ window.ModuleMatrix.AnimationManager = {
     header.addEventListener('click', () => {
       this.toggleDetailsElement(details, header, content);
     });
+
+    // A div with role="button" gets no keyboard behaviour from the browser, so
+    // Enter and Space have to be handled here or the panel is mouse-only.
+    // preventDefault on Space stops the page scrolling instead of opening.
+    header.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+        event.preventDefault();
+        this.toggleDetailsElement(details, header, content);
+      }
+    });
   },
 
   /**

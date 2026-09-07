@@ -292,6 +292,13 @@ function module_matrix_enhance_module(array &$module, $extension, array $parent_
  * Determines the stability of a module version.
  */
 function module_matrix_get_stability(string $version): string {
+  // A module with no version tells us nothing about its stability. Reporting
+  // 'stable' here claimed a fact the module does not have: on a site running
+  // contrib from Git checkouts every one of those modules was labelled Stable.
+  if (trim($version) === '') {
+    return 'unknown';
+  }
+
   if (str_contains($version, "-dev")) {
     return 'dev';
   }
@@ -407,6 +414,7 @@ function module_matrix_form_system_modules_alter(array &$form, FormStateInterfac
         'beta' => t('Beta'),
         'alpha' => t('Alpha'),
         'dev' => t('Development'),
+        'unknown' => t('Unknown'),
       ],
       '#default_value' => [],
       '#attributes' => [
@@ -419,6 +427,10 @@ function module_matrix_form_system_modules_alter(array &$form, FormStateInterfac
   $form['filters']['reset'] = [
     '#type' => 'button',
     '#value' => t('Reset'),
+    // Without this core renders type="submit", so this button sits inside the
+    // module install form and only a preventDefault in JS stops a click from
+    // posting it. #submit_button = FALSE makes it a real type="button".
+    '#submit_button' => FALSE,
     '#attributes' => [
       'id' => 'reset-filters',
   // Adding Drupal button classes.

@@ -67,7 +67,11 @@
     {% set module_subpath = module.subpath is defined ? module.subpath|render|striptags|trim : '' %}
     {% set module_lifecycle = module.lifecycle is defined ? module.lifecycle|render|striptags|trim : '' %}
     {% set module_description = module.description is defined ? module.description|render|striptags|trim : '' %}
-    {% set module_enable_id = module.description is defined ? module.description|render|striptags|trim|clean_id ~ '-description' : '' %}
+    {# Derived from the machine name, which is unique. It used to be derived
+       from the description text, so any two modules sharing a description got
+       the same id: 132 of 1067 rows collided, and aria-controls resolved to
+       another module's panel. #}
+    {% set module_enable_id = module_machine_name ? module_machine_name|clean_id ~ '-description' : '' %}
     {% set modules_project_machine = (module_machine_name == module_project) ? module_project : module_project ~ '-' ~ module_machine_name %}
 
 
@@ -164,13 +168,17 @@
         %}
 
 
-          <div class="matrix-details-header"  aria-controls="{{ module_enable_id }}" role="button" aria-expanded="false">
+          {# tabindex="0" is required: a div with role="button" is not focusable
+             on its own, so without it the panel could only be opened with a
+             mouse. aria-controls points at the panel this header toggles, not
+             at the row heading. #}
+          <div class="matrix-details-header" tabindex="0" aria-controls="{{ module_enable_id }}-panel" role="button" aria-expanded="false">
             <span class="text module-matrix-item-description">{{ module_description ? module_description : 'No description available'|t }}
            </span>
            <span class="matrix-details-header-icon material-icons">keyboard_arrow_down</span>
         </div>
 
-          <div class="matrix-details-content">
+          <div class="matrix-details-content" id="{{ module_enable_id }}-panel">
 
             {% if visibility.module_project and module_project %}
             <div class="admin-requirements project">
