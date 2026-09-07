@@ -16,13 +16,32 @@ include:
       - '/includes/include.drupalci.workflows.yml'
 
 variables:
-  # Opt-in to Drupal.org's GitLab CI pipelines.
-  OPT_IN: 1
-  # Specify the core versions to test against.
-  _TARGET_CORE: $CORE_STABLE
-  # Skip specific test types if needed.
-  SKIP_ESLINT: '0'
-  SKIP_STYLELINT: '0'
-  SKIP_PHPCS: '0'
-  SKIP_PHPSTAN: '0'
-  SKIP_PHPUNIT: '0'
+  # info.yml claims `^10 || ^11 || ^12`, so all three ends get a job.
+  #
+  # TWO SWITCHES ARE NEEDED PER VARIANT, NOT ONE. `OPT_IN_TEST_*` (default '0')
+  # creates the job; `_AUTORUN_*` (default 'none') decides whether it runs or
+  # sits behind a manual prerequisite. Setting only the first gives a job that
+  # is silently skipped — a green pipeline with no coverage, which is worse
+  # than a missing job because it looks fine. That omission is how
+  # cloudflare_purge 3.1.2 shipped a class fatal to autoload on Drupal 10 with
+  # a fully green pipeline (#3614126).
+  OPT_IN_TEST_PREVIOUS_MAJOR: '1'
+  _AUTORUN_PREVIOUS_MAJOR: 'all'
+  OPT_IN_TEST_PREVIOUS_MINOR: '1'
+  _AUTORUN_PREVIOUS_MINOR: 'all'
+  # Drupal 12. Nothing had ever loaded this module on 12 before this line.
+  OPT_IN_TEST_NEXT_MAJOR: '1'
+  _AUTORUN_NEXT_MAJOR: 'all'
+  #
+  # THREE THINGS WERE REMOVED HERE, all of them inert, and each looked like it
+  # was doing something (verified against
+  # gitlab_templates/includes/include.drupalci.variables.yml):
+  #
+  #   - `OPT_IN: 1` — the template defines no such variable. The real ones are
+  #     the `OPT_IN_TEST_*` above. Pipelines run because this file exists and
+  #     includes the templates, not because of this line.
+  #   - `_TARGET_CORE: $CORE_STABLE` — deprecated since templates 1.5.10, it
+  #     applies only to the composer jobs, and it was setting the value that is
+  #     already the default. The template prints a deprecation banner for it.
+  #   - `SKIP_ESLINT/STYLELINT/PHPCS/PHPSTAN/PHPUNIT: '0'` — correct names, but
+  #     '0' is the default for every one of them, so they said nothing.
