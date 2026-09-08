@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Drupal\Tests\module_matrix\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the Module Matrix settings form and route access.
- *
- * @group module_matrix
  */
+#[Group('module_matrix')]
+#[RunTestsInSeparateProcesses]
 class SettingsFormTest extends BrowserTestBase {
 
   /**

@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Drupal\Tests\module_matrix\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Tests the module_matrix configuration schema and defaults.
- *
- * @group module_matrix
  */
+#[Group('module_matrix')]
+#[RunTestsInSeparateProcesses]
 class ConfigSchemaTest extends KernelTestBase {
 
   /**
