@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\module_matrix\Functional;
 
-use Drupal\Tests\BrowserTestBase;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests the Module Matrix settings form and route access.

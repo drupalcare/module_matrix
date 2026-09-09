@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\module_matrix\Unit;
 
-use Drupal\Tests\UnitTestCase;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests the module_matrix_get_stability() function.

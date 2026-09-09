@@ -1,0 +1,5 @@
+
+services:
+  Drupal\module_matrix\Hook\ModuleMatrixHooks:
+    class: Drupal\module_matrix\Hook\ModuleMatrixHooks
+    autowire: true

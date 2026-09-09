@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\module_matrix\Kernel;
 
-use Drupal\KernelTests\KernelTestBase;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use Drupal\KernelTests\KernelTestBase;
 
 /**
  * Tests the module_matrix configuration schema and defaults.
