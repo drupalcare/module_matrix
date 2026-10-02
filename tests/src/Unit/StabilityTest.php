@@ -24,6 +24,11 @@ class StabilityTest extends UnitTestCase {
 
   /**
    * Tests stability detection for various version strings.
+   *
+   * The annotation sits beside the attribute on purpose: PHPUnit 9.6, which
+   * Drupal 10 runs, ignores #[DataProvider] and calls this with no arguments.
+   *
+   * @dataProvider versionProvider
    */
   #[DataProvider('versionProvider')]
   public function testGetStability(string $version, string $expected): void {
