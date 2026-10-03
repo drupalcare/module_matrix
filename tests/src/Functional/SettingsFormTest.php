@@ -10,6 +10,8 @@ use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests the Module Matrix settings form and route access.
+ *
+ * @group module_matrix
  */
 #[Group('module_matrix')]
 #[RunTestsInSeparateProcesses]

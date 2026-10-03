@@ -10,6 +10,8 @@ use Drupal\KernelTests\KernelTestBase;
 
 /**
  * Tests the module_matrix configuration schema and defaults.
+ *
+ * @group module_matrix
  */
 #[Group('module_matrix')]
 #[RunTestsInSeparateProcesses]

@@ -10,6 +10,8 @@ use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests the module_matrix_get_stability() function.
+ *
+ * @group module_matrix
  */
 #[Group('module_matrix')]
 class StabilityTest extends UnitTestCase {
