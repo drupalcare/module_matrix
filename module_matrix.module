@@ -33,7 +33,7 @@ use Drupal\Core\Url;
  */
 #[LegacyHook]
 function module_matrix_help($route_name, RouteMatchInterface $route_match): ?string {
-  return \Drupal::service(ModuleMatrixHooks::class)->help($route_name, $route_match);
+  return \Drupal::classResolver(ModuleMatrixHooks::class)->help($route_name, $route_match);
 }
 
 /**
@@ -66,7 +66,7 @@ function _module_matrix_helper_render_readme(): string {
  */
 #[LegacyHook]
 function module_matrix_theme_registry_alter(array &$theme_registry): void {
-  \Drupal::service(ModuleMatrixHooks::class)->themeRegistryAlter($theme_registry);
+  \Drupal::classResolver(ModuleMatrixHooks::class)->themeRegistryAlter($theme_registry);
 }
 
 /**
@@ -74,7 +74,7 @@ function module_matrix_theme_registry_alter(array &$theme_registry): void {
  */
 #[LegacyHook]
 function module_matrix_preprocess_system_modules_details(array &$variables): void {
-  \Drupal::service(ModuleMatrixHooks::class)->preprocessSystemModulesDetails($variables);
+  \Drupal::classResolver(ModuleMatrixHooks::class)->preprocessSystemModulesDetails($variables);
 }
 
 /**
@@ -82,7 +82,7 @@ function module_matrix_preprocess_system_modules_details(array &$variables): voi
  */
 #[LegacyHook]
 function module_matrix_preprocess_system_modules_uninstall(array &$variables): void {
-  \Drupal::service(ModuleMatrixHooks::class)->preprocessSystemModulesUninstall($variables);
+  \Drupal::classResolver(ModuleMatrixHooks::class)->preprocessSystemModulesUninstall($variables);
 }
 
 /**
@@ -274,7 +274,7 @@ function module_matrix_get_stability(string $version): string {
  */
 #[LegacyHook]
 function module_matrix_form_system_modules_alter(array &$form, FormStateInterface $form_state, $form_id): void {
-  \Drupal::service(ModuleMatrixHooks::class)->formSystemModulesAlter($form, $form_state, $form_id);
+  \Drupal::classResolver(ModuleMatrixHooks::class)->formSystemModulesAlter($form, $form_state, $form_id);
 }
 
 /**
@@ -282,7 +282,7 @@ function module_matrix_form_system_modules_alter(array &$form, FormStateInterfac
  */
 #[LegacyHook]
 function module_matrix_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
-  \Drupal::service(ModuleMatrixHooks::class)->themeSuggestionsFieldsetAlter($suggestions, $variables);
+  \Drupal::classResolver(ModuleMatrixHooks::class)->themeSuggestionsFieldsetAlter($suggestions, $variables);
 }
 
 /**
@@ -290,5 +290,5 @@ function module_matrix_theme_suggestions_fieldset_alter(array &$suggestions, arr
  */
 #[LegacyHook]
 function module_matrix_theme($existing, $type, $theme, $path) {
-  return \Drupal::service(ModuleMatrixHooks::class)->theme($existing, $type, $theme, $path);
+  return \Drupal::classResolver(ModuleMatrixHooks::class)->theme($existing, $type, $theme, $path);
 }
