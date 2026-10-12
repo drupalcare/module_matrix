@@ -10,7 +10,7 @@ ultimate solution for managing modules efficiently.
 
 ### No jQuery Dependency
 
-Module Matrix is designed to work seamlessly without relying on jQuery,
+Module Matrix is designed to work without relying on jQuery,
 ensuring better compatibility with modern web standards and faster performance.
 
 ### Advanced Filtering Options
@@ -30,11 +30,11 @@ Module Matrix provides instant client-side filtering options:
 
 The filters include a reset button for clearing selections instantly.
 
-### Package Links for Enhanced Navigation
+### Package Links for Navigation
 
 Modules are grouped by package with visual indicators:
 
-- **Grey**: Total number of modules in a package.
+- **Gray**: Total number of modules in a package.
 - **Green**: Number of enabled modules.
 - **Red**: Number of disabled modules.
 
