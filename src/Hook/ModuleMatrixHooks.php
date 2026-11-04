@@ -112,7 +112,8 @@ class ModuleMatrixHooks {
    */
   #[Hook('form_system_modules_alter')]
   public function formSystemModulesAlter(array &$form, FormStateInterface $form_state, $form_id): void {
-    // Remove the 'container' wrapper explicitly if it's part of the render array.
+    // Remove the 'container' wrapper explicitly if it's part of the render
+    // array.
     // Adjust module packages and elements similar to module_filter.
     if (isset($form['modules']) && is_array($form['modules'])) {
       foreach (Element::children($form['modules']) as $package_name) {
