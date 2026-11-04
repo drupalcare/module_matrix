@@ -1,38 +1,52 @@
 /**
  * @file
- * Module Matrix Dark.
+ * Module Matrix Dark Coral.
  *
- * Filename:     module-matrix-dark-neutral.css
+ * Filename:     module-matrix.dark.coral.css
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ *
+ * Gentle palette (Switchboard, revision 2): neutral surfaces and one calm
+ * accent that marks state only (links, active package, switch on, buttons,
+ * focus). Green means on, red means a problem, amber needs attention.
+ * --accent-color must equal the dark value for "coral" in
+ * ModuleMatrixSettingsForm::ACCENTS.
  */
 form#system-modules,
 form#system-modules *,
 form#system-modules-uninstall,
 form#system-modules-uninstall * {
-  --accent-color: #ff5252;
-  --border-color: #371e1e;
-  --background-color: #110909;
-  --input-bg: #3a2425;
-  --text-color: #f0d6d4;
-  --link-color: #ff998f;
-  --link-color-hover: #ffb3ac;
-  --button-bg-hover: #611e1f;
+  --accent-color: #f0a39a;
+  --on-accent: #14171a;
+  --border-color: #2a2e33;
+  --background-color: #121417;
+  --input-bg: #1a1d21;
+  --text-color: #e6e8eb;
+  --muted-color: #a0a8b1;
+  --ctl-color: #7f8892;
+  --on-color: #8fcf98;
+  --off-color: #f19a91;
+  --warn-color: #e8b86a;
+  --link-color: var(--accent-color);
+  --link-color-hover: var(--text-color);
+  --button-bg-hover: #33231f;
   --button-bg: var(--accent-color);
-  --button-color: var(--background-color);
-  --button-color-hover: var(--text-color);
-  --details-bg: #130d0d;
-  --filter-bg: #1f1516;
-  --package-bg: var(--details-bg);
+  --button-color: var(--on-accent);
+  --button-color-hover: var(--on-accent);
+  --details-bg: #1a1d21;
+  --filter-bg: #15181b;
+  --package-bg: #1a1d21;
   --package-color: var(--text-color);
-  --package-bg-hover: #211414;
+  --package-bg-hover: #33231f;
   --icon-color-open: var(--link-color);
-  --main-shadow: rgba(255, 82, 82, 0.25) 0 4px 16px;
-  --focus-shadow: inset 0 -40px 40px -40px var(--accent-color);
-  --checkbox-bg: linear-gradient(180deg, #5a2d2d 0%, #471f1f 50%, #2d1212 100%);
-  --checkbox-checked-bg: linear-gradient(180deg, #ff665a 0%, #c62828 50%, #8f1c1c 100%);
-  --checkbox-check-circle: radial-gradient(circle at 35% 35%, #ffd6d4 0%, #ffb3ac 40%, #ff8a80 100%);
-  --checkbox-checked-circle: radial-gradient(circle at 40% 40%, #ffcccb 0%, #ff8a80 40%, #c62828 100%);
-  --checkbox-disabled-bg: linear-gradient(180deg, #4a4a4a 0%, #3f3f3f 50%, #2a2a2a 100%);
-  --checkbox-disabled-circle: radial-gradient(circle at 40% 40%, #777777 0%, #5c5c5c 40%, #3b3b3b 100%);
+  --main-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  --focus-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color) 22%, transparent);
+  --checkbox-focus-outline: var(--accent-color);
+  --checkbox-border: var(--ctl-color);
+  --checkbox-bg: var(--details-bg);
+  --checkbox-checked-bg: var(--accent-color);
+  --checkbox-check-circle: var(--ctl-color);
+  --checkbox-checked-circle: var(--on-accent);
+  --checkbox-disabled-bg: var(--filter-bg);
+  --checkbox-disabled-circle: var(--ctl-color);
 }

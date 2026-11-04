@@ -1,222 +1,1078 @@
 /**
  * @file
- * Module Matrix Settings.
+ * Module Matrix settings form.
  *
- * Filename:     module-matrix-settings.css
+ * Every rule is scoped to .mm-settings, a class the form sets on itself, so
+ * no admin theme rule leaks in and no rule here leaks out. Admin theme boxes
+ * (Claro .claro-details, .fieldset, .form-item; Default Admin .details,
+ * .fieldset, .form-item, .form-boolean) are overridden by class specificity.
+ *
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
 
-/* Form Container */
-form#module-matrix-settings-form {
-  max-width: 1400px;
+/* ==========================================================================
+   Tokens (light). Dark: Default Admin .dark-mode, Gin .gin--dark-mode.
+   ========================================================================== */
+.mm-settings {
+  /* Text, lines and surfaces come from the admin theme. The accent is only
+     for thin borders, icon color, a dot and the checked outline. */
+  --mx-ink: currentcolor;
+  --mx-muted: color-mix(in srgb, currentcolor 70%, transparent);
+  --mx-ctl: color-mix(in srgb, currentcolor 50%, transparent);
+  --mx-line: color-mix(in srgb, currentcolor 25%, transparent);
+  --mx-accent: #3949ab;
+  --mx-r-form: 16px;
+  --mx-r-card: 12px;
+  --mx-r-ctl: 8px;
+
+  display: block;
+  box-sizing: border-box;
+  max-inline-size: 80rem;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0 24px;
+  padding: 0;
+  overflow: clip;
+  border: 1px solid var(--mx-line);
+  border-radius: var(--mx-r-form);
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: start;
 }
 
-/* Form Actions */
-form#module-matrix-settings-form .form-actions {
-  margin-left: auto;
-  margin-top: auto;
-  display: flex;
-  gap: 0 8px;
+.dark-mode .mm-settings,
+.gin--dark-mode .mm-settings {
+  --mx-accent: #a3adf5;
 }
 
-/* ============================================================================
-   DETAILS SECTIONS
-   ========================================================================= */
-
-/* All details sections */
-form#module-matrix-settings-form .form-item details,
-form#module-matrix-settings-form > details {
-  border-radius: var(--gin-border-radius, 6px);
-  margin-bottom: 16px;
+.mm-settings *,
+.mm-settings *::before,
+.mm-settings *::after {
+  box-sizing: border-box;
 }
 
-/* Layout & Display Section */
-form#module-matrix-settings-form #edit-layout-display {
+.mm-settings :focus {
+  scroll-margin-block: 6rem;
+}
+
+.mm-settings a {
+  text-underline-offset: 2px;
+}
+
+/* ==========================================================================
+   Icons: Google Material Symbols files in icons/, painted with currentColor.
+   ========================================================================== */
+.mm-settings .mm-ico,
+.mm-settings .mm-pill::before,
+.mm-settings .mm-compact-note::before,
+.mm-settings .mm-dot::after {
+  display: inline-block;
+  flex: none;
+  background-color: currentColor;
+  -webkit-mask: var(--mx-icon) center / contain no-repeat;
+  mask: var(--mx-icon) center / contain no-repeat;
+}
+
+.mm-settings .mm-ico--layout {
+  --mx-icon: url(../icons/dashboard.svg);
+}
+
+.mm-settings .mm-ico--colors {
+  --mx-icon: url(../icons/palette.svg);
+}
+
+.mm-settings .mm-ico--fields {
+  --mx-icon: url(../icons/list.svg);
+}
+
+.mm-settings .mm-ico--preview {
+  --mx-icon: url(../icons/visibility.svg);
+}
+
+/* ==========================================================================
+   Header band
+   ========================================================================== */
+.mm-settings .mm-band {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0 12px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 1rem 1.25rem;
+  align-items: center;
+  margin: 0;
+  padding: 1.5rem clamp(16px, 3vw, 32px);
+  border-block-end: 3px solid var(--mx-accent);
 }
 
-/* Color Theme Section */
-form#module-matrix-settings-form #edit-color-theme {
+.mm-settings .mm-mark {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0 16px;
+  grid-template-columns: repeat(3, 10px);
+  gap: 4px;
+  padding: 10px;
+  border-radius: 12px;
 }
 
-/* Module Fields Section */
-form#module-matrix-settings-form #edit-module-fields fieldset {
-  border-radius: var(--gin-border-radius, 6px);
-  margin-bottom: 16px;
-  padding: 12px;
+.mm-settings .mm-mark i {
+  display: block;
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 3px;
+  background: var(--mx-accent);
+  opacity: 0.45;
 }
 
-/* Fieldsets inside Module Fields - Grid Layout */
-form#module-matrix-settings-form #edit-module-fields fieldset {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0 12px;
+.mm-settings .mm-mark i:nth-child(3n + 1) {
+  opacity: 1;
 }
 
-/* Fieldset Legends */
-form#module-matrix-settings-form #edit-module-fields fieldset legend {
-  font-weight: 600;
-  margin-bottom: 8px;
+.mm-settings .mm-band h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
-/* ============================================================================
-   RESPONSIVE GRID LAYOUT - ALL RADIO/CHECKBOX GROUPS (EXCEPT ACCENT COLORS)
-   ========================================================================= */
-form#module-matrix-settings-form #edit-layout--wrapper .form-radios,
-form#module-matrix-settings-form #edit-style-mode--wrapper .form-radios,
-form#module-matrix-settings-form #edit-module-fields fieldset.form-item .fieldset-wrapper {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0 12px;
+.mm-settings .mm-band p {
+  max-inline-size: 60ch;
+  margin: 0.25rem 0 0;
+  color: var(--mx-muted);
+  font-size: 14.5px;
 }
 
-form#module-matrix-settings-form #edit-layout--wrapper > .fieldset-wrapper {
-  width: 100%;
-}
-
-/* Tablet: 2 Columns */
-@media (min-width:768px) {
-  form#module-matrix-settings-form #edit-layout--wrapper .form-radios,
-  form#module-matrix-settings-form #edit-style-mode--wrapper .form-radios,
-  form#module-matrix-settings-form #edit-module-fields fieldset.form-item .fieldset-wrapper {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px 24px;
-  }
-
-}
-
-/* Desktop: 3 Columns */
-@media (min-width:1024px) {
-  form#module-matrix-settings-form #edit-layout--wrapper .form-radios,
-  form#module-matrix-settings-form #edit-style-mode--wrapper .form-radios,
-  form#module-matrix-settings-form #edit-module-fields fieldset.form-item .fieldset-wrapper {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px 32px;
-  }
-
-}
-
-/* ============================================================================
-   ACCENT COLOR CIRCLES - SPECIAL HORIZONTAL LAYOUT
-   ========================================================================= */
-form#module-matrix-settings-form #edit-accent-color--wrapper .form-radios {
+.mm-settings .mm-band__nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 24px;
-  align-items: center;
+  gap: 0.5rem;
 }
 
-form#module-matrix-settings-form #edit-accent-color--wrapper input.form-radio {
+.mm-settings .mm-pill {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  min-block-size: 36px;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--mx-line);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.mm-settings .mm-pill::before {
+  content: "";
+  inline-size: 16px;
+  block-size: 16px;
+}
+
+.mm-settings .mm-pill--extend::before {
+  --mx-icon: url(../icons/extension.svg);
+}
+
+.mm-settings .mm-pill--uninstall::before {
+  --mx-icon: url(../icons/extension-off.svg);
+}
+
+.mm-settings .mm-pill:hover {
+  border-color: var(--mx-ctl);
+}
+
+/* ==========================================================================
+   Body: settings column + preview column
+   ========================================================================== */
+.mm-settings .mm-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 21rem;
+  gap: 24px;
+  align-items: start;
+  margin: 0;
+  padding: 24px clamp(16px, 3vw, 32px) 0;
+}
+
+.mm-settings .mm-col {
+  display: grid;
+  gap: 16px;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Sections (details). The admin theme keeps its own summary chevron and
+   focus ring; only the box, the padding and the title are restyled.
+   ========================================================================== */
+.mm-settings .mm-section {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--mx-line);
+  border-inline-start: 3px solid var(--mx-accent);
+  border-radius: var(--mx-r-card);
+}
+
+.mm-settings .mm-section > summary {
+  min-block-size: 56px;
+  padding-block: 14px;
+  border-radius: var(--mx-r-card);
+}
+
+.mm-settings .mm-section[open] > summary {
+  border-block-end: 1px solid var(--mx-line);
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.mm-settings .mm-head {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  min-inline-size: 0;
+  vertical-align: middle;
+}
+
+.mm-settings .mm-head .mm-ico {
+  inline-size: 22px;
+  block-size: 22px;
+  color: var(--mx-accent);
+}
+
+.mm-settings .mm-head__text {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.mm-settings .mm-head__name {
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.mm-settings .mm-head__hint {
+  color: var(--mx-muted);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.mm-settings .mm-section > :not(summary) {
+  display: grid;
+  gap: 20px;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 18px;
+  border: 0;
+  background: transparent;
+}
+
+/* Every form item inside the form: theme margins off, ink and muted colors. */
+.mm-settings .form-item,
+.mm-settings .form-wrapper,
+.mm-settings .fieldset-wrapper,
+.mm-settings .fieldset__wrapper {
+  margin: 0;
+}
+
+.mm-settings .form-item__description,
+.mm-settings .description {
+  margin: 6px 0 0;
+  color: var(--mx-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* Groups: radios fieldsets and the Display options fieldset. */
+.mm-settings .mm-section fieldset {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.mm-settings .mm-section fieldset > legend {
+  float: none;
+  inline-size: 100%;
+  margin: 0 0 8px;
+  padding: 0;
+  color: var(--mx-ink);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.mm-settings .mm-section fieldset > legend > span {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+}
+
+/* ==========================================================================
+   Choice tiles: radios and checkboxes stay native inputs; the form item
+   wrapper is the tile and the label covers it, so the whole tile is the
+   hit area.
+   ========================================================================== */
+.mm-settings .form-radios:has(> .mm-tile),
+.mm-settings .mm-group--toggles .fieldset-wrapper,
+.mm-settings .mm-group--toggles .fieldset__wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 11.5rem), 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.mm-settings .mm-group--toggles .fieldset-wrapper,
+.mm-settings .mm-group--toggles .fieldset__wrapper {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+}
+
+.mm-settings .mm-tile {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 10px;
+  align-items: start;
+  min-block-size: 44px;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--mx-line);
+  border-radius: var(--mx-r-ctl);
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mm-settings .mm-tile:hover {
+  border-color: var(--mx-ctl);
+}
+
+.mm-settings .mm-tile:has(input:checked) {
+  border-color: var(--mx-accent);
+  box-shadow: inset 0 0 0 1px var(--mx-accent);
+}
+
+.mm-settings .mm-tile > :is(.field-prefix, .form-item__prefix) {
+  grid-column: 1 / -1;
+  display: block;
+  margin: 0 0 4px;
+}
+
+.mm-settings .mm-tile input.form-radio,
+.mm-settings .mm-tile input.form-checkbox {
+  grid-column: 1;
+  inline-size: 18px;
+  block-size: 18px;
+  margin: 2px 0 0;
+}
+
+.mm-settings .mm-tile > label {
+  grid-column: 2;
+  display: block;
+  margin: 0;
+  padding: 0;
+  color: var(--mx-ink);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+.mm-settings .mm-tile > label::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.mm-settings .mm-tile > :is(.description, .form-item__description) {
+  grid-column: 2;
+  margin: 0;
+}
+
+/* Drawings on layout and style mode tiles (decorative, aria-hidden). */
+.mm-settings .mm-draw {
+  display: grid;
+  gap: 4px;
+  block-size: 58px;
+  padding: 6px;
+  border: 1px solid var(--mx-line);
+  border-radius: 6px;
+}
+
+.mm-settings .mm-draw i {
+  display: block;
+  border-radius: 3px;
+  background: var(--mx-ctl);
+  opacity: 0.35;
+}
+
+.mm-settings .mm-draw i.p {
+  background: var(--mx-accent);
+  opacity: 0.9;
+}
+
+.mm-settings .mm-draw--left {
+  grid-template-columns: 30% 1fr;
+}
+
+.mm-settings .mm-draw--right {
+  grid-template-columns: 1fr 30%;
+}
+
+.mm-settings .mm-draw--right i.p {
+  order: 2;
+}
+
+.mm-settings .mm-draw--top {
+  grid-template-rows: 14px 1fr;
+}
+
+.mm-settings .mm-tile:has(input:checked) .mm-draw {
+  border-color: var(--mx-accent);
+}
+
+.mm-settings .mm-draw--mode-light,
+.mm-settings .mm-draw--mode-dark,
+.mm-settings .mm-draw--mode-none {
+  grid-template-rows: 1fr 1fr;
+}
+
+.mm-settings .mm-draw--mode-light {
+  border-color: #c9ced4;
+  background: #fff;
+}
+
+.mm-settings .mm-draw--mode-light i,
+.mm-settings .mm-draw--mode-light i.p {
+  background: #53606b;
+}
+
+.mm-settings .mm-draw--mode-dark {
+  border-color: #363c43;
+  background: #1e2226;
+}
+
+.mm-settings .mm-draw--mode-dark i,
+.mm-settings .mm-draw--mode-dark i.p {
+  background: #a7b0b9;
+}
+
+.mm-settings .mm-draw--mode-none {
+  background: repeating-linear-gradient(135deg, var(--mx-line) 0 6px, transparent 6px 12px);
+}
+
+.mm-settings .mm-draw--mode-none i {
+  visibility: hidden;
+}
+
+/* ==========================================================================
+   Accent swatches: real radios, visible names, no tooltip.
+   ========================================================================== */
+.mm-settings .form-radios:has(> .mm-swatch) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 7.5rem), 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.mm-settings .mm-swatch {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-block-size: 44px;
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--mx-line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+/* Visually hidden, still focusable and announced (never display:none).
+   !important here only: Selectify, when it runs on admin pages, restyles every
+   radio with !important (selectify-radio-checkbox.css:30-54), which put a
+   full-size toggle back inside each pill. */
+.mm-settings .mm-swatch input.form-radio {
+  position: absolute !important;
+  inset-block-start: 50%;
+  inset-inline-start: 12px;
+  display: block !important;
+  inline-size: 1px !important;
+  block-size: 1px !important;
+  min-inline-size: 0 !important;
+  min-block-size: 0 !important;
+  max-inline-size: 1px !important;
+  max-block-size: 1px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  opacity: 0;
+  clip-path: inset(50%);
+}
+
+.mm-settings .mm-swatch input.form-radio::before,
+.mm-settings .mm-swatch input.form-radio::after {
   display: none !important;
 }
 
-form#module-matrix-settings-form #edit-accent-color--wrapper label.form-item__label {
-  width: 32px;
-  height: 32px;
+.mm-settings .mm-swatch > :is(.field-suffix, .form-item__suffix) {
+  display: contents;
+}
+
+.mm-settings .mm-dot {
+  --sw-now: var(--sw);
+
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: 24px;
+  block-size: 24px;
   border-radius: 50%;
+  background: var(--sw-now);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.18);
+  color: #fff;
+}
+
+.dark-mode .mm-settings .mm-dot,
+.gin--dark-mode .mm-settings .mm-dot {
+  --sw-now: var(--swd);
+
+  color: #111417;
+}
+
+.mm-settings .mm-dot::after {
+  content: "";
+  --mx-icon: url(../icons/check.svg);
+
+  inline-size: 13px;
+  block-size: 10px;
+  opacity: 0;
+}
+
+.mm-settings .mm-swatch > label {
+  margin: 0;
+  padding: 0;
+  color: var(--mx-ink);
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid transparent;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
-  text-indent: -9999px;
-  overflow: visible;
 }
 
-/* Color Assignments */
-form#module-matrix-settings-form #edit-accent-color--wrapper label[for="edit-accent-color-teal"] {
-  background-color: #009688;
-}
-
-form#module-matrix-settings-form #edit-accent-color--wrapper label[for="edit-accent-color-coral"] {
-  background-color: #ff5252;
-}
-
-form#module-matrix-settings-form #edit-accent-color--wrapper label[for="edit-accent-color-indigo"] {
-  background-color: #3f51b5;
-}
-
-form#module-matrix-settings-form #edit-accent-color--wrapper label[for="edit-accent-color-gold"] {
-  background-color: #ffc107;
-}
-
-form#module-matrix-settings-form #edit-accent-color--wrapper label[for="edit-accent-color-slate"] {
-  background-color: #607d8b;
-}
-
-form#module-matrix-settings-form #edit-accent-color--wrapper label[for="edit-accent-color-neutral"] {
-  background-color: #f2f2f2;
-}
-
-/* Color Circle States */
-form#module-matrix-settings-form #edit-accent-color--wrapper input.form-radio + label {
-  box-shadow: rgba(244, 67, 54, 0.7) 0 4px 16px;
-}
-
-form#module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:checked + label {
-  transform: scale(1.2);
-  box-shadow: rgba(76, 175, 80, 0.7) 0 8px 32px;
-  cursor: default;
-}
-
-form#module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:checked + label::after {
-  content: "✓";
-  font-size: 1.25rem;
-  color: white;
-  font-weight: bold;
+.mm-settings .mm-swatch > label::after {
+  content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-indent: 0;
+  inset: 0;
+  border-radius: inherit;
 }
 
-form#module-matrix-settings-form #edit-accent-color--wrapper input#edit-accent-color-neutral:checked + label::after {
-  color: #333;
+.mm-settings .mm-swatch:hover {
+  border-color: var(--mx-ctl);
 }
 
-form#module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:disabled + label {
-  cursor: default;
-  box-shadow: none;
-  opacity: 0.6;
+.mm-settings .mm-swatch:has(input:checked) {
+  border-color: var(--mx-accent);
+  box-shadow: inset 0 0 0 1px var(--mx-accent);
 }
 
-form#module-matrix-settings-form #edit-accent-color--wrapper input.form-radio:disabled + label::after {
+.mm-settings .mm-swatch:has(input:checked) .mm-dot::after {
+  opacity: 1;
+}
+
+/* #states disabled while Style Mode is None (same rule as before). */
+.mm-settings .mm-swatch:has(input:disabled) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.mm-settings .mm-swatch:has(input:disabled) > label {
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Compact note and the information fields
+   ========================================================================== */
+.mm-settings .mm-compact-note {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--mx-line);
+  border-inline-start: 3px solid var(--mx-accent);
+  border-radius: var(--mx-r-ctl);
+  font-size: 13.5px;
+}
+
+.mm-settings .mm-compact-note::before {
+  content: "";
+  --mx-icon: url(../icons/info.svg);
+
+  inline-size: 18px;
+  block-size: 18px;
+  margin-block-start: 1px;
+  color: var(--mx-accent);
+}
+
+.mm-settings .mm-intro {
+  margin: 0;
+  color: var(--mx-muted);
+  font-size: 13px;
+}
+
+.mm-settings .mm-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.mm-settings .mm-section fieldset.mm-fs {
+  padding: 12px 14px 14px;
+  border: 1px solid var(--mx-line);
+  border-radius: var(--mx-r-ctl);
+}
+
+.mm-settings .mm-section fieldset.mm-fs > legend {
+  float: left;
+  margin: 0 0 6px;
+  color: var(--mx-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mm-settings .mm-fs .fieldset-wrapper,
+.mm-settings .mm-fs .fieldset__wrapper {
+  clear: both;
+  display: grid;
+  gap: 2px;
+  padding: 0;
+}
+
+.mm-settings .mm-check {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-block-size: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.mm-settings .mm-check input.form-checkbox {
+  inline-size: 18px;
+  block-size: 18px;
+  margin: 0;
+}
+
+.mm-settings .mm-check > label {
+  margin: 0;
+  padding: 0;
+  color: var(--mx-ink);
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Preview: follows the form through :has() only; reads no site data.
+   ========================================================================== */
+.mm-settings .mm-aside {
+  position: sticky;
+  inset-block-start: 4.5rem;
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.mm-settings .mm-pv-title {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0;
+  color: var(--mx-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mm-settings .mm-pv-title .mm-ico {
+  inline-size: 18px;
+  block-size: 18px;
+}
+
+.mm-settings .mm-pv {
+  --pa: #3949ab;
+  --pbg: #fff;
+  --pink: #1d2329;
+  --pmuted: #53606b;
+  --pline: #d6dadf;
+  --psoft: #e8eaf8;
+  --pon: #2e7d32;
+
+  overflow: clip;
+  border: 1px solid var(--pline);
+  border-radius: var(--mx-r-card);
+  background: var(--pbg);
+  box-shadow: 0 10px 30px -12px rgb(16 24 40 / 0.25);
+  color: var(--pink);
+}
+
+.mm-settings .mm-pv-bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 12px;
+  border-block-end: 1px solid var(--pline);
+  color: var(--pmuted);
+  font-size: 12px;
+}
+
+.mm-settings .mm-pv-bar span {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid var(--pline);
+  border-radius: 6px;
+}
+
+.mm-settings .mm-pv-grid {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+}
+
+.mm-settings .mm-pv-side {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+  padding: 8px;
+  border-inline-end: 1px solid var(--pline);
+  font-size: 12px;
+}
+
+.mm-settings .mm-pv-pkg {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 5px 7px;
+  border-radius: 5px;
+  color: var(--pink);
+}
+
+.mm-settings .mm-pv-pkg.on {
+  background: var(--psoft);
+  box-shadow: inset 3px 0 0 var(--pa);
+  color: var(--pa);
+  font-weight: 700;
+}
+
+.mm-settings .mm-pv-pkg em {
+  color: var(--pon);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.mm-settings .mm-pv-list {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding: 10px;
+}
+
+.mm-settings .mm-pv-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 2px 8px;
+  padding: 9px 10px;
+  border: 1px solid var(--pline);
+  border-radius: 8px;
+}
+
+.mm-settings .mm-pv-row .sw {
+  position: relative;
+  grid-row: span 2;
+  inline-size: 28px;
+  block-size: 16px;
+  margin-block-start: 2px;
+  border-radius: 999px;
+  background: var(--pa);
+}
+
+.mm-settings .mm-pv-row .sw::after {
+  content: "";
+  position: absolute;
+  inset-block: 2px;
+  inset-inline-end: 2px;
+  inline-size: 12px;
+  border-radius: 50%;
+  background: var(--pbg);
+}
+
+.mm-settings .mm-pv-row.off .sw {
+  background: var(--pline);
+}
+
+.mm-settings .mm-pv-row.off .sw::after {
+  inset-inline: 2px auto;
+}
+
+.mm-settings .mm-pv-row b {
+  font-size: 13px;
+}
+
+.mm-settings .mm-pv-row p {
+  margin: 0;
+  color: var(--pmuted);
+  font-size: 11.5px;
+}
+
+.mm-settings .mm-pv-meta {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 2;
+  gap: 4px 10px;
+  color: var(--pmuted);
+  font-size: 11px;
+}
+
+.mm-settings .mm-pv-meta span[data-f]::before {
+  content: attr(data-f) " ";
+  color: var(--pink);
+  font-weight: 700;
+}
+
+.mm-settings .mm-pv-meta .st-on {
+  color: var(--pon);
+  font-weight: 700;
+}
+
+.mm-settings .mm-pv-meta .mm-pv-link {
+  color: var(--pa);
+  text-decoration: underline;
+}
+
+.mm-settings .mm-pv-cap {
+  margin: 0;
+  color: var(--mx-muted);
+  font-size: 12.5px;
+}
+
+/* The preview follows the chosen layout. */
+.mm-settings:has(input[name="layout"][value="right"]:checked) .mm-pv-grid {
+  grid-template-columns: minmax(0, 1fr) 7.5rem;
+}
+
+.mm-settings:has(input[name="layout"][value="right"]:checked) .mm-pv-side {
+  order: 2;
+  border-inline-end: 0;
+  border-inline-start: 1px solid var(--pline);
+}
+
+.mm-settings:has(input[name="layout"][value="top"]:checked) .mm-pv-grid {
+  grid-template-columns: 1fr;
+}
+
+.mm-settings:has(input[name="layout"][value="top"]:checked) .mm-pv-side {
+  display: flex;
+  flex-wrap: wrap;
+  border-inline-end: 0;
+  border-block-end: 1px solid var(--pline);
+}
+
+.mm-settings:has(input[name="grid_layout"]:checked) .mm-pv-list {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* The preview follows the field checkboxes and Compact Layout. */
+.mm-settings:has(input[name="module_version"]:not(:checked)) [data-k="version"],
+.mm-settings:has(input[name="module_machine_name"]:not(:checked)) [data-k="machine"],
+.mm-settings:has(input[name="module_status"]:not(:checked)) [data-k="status"],
+.mm-settings:has(input[name="module_requires"]:not(:checked)) [data-k="requires"],
+.mm-settings:has(input[name="module_project"]:not(:checked)) [data-k="project"],
+.mm-settings:has(input[name="module_links"]:not(:checked)) [data-k="links"],
+.mm-settings:has(input[name="compact_layout"]:checked) .mm-pv-meta {
   display: none;
 }
 
-/* Color Circle Tooltips */
-form#module-matrix-settings-form #edit-accent-color .form-item--accent-color {
-  position: relative;
-  display: inline-block;
+/* The preview follows Style Mode and Accent (the Extend page palette). */
+.mm-settings:has(input[name="style_mode"][value="dark"]:checked) .mm-pv {
+  --pbg: #1e2226;
+  --pink: #e6e9ec;
+  --pmuted: #a7b0b9;
+  --pline: #363c43;
+  --pon: #81c784;
 }
 
-form#module-matrix-settings-form .accent-tooltip {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -35px;
-  background-color: rgba(0, 0, 0, 0.75);
-  color: #fff;
-  font-size: 0.75rem;
-  padding: 5px 8px;
-  border-radius: 4px;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
-  pointer-events: none;
-  z-index: 10;
+.mm-settings:has(input[name="style_mode"][value="dark"]:checked) .mm-pv-row .sw::after {
+  background: #111417;
+}
+
+.mm-settings:has(input[name="style_mode"][value="none"]:checked) .mm-pv {
+  --pa: #0000ee;
+  --psoft: #f0f0f0;
+  --pbg: #fff;
+  --pink: #000;
+  --pmuted: #555;
+  --pline: #ccc;
+
+  font-family: serif;
+}
+
+.mm-settings:has(input[name="style_mode"][value="light"]:checked):has(input[name="accent_color"][value="teal"]:checked) .mm-pv {
+  --pa: #2b6f69;
+  --psoft: color-mix(in srgb, var(--pa) 12%, #ffffff);
+}
+
+.mm-settings:has(input[name="style_mode"][value="light"]:checked):has(input[name="accent_color"][value="coral"]:checked) .mm-pv {
+  --pa: #a8473f;
+  --psoft: color-mix(in srgb, var(--pa) 12%, #ffffff);
+}
+
+.mm-settings:has(input[name="style_mode"][value="light"]:checked):has(input[name="accent_color"][value="indigo"]:checked) .mm-pv {
+  --pa: #4a56a6;
+  --psoft: color-mix(in srgb, var(--pa) 12%, #ffffff);
+}
+
+.mm-settings:has(input[name="style_mode"][value="light"]:checked):has(input[name="accent_color"][value="gold"]:checked) .mm-pv {
+  --pa: #7d5a14;
+  --psoft: color-mix(in srgb, var(--pa) 12%, #ffffff);
+}
+
+.mm-settings:has(input[name="style_mode"][value="light"]:checked):has(input[name="accent_color"][value="slate"]:checked) .mm-pv {
+  --pa: #4b5f69;
+  --psoft: color-mix(in srgb, var(--pa) 12%, #ffffff);
+}
+
+.mm-settings:has(input[name="style_mode"][value="light"]:checked):has(input[name="accent_color"][value="neutral"]:checked) .mm-pv {
+  --pa: #4f555b;
+  --psoft: color-mix(in srgb, var(--pa) 12%, #ffffff);
+}
+
+.mm-settings:has(input[name="style_mode"][value="dark"]:checked):has(input[name="accent_color"][value="teal"]:checked) .mm-pv {
+  --pa: #7cc9bf;
+  --psoft: color-mix(in srgb, var(--pa) 18%, #121417);
+}
+
+.mm-settings:has(input[name="style_mode"][value="dark"]:checked):has(input[name="accent_color"][value="coral"]:checked) .mm-pv {
+  --pa: #f0a39a;
+  --psoft: color-mix(in srgb, var(--pa) 18%, #121417);
+}
+
+.mm-settings:has(input[name="style_mode"][value="dark"]:checked):has(input[name="accent_color"][value="indigo"]:checked) .mm-pv {
+  --pa: #aab3ec;
+  --psoft: color-mix(in srgb, var(--pa) 18%, #121417);
+}
+
+.mm-settings:has(input[name="style_mode"][value="dark"]:checked):has(input[name="accent_color"][value="gold"]:checked) .mm-pv {
+  --pa: #e3c27a;
+  --psoft: color-mix(in srgb, var(--pa) 18%, #121417);
+}
+
+.mm-settings:has(input[name="style_mode"][value="dark"]:checked):has(input[name="accent_color"][value="slate"]:checked) .mm-pv {
+  --pa: #aebfc7;
+  --psoft: color-mix(in srgb, var(--pa) 18%, #121417);
+}
+
+.mm-settings:has(input[name="style_mode"][value="dark"]:checked):has(input[name="accent_color"][value="neutral"]:checked) .mm-pv {
+  --pa: #c3c7cb;
+  --psoft: color-mix(in srgb, var(--pa) 18%, #121417);
+}
+
+/* ==========================================================================
+   Actions: sticky save bar
+   ========================================================================== */
+.mm-settings .mm-actions {
+  position: sticky;
+  inset-block-end: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 0 0;
+  padding: 14px clamp(16px, 3vw, 32px);
+  border-block-start: 1px solid var(--mx-line);
+  background: var(--gin-bg-layer, Canvas);
+}
+
+.mm-settings .mm-actions__hint {
+  margin: 0;
+  color: var(--mx-muted);
+  font-size: 13px;
+}
+
+.mm-settings .mm-actions .button--primary,
+.mm-settings .mm-actions input[type="submit"] {
+  min-block-size: 44px;
+  margin: 0;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--mx-r-ctl);
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Responsive, forced colors, reduced motion
+   ========================================================================== */
+@media (max-width: 75rem) {
+  .mm-settings .mm-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mm-settings .mm-aside {
+    position: static;
+    order: -1;
+  }
+}
+
+@media (max-width: 45rem) {
+  .mm-settings .mm-band {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .mm-settings .mm-band__nav {
+    grid-column: 1 / -1;
+  }
+
+  .mm-settings .mm-pv-grid,
+  .mm-settings:has(input[name="layout"][value="right"]:checked) .mm-pv-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mm-settings .mm-pv-side {
+    display: flex;
+    flex-wrap: wrap;
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--pline);
+  }
+}
+
+@media (forced-colors: active) {
+  .mm-settings .mm-dot {
+    forced-color-adjust: none;
+  }
+
+  /* Mask icons paint with background-color; keep them visible. */
+  .mm-settings .mm-ico,
+  .mm-settings .mm-pill::before,
+  .mm-settings .mm-compact-note::before {
+    forced-color-adjust: none;
+    background-color: CanvasText;
+  }
+
+  .mm-settings .mm-tile:has(input:checked),
+  .mm-settings .mm-swatch:has(input:checked) {
+    outline: 2px solid Highlight;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mm-settings .mm-tile,
+  .mm-settings .mm-swatch {
+    transition: none;
+  }
 }

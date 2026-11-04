@@ -1,0 +1,51 @@
+/**
+ * @file
+ * The one icon map for both pages (Install and Uninstall).
+ *
+ * Decorative Material Symbols (Apache-2.0) drawn as masks, so the colour is
+ * the text colour. A template or script writes
+ * <span class="mm-i mm-i--NAME" aria-hidden="true"></span>; the file for NAME
+ * lives in ../icons/. Loaded in every style mode, including "None".
+ */
+
+:is(form#system-modules, form#system-modules-uninstall) .mm-i {
+  display: inline-block;
+  flex: none;
+  inline-size: 1em;
+  block-size: 1em;
+  background-color: currentColor;
+  -webkit-mask: var(--mm-icon) center / contain no-repeat;
+  mask: var(--mm-icon) center / contain no-repeat;
+}
+
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--autorenew { --mm-icon: url(../icons/autorenew.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--bar_chart { --mm-icon: url(../icons/bar_chart.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--bug_report { --mm-icon: url(../icons/bug_report.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--check_circle { --mm-icon: url(../icons/check_circle.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--code { --mm-icon: url(../icons/code.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--expand_more { --mm-icon: url(../icons/expand_more.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--extension_off { --mm-icon: url(../icons/extension-off.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--folder { --mm-icon: url(../icons/folder.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--folder_open { --mm-icon: url(../icons/folder_open.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--help { --mm-icon: url(../icons/help.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--info { --mm-icon: url(../icons/info.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--inbox { --mm-icon: url(../icons/inbox.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--label { --mm-icon: url(../icons/label.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--link { --mm-icon: url(../icons/link.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--link_off { --mm-icon: url(../icons/link_off.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--lock { --mm-icon: url(../icons/lock.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--open_in_new { --mm-icon: url(../icons/open_in_new.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--schedule { --mm-icon: url(../icons/schedule.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--search { --mm-icon: url(../icons/search.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--settings { --mm-icon: url(../icons/settings.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--tune { --mm-icon: url(../icons/tune.svg); }
+:is(form#system-modules, form#system-modules-uninstall) .mm-i--verified { --mm-icon: url(../icons/verified.svg); }
+
+/* Mask icons paint with background-color, which High Contrast mode would
+   reset; keep them visible in the system text colour. */
+@media (forced-colors: active) {
+  :is(form#system-modules, form#system-modules-uninstall) .mm-i {
+    forced-color-adjust: none;
+    background-color: CanvasText;
+  }
+}

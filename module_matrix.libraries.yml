@@ -2,13 +2,12 @@ matrix-settings:
   css:
     theme:
       css/module-matrix.settings.css: { weight: 0 }
-  js:
-    js/module-matrix.settings.js: {}
-  dependencies:
-    - core/drupal
-    - core/drupalSettings
-    - core/once
  # This is /admin/modules
+icons:
+  css:
+    theme:
+      css/module-matrix.icons.css: { weight: -30}
+
 main:
   css:
     theme:
@@ -32,6 +31,7 @@ main:
     - core/drupal
     - core/drupalSettings
     - core/once
+    - module_matrix/icons
 
 main-uninstall:
   css:
@@ -43,8 +43,7 @@ main-uninstall:
     - core/drupal
     - core/drupalSettings
     - core/once
-
-
+    - module_matrix/icons
 
 matrix-style:
   css:

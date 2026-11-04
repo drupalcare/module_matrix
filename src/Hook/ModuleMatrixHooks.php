@@ -84,12 +84,27 @@ class ModuleMatrixHooks {
   public function preprocessSystemModulesUninstall(array &$variables): void {
     $config = \Drupal::config('module_matrix.settings');
     $variables['visibility'] = module_matrix_get_visibility_settings($config);
+    $extension_list = \Drupal::service('extension.list.module')->getList();
+    // Package rail, same as the Extend page. Read from each module's info
+    // file; nothing is stored. Keyed by package name, value is the row count.
+    $packages = [];
     foreach ($variables['modules'] as &$module) {
+      // Core keys the form by machine name but drops the key in its own
+      // preprocess; the checkbox parents still carry it (uninstall[NAME]).
+      $machine_name = $module['checkbox']['#parents'][1] ?? '';
+      $package = (string) ($extension_list[$machine_name]->info['package'] ?? $this->t('Other'));
+      $module['machine_name'] = $machine_name;
+      $module['package'] = $package;
+      $packages[$package] = ($packages[$package] ?? 0) + 1;
       // Process "required_by" field for uninstall page.
       if (isset($module['required_by']) && is_array($module['required_by']) && !empty($module['required_by']['#markup'])) {
         $module['required_by']['#markup'] = module_matrix_style_dependency_status($module['required_by']['#markup']);
       }
     }
+    unset($module);
+    ksort($packages, SORT_NATURAL | SORT_FLAG_CASE);
+    $variables['packages'] = $packages;
+    $variables['modules_total'] = count($variables['modules']);
   }
 
   /**
@@ -108,11 +123,20 @@ class ModuleMatrixHooks {
           unset($package['#open']);
           $package['#attributes']['class'][] = 'module-package-wrapper';
         }
+        // The module switch is drawn by module_matrix, not by Selectify.
+        foreach (Element::children($package) as $module_name) {
+          if (isset($package[$module_name]['enable']) && is_array($package[$module_name]['enable'])) {
+            $package[$module_name]['enable']['#attributes']['data-selectify-skip'] = 'true';
+          }
+        }
       }
+      unset($package);
     }
     $form['intro_message'] = [
       '#type' => 'markup',
-      '#markup' => '<p>' . $this->t('<a href=":layout_url" target="_blank"><span class="material-icons" aria-hidden="true">settings</span> Adjust layout and options</a>', [
+      // The icon sits outside the translatable string so translators never
+      // see markup that is only decoration.
+      '#markup' => '<p><span class="mm-i mm-i--tune" aria-hidden="true"></span> ' . $this->t('<a href=":layout_url" target="_blank">Adjust layout and options</a>', [
         ':layout_url' => Url::fromRoute('module_matrix.settings_form')->toString(),
       ]) . '</p>',
           // Ensures it appears at the top.
@@ -137,6 +161,8 @@ class ModuleMatrixHooks {
         'class' => [
           'form-control',
         ],
+        // A live filter, not a field to remember: no browser history popup.
+        'autocomplete' => 'off',
       ],
     ];
     // Add the status filter container.
@@ -162,6 +188,8 @@ class ModuleMatrixHooks {
             'form-checkboxes',
             'enable-filter',
           ],
+          // Core copies this to every option; module_matrix draws the chips.
+          'data-selectify-skip' => 'true',
         ],
       ],
     ];
@@ -189,6 +217,8 @@ class ModuleMatrixHooks {
             'form-checkboxes',
             'lifecycle-filter',
           ],
+          // Core copies this to every option; module_matrix draws the chips.
+          'data-selectify-skip' => 'true',
         ],
       ],
     ];
@@ -217,6 +247,8 @@ class ModuleMatrixHooks {
             'form-checkboxes',
             'stability-filter',
           ],
+          // Core copies this to every option; module_matrix draws the chips.
+          'data-selectify-skip' => 'true',
         ],
       ],
     ];
@@ -234,6 +266,26 @@ class ModuleMatrixHooks {
         ],
       ],
     ];
+  }
+
+  /**
+   * Implements hook_form_FORM_ID_alter() for system_modules_uninstall.
+   *
+   * @param array<string, mixed> $form
+   *   The form render array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param string $form_id
+   *   The form ID.
+   */
+  #[Hook('form_system_modules_uninstall_alter')]
+  public function formSystemModulesUninstallAlter(array &$form, FormStateInterface $form_state, string $form_id): void {
+    // The uninstall picks are drawn by module_matrix, not by Selectify.
+    if (isset($form['uninstall']) && is_array($form['uninstall'])) {
+      foreach (Element::children($form['uninstall']) as $module_name) {
+        $form['uninstall'][$module_name]['#attributes']['data-selectify-skip'] = 'true';
+      }
+    }
   }
 
   /**

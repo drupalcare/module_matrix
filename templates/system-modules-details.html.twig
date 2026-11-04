@@ -33,8 +33,8 @@
 
 {{ attach_library('module_matrix/main') }}
 {% set count = 'count-' ~ enabled_count %}
-{% set compact_layout = visibility.compact_layout ? ' compact' : ''  %}
-{% set scrollable_sidebar = visibility.scrollable_sidebar ? ' enabled-scroll' : ''  %}
+{% set compact_layout = visibility.compact_layout ? ' compact' : '' %}
+{% set scrollable_sidebar = visibility.scrollable_sidebar ? ' enabled-scroll' : '' %}
 {% set grid_layout = (visibility.grid_layout or visibility.compact_layout) ? ' grid-layout' : '' %}
 
 <div class="module-matrix-wrapper {{ count }} {{ visibility.layout }}{{ grid_layout }}{{ compact_layout }}{{ scrollable_sidebar }}">
@@ -44,11 +44,10 @@
       {% if module.package is defined and module.package|render|striptags|trim not in displayed_packages|keys %}
         {% set package_link = module.package|render|striptags|trim %}
         <a href="#" class="package-link" data-package="{{ package_link }}" aria-label="{{ package_link }}">{{ package_link }}</a>
-        {% set displayed_packages = displayed_packages|merge({ (package_link): true }) %}
+        {% set displayed_packages = displayed_packages|merge({(package_link): true}) %}
       {% endif %}
     {% endfor %}
   </div>
-
 
   <div class="module-matrix-list">
 {% set current_package = '' %}
@@ -74,8 +73,6 @@
     {% set module_enable_id = module_machine_name ? module_machine_name|clean_id ~ '-description' : '' %}
     {% set modules_project_machine = (module_machine_name == module_project) ? module_project : module_project ~ '-' ~ module_machine_name %}
 
-
-
     <div class="module-matrix-list-inner {{ module_package|clean_class }}-{{ modules_project_machine }}">
       <div class="name-package {{ module_status }}"
      id="{{ module_enable_id }}"
@@ -97,7 +94,7 @@
 
       {% if module_name and module_project and module_package is defined and module_package|lower != 'core' and module_package|lower != 'custom' %}
       <a class="name" href="https://drupal.org/project/{{ module_project }}" target="_blank" title="Visit the {{ module_name }} project on Drupal.org">
-        <span>{{ module_name }} <span class="material-icons">open_in_new</span></span>
+        <span>{{ module_name }} <span class="mm-i mm-i--open_in_new" aria-hidden="true"></span></span>
       </a>
 
       {% else %}
@@ -115,25 +112,25 @@
       </div>
       <div class="compact-bottom">
         <div class="version">
-          <span class="material-icons">label</span>
-          {{ 'Version: @module-version'|t({'@module-version': module_version }) }}
+          <span class="mm-i mm-i--label" aria-hidden="true"></span>
+          {{ 'Version: @module-version'|t({'@module-version': module_version}) }}
         </div>
 
         {% for link_type in ['help', 'permissions', 'configure'] %}
           {% if module.links[link_type] is defined %}
             {% if link_type == 'help' %}
               <div class="help-link">
-                <span class="material-icons">help_outline</span>
+                <span class="mm-i mm-i--help" aria-hidden="true"></span>
                 {{ module.links[link_type] }}
               </div>
             {% elseif link_type == 'permissions' %}
               <div class="permissions-link">
-                <span class="material-icons">lock</span>
+                <span class="mm-i mm-i--lock" aria-hidden="true"></span>
                 {{ module.links[link_type] }}
               </div>
             {% elseif link_type == 'configure' %}
               <div class="configure-link">
-                <span class="material-icons">settings</span>
+                <span class="mm-i mm-i--settings" aria-hidden="true"></span>
                 {{ module.links[link_type] }}
               </div>
             {% endif %}
@@ -167,7 +164,6 @@
           (visibility.module_required_by and module.required_by)
         %}
 
-
           {# tabindex="0" is required: a div with role="button" is not focusable
              on its own, so without it the panel could only be opened with a
              mouse. aria-controls points at the panel this header toggles, not
@@ -175,124 +171,149 @@
           <div class="matrix-details-header" tabindex="0" aria-controls="{{ module_enable_id }}-panel" role="button" aria-expanded="false">
             <span class="text module-matrix-item-description">{{ module_description ? module_description : 'No description available'|t }}
            </span>
-           <span class="matrix-details-header-icon material-icons">keyboard_arrow_down</span>
+           <span class="matrix-details-header-icon mm-i mm-i--expand_more" aria-hidden="true"></span>
         </div>
 
+          {% set show_status = visibility.module_status %}
+          {% set show_stability = visibility.module_stability and module_stability %}
+          {% set show_chips = show_status or show_stability %}
+          {% set show_facts = (visibility.module_project and module_project) or (visibility.module_version and module_version) or (visibility.module_mtime and module_mtime) or (visibility.module_lifecycle and module_lifecycle) or (visibility.module_machine_name and module_machine_name) or (visibility.module_subpath and module_subpath) %}
+          {% set show_deps = (visibility.module_requires and module.requires) or (visibility.module_required_by and module.required_by) %}
+          {% set show_admin_links = visibility.module_links and module.links and (module.links['help'] is defined or module.links['permissions'] is defined or module.links['configure'] is defined) %}
+          {% set show_links = show_admin_links or (visibility.module_issue_link and module.issue_link) or (visibility.module_usage_link and module.usage_link) %}
+
           <div class="matrix-details-content" id="{{ module_enable_id }}-panel">
+            <div class="mm-details-body">
 
-            {% if visibility.module_project and module_project %}
-            <div class="admin-requirements project">
-              <span class="material-icons">folder_open</span>
-              <span class="details-option">{{ 'Project: @project'|t({'@project': module_project|replace({'_': ' '})|capitalize|title }) }}</span>
-            </div>
-            {% endif %}
-
-            {% if visibility.module_status and module_status %}
-            <div class="admin-requirements status">
-              <span class="material-icons">check_circle</span>
-              <span class="details-option">{{ 'Status: @status'|t({'@status': module_status|capitalize }) }}</span>
-            </div>
-            {% endif %}
-
-            {% if visibility.module_version and module_version %}
-            <div class="admin-requirements version">
-              <span class="material-icons">label</span>
-              <span class="details-option">{{ 'Version: @module-version'|t({'@module-version': module_version }) }}</span>
-            </div>
-            {% endif %}
-
-            {% if visibility.module_mtime and module_mtime %}
-            <div class="admin-requirements mtime">
-              <span class="material-icons">schedule</span>
-              <span class="details-option">{{ 'Last modified: @mtime'|t({'@mtime': module_mtime}) }}</span>
-            </div>
-            {% endif %}
-
-            {% if visibility.module_stability and module_stability %}
-            <div class="admin-requirements stability">
-              <span class="material-icons">security</span>
-              <span class="details-option">{{ 'Stability: @stability'|t({'@stability': module_stability|capitalize }) }}</span>
-            </div>
-            {% endif %}
-
-            {% if visibility.module_lifecycle and module_lifecycle %}
-            <div class="admin-requirements lifecycle">
-              <span class="material-icons">loop</span>
-              <span class="details-option">{{ 'Lifecycle: @lifecycle'|t({'@lifecycle': module_lifecycle|capitalize }) }}</span>
-            </div>
-            {% endif %}
-
-            {% if visibility.module_machine_name and module_machine_name %}
-            <div class="admin-requirements machine-name">
-              <span class="material-icons">memory</span>
-              <span class="details-option">{{ 'Machine name: @machine-name'|t({'@machine-name': module_machine_name}) }}</span>
-            </div>
-            {% endif %}
-
-            {% if visibility.module_links and module.links %}
-            {% for link_type in ['help', 'permissions', 'configure'] %}
-              {% if module.links[link_type] is defined %}
-                {% if link_type == 'help' %}
-                  <div class="admin-requirements help-link">
-                    <span class="material-icons">help_outline</span>
-                    <span class="details-option">{{ module.links[link_type] }}</span>
-                  </div>
-                {% elseif link_type == 'permissions' %}
-                  <div class="admin-requirements permissions-link">
-                    <span class="material-icons">lock</span>
-                    <span class="details-option">{{ module.links[link_type] }}</span>
-                  </div>
-                {% elseif link_type == 'configure' %}
-                  <div class="admin-requirements configure-link">
-                    <span class="material-icons">settings</span>
-                    <span class="details-option">{{ module.links[link_type] }}</span>
-                  </div>
+              {% if show_chips %}
+              <div class="mm-details-chips">
+                {% if show_status %}
+                <span class="mm-chip mm-chip--status mm-chip--{{ module_status }} admin-requirements status">
+                  <span class="mm-i mm-i--{{ module_status == 'enabled' ? 'check_circle' : 'extension_off' }}" aria-hidden="true"></span>
+                  <span class="details-option">{{ 'Status: @status'|t({'@status': module_status|capitalize}) }}</span>
+                </span>
                 {% endif %}
+                {% if show_stability %}
+                <span class="mm-chip mm-chip--stability mm-chip--stability-{{ module_stability|clean_class }} admin-requirements stability">
+                  <span class="mm-i mm-i--verified" aria-hidden="true"></span>
+                  <span class="details-option">{{ 'Stability: @stability'|t({'@stability': module_stability|capitalize}) }}</span>
+                </span>
+                {% endif %}
+              </div>
               {% endif %}
-            {% endfor %}
-            {% endif %}
 
-            {% if visibility.module_issue_link and module.issue_link %}
-            <div class="admin-requirements issue-link">
-              <span class="material-icons">bug_report</span>
-              <a href="{{ module.issue_link }}" target="_blank">
-                <span class="details-option">{{ 'Create Issue'|t }}</span>
-              </a>
+              {% if show_facts %}
+              <dl class="mm-facts">
+                {% if visibility.module_project and module_project %}
+                <div class="mm-fact admin-requirements project">
+                  <dt><span class="mm-i mm-i--folder_open" aria-hidden="true"></span>{{ 'Project'|t }}</dt>
+                  <dd class="details-option">{{ module_project|replace({_: ' '})|capitalize|title }}</dd>
+                </div>
+                {% endif %}
+
+                {% if visibility.module_version and module_version %}
+                <div class="mm-fact admin-requirements version">
+                  <dt><span class="mm-i mm-i--label" aria-hidden="true"></span>{{ 'Version'|t }}</dt>
+                  <dd class="details-option">{{ module_version }}</dd>
+                </div>
+                {% endif %}
+
+                {% if visibility.module_mtime and module_mtime %}
+                <div class="mm-fact admin-requirements mtime">
+                  <dt><span class="mm-i mm-i--schedule" aria-hidden="true"></span>{{ 'Last modified'|t }}</dt>
+                  <dd class="details-option">{{ module_mtime }}</dd>
+                </div>
+                {% endif %}
+
+                {% if visibility.module_lifecycle and module_lifecycle %}
+                <div class="mm-fact admin-requirements lifecycle">
+                  <dt><span class="mm-i mm-i--autorenew" aria-hidden="true"></span>{{ 'Lifecycle'|t }}</dt>
+                  <dd class="details-option">{{ module_lifecycle|capitalize }}</dd>
+                </div>
+                {% endif %}
+
+                {% if visibility.module_machine_name and module_machine_name %}
+                <div class="mm-fact admin-requirements machine-name">
+                  <dt><span class="mm-i mm-i--code" aria-hidden="true"></span>{{ 'Machine name'|t }}</dt>
+                  <dd class="details-option mm-mono">{{ module_machine_name }}</dd>
+                </div>
+                {% endif %}
+
+                {% if visibility.module_subpath and module_subpath %}
+                {# Each path part is escaped by autoescape; only the literal
+                   slash and <wbr> written here are markup, so the path can wrap
+                   at a slash and nowhere else. #}
+                <div class="mm-fact mm-fact--wide admin-requirements subpath">
+                  <dt><span class="mm-i mm-i--folder" aria-hidden="true"></span>{{ 'Subpath'|t }}</dt>
+                  <dd class="details-option mm-mono">{% for part in module_subpath|split('/') %}{{ part }}{% if not loop.last %}/<wbr>{% endif %}{% endfor %}</dd>
+                </div>
+                {% endif %}
+              </dl>
+              {% endif %}
+
+              {% if show_deps %}
+              <div class="mm-deps">
+                {% if visibility.module_requires and module.requires %}
+                <div class="mm-dep admin-requirements requires">
+                  <div class="mm-label"><span class="mm-i mm-i--link" aria-hidden="true"></span>{{ 'Requires'|t }}</div>
+                  <div class="details-option">{{ module.requires }}</div>
+                </div>
+                {% endif %}
+
+                {% if visibility.module_required_by and module.required_by %}
+                <div class="mm-dep admin-requirements required_by">
+                  <div class="mm-label"><span class="mm-i mm-i--link_off" aria-hidden="true"></span>{{ 'Required by'|t }}</div>
+                  <div class="details-option">{{ module.required_by }}</div>
+                </div>
+                {% endif %}
+              </div>
+              {% endif %}
+
+              {% if show_links %}
+              <div class="mm-links">
+                {% if show_admin_links %}
+                  {% if module.links['help'] is defined %}
+                  <span class="mm-link admin-requirements help-link">
+                    <span class="mm-i mm-i--help" aria-hidden="true"></span>
+                    <span class="details-option">{{ module.links['help'] }}</span>
+                  </span>
+                  {% endif %}
+                  {% if module.links['permissions'] is defined %}
+                  <span class="mm-link admin-requirements permissions-link">
+                    <span class="mm-i mm-i--lock" aria-hidden="true"></span>
+                    <span class="details-option">{{ module.links['permissions'] }}</span>
+                  </span>
+                  {% endif %}
+                  {% if module.links['configure'] is defined %}
+                  <span class="mm-link admin-requirements configure-link">
+                    <span class="mm-i mm-i--settings" aria-hidden="true"></span>
+                    <span class="details-option">{{ module.links['configure'] }}</span>
+                  </span>
+                  {% endif %}
+                {% endif %}
+
+                {% if visibility.module_issue_link and module.issue_link %}
+                <span class="mm-link admin-requirements issue-link">
+                  <span class="mm-i mm-i--bug_report" aria-hidden="true"></span>
+                  <a href="{{ module.issue_link }}" target="_blank" rel="noopener noreferrer">
+                    <span class="details-option">{{ 'Create Issue'|t }}</span>
+                  </a>
+                </span>
+                {% endif %}
+
+                {% if visibility.module_usage_link and module.usage_link %}
+                <span class="mm-link admin-requirements usage-link">
+                  <span class="mm-i mm-i--bar_chart" aria-hidden="true"></span>
+                  <a href="{{ module.usage_link }}" target="_blank" rel="noopener noreferrer">
+                    <span class="details-option">{{ 'Usage Stats'|t }}</span>
+                  </a>
+                </span>
+                {% endif %}
+              </div>
+              {% endif %}
+
             </div>
-            {% endif %}
-
-            {% if visibility.module_usage_link and module.usage_link %}
-            <div class="admin-requirements usage-link">
-              <span class="material-icons">bar_chart</span>
-              <a href="{{ module.usage_link }}" target="_blank">
-                <span class="details-option">{{ 'Usage Stats'|t }}</span>
-              </a>
-            </div>
-            {% endif %}
-
-            {% if visibility.module_subpath and module_subpath %}
-            <div class="admin-requirements subpath">
-              <span class="material-icons">folder</span>
-              <span class="details-option">{{ 'Subpath: @subpath'|t({'@subpath': module_subpath}) }}</span>
-            </div>
-            {% endif %}
-
-            {% if visibility.module_requires and module.requires %}
-            <div class="admin-requirements requires">
-              <span class="material-icons">link</span>
-              <span class="details-option">{{ 'Requires: @module-list'|t({'@module-list': module.requires}) }}</span>
-            </div>
-            {% endif %}
-
-            {% if visibility.module_required_by and module.required_by %}
-            <div class="admin-requirements required_by">
-              <span class="material-icons">link_off</span>
-              <span class="details-option">{{ 'Required by: @module-list'|t({'@module-list': module.required_by}) }}</span>
-            </div>
-            {% endif %}
-
           </div>
-
 
         {% else %}
             <div class="description-only">{{ module_description ? module_description : 'No description available'|t }}

@@ -1,31 +1,37 @@
 /**
  * @file
- * Module Matrix Style Accent.
+ * Module Matrix Style Accent: the look shared by Extend and Uninstall.
  *
  * Filename:     module-matrix.style.accent.css
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ *
+ * Loaded on both pages (libraries matrix-style and matrix-style-uninstall),
+ * after the page file. Holds what both pages share: motion tokens, frame,
+ * command bar, search, buttons, package rail, list panel, the plain
+ * toggle (Extend switch, filter chips, uninstall picks), the radio, focus, forced colors
+ * and reduced motion.
+ * Colour values come from css/accent/*.css; names there never change.
+ * Every selector carries its form scope, so no admin theme rule is touched.
  */
 
-/* Base Form Styling */
+/* Motion tokens (extend-design.md section 6a). */
+form#system-modules,
+form#system-modules-uninstall {
+  --mm-ease: cubic-bezier(0.19, 1, 0.22, 1);
+  --mm-ease-pop: cubic-bezier(0.34, 1.3, 0.64, 1);
+  --mm-dur: 280ms;
+  --mm-dur-fast: 140ms;
+}
+
+/* Page frame. */
 form#system-modules,
 form#system-modules-uninstall {
   background-color: var(--background-color);
   color: var(--text-color);
   border-color: var(--border-color);
-}
-
-form.system-modules *,
-form#system-modules-uninstall * {
-  color: var(--text-color);
-}
-
-form.system-modules .module-matrix-filters,
-form#system-modules-uninstall .module-matrix-filters {
-  border: 1px dashed var(--border-color) !important;
-  box-shadow: var(--main-shadow);
-  background: var(--filter-bg);
-  width: auto;
+  font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 form#system-modules *,
@@ -33,62 +39,390 @@ form#system-modules-uninstall * {
   border-color: var(--border-color);
 }
 
-/* Links & Buttons */
-form.system-modules a,
+/* Links. Plain text and labels use the text colour, never the link colour. */
+form#system-modules a,
 form#system-modules-uninstall a {
   color: var(--link-color);
 }
 
-form.system-modules a:hover,
+form#system-modules a:hover,
 form#system-modules-uninstall a:hover {
   color: var(--link-color-hover);
 }
 
-/* Text Input Fields */
-form#system-modules input[type="search"],
-form#system-modules-uninstall input[type="search"],
-form#system-modules input[type="text"],
-form#system-modules-uninstall input[type="text"] {
-  background: var(--input-bg);
+form#system-modules label,
+form#system-modules-uninstall label {
   color: var(--text-color);
 }
 
-/* Labels */
-form#system-modules label,
 form#system-modules .fieldset__label,
-form#system-modules-uninstall label,
-form#system-modules-uninstall .fieldset__label {
-  color: var(--link-color);
+form#system-modules legend,
+form#system-modules-uninstall .fieldset__label,
+form#system-modules-uninstall legend {
+  color: var(--muted-color);
 }
 
-/* Module Lists */
-form#system-modules .module-matrix-list a,
-form#system-modules-uninstall .module-matrix-list a {
-  color: var(--link-color);
+/* Focus: one ring everywhere (2px accent outline). */
+form#system-modules a:focus-visible,
+form#system-modules button:focus-visible,
+form#system-modules [role="button"]:focus-visible,
+form#system-modules-uninstall a:focus-visible,
+form#system-modules-uninstall button:focus-visible,
+form#system-modules-uninstall [role="button"]:focus-visible {
+  outline: 2px solid var(--checkbox-focus-outline);
+  outline-offset: 2px;
 }
 
+/* Intro line: one muted line, no box. */
+form#system-modules .intro-message-class,
+form#system-modules-uninstall .intro-message-class {
+  background: none;
+  color: var(--muted-color);
+  font-size: 0.8125rem;
+  margin: 0 0 0.625rem;
+  padding: 0;
+}
+
+form#system-modules .intro-message-class p,
+form#system-modules-uninstall .intro-message-class p {
+  margin: 0;
+}
+
+form#system-modules .intro-message-class a,
+form#system-modules-uninstall .intro-message-class a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 600;
+}
+
+/* Command bar (filters band): solid hairline panel, sticky. */
+form#system-modules .module-matrix-filters,
+form#system-modules-uninstall .module-matrix-filters {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  inline-size: auto;
+  margin: 0 0 0.75rem;
+  padding: 0.75rem;
+  background: var(--details-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: var(--main-shadow);
+}
+
+/* Search and text fields: 40px, 1px control border, radius 6. */
+form#system-modules input[type="search"],
+form#system-modules input[type="text"],
+form#system-modules-uninstall input[type="search"],
+form#system-modules-uninstall input[type="text"] {
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: 2.5rem;
+  block-size: 2.5rem;
+  padding-block: 0;
+  padding-inline: 2.25rem 0.75rem;
+  border: 1px solid var(--ctl-color);
+  border-radius: 6px;
+  background: var(--input-bg);
+  color: var(--text-color);
+  font: inherit;
+  box-shadow: none;
+  transition: border-color var(--mm-dur-fast) var(--mm-ease), box-shadow var(--mm-dur-fast) var(--mm-ease);
+}
+
+form#system-modules input[type="search"]:hover,
+form#system-modules input[type="text"]:hover,
+form#system-modules-uninstall input[type="search"]:hover,
+form#system-modules-uninstall input[type="text"]:hover {
+  border-color: var(--text-color);
+}
+
+form#system-modules input[type="search"]:focus-visible,
+form#system-modules input[type="text"]:focus-visible,
+form#system-modules-uninstall input[type="search"]:focus-visible,
+form#system-modules-uninstall input[type="text"]:focus-visible {
+  border-color: var(--accent-color);
+  outline: 2px solid var(--checkbox-focus-outline);
+  outline-offset: 2px;
+  box-shadow: var(--focus-shadow);
+}
+
+form#system-modules input[type="search"]:disabled,
+form#system-modules input[type="text"]:disabled,
+form#system-modules-uninstall input[type="search"]:disabled,
+form#system-modules-uninstall input[type="text"]:disabled {
+  cursor: not-allowed;
+  border-style: dashed;
+  background: var(--filter-bg);
+  color: var(--muted-color);
+}
+
+form#system-modules input::placeholder,
+form#system-modules-uninstall input::placeholder {
+  color: var(--muted-color);
+  opacity: 1;
+}
+
+/* Search icon, drawn in the field's wrapper at inline-start. */
+form#system-modules .module-matrix-filters .form-item:has(> input[type="text"]),
+form#system-modules .module-matrix-filters .form-item:has(> input[type="search"]),
+form#system-modules-uninstall .module-matrix-filters .form-item:has(> input[type="text"]),
+form#system-modules-uninstall .module-matrix-filters .form-item:has(> input[type="search"]) {
+  position: relative;
+  margin: 0;
+}
+
+form#system-modules .module-matrix-filters .form-item:has(> input[type="text"])::before,
+form#system-modules .module-matrix-filters .form-item:has(> input[type="search"])::before,
+form#system-modules-uninstall .module-matrix-filters .form-item:has(> input[type="text"])::before,
+form#system-modules-uninstall .module-matrix-filters .form-item:has(> input[type="search"])::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset-inline-start: 0.75rem;
+  inset-block-end: 0.6875rem;
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+  background-color: var(--muted-color);
+  -webkit-mask: url(../../icons/search.svg) center / contain no-repeat;
+  mask: url(../../icons/search.svg) center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* Buttons: 36px, radius 6, primary in the accent. */
 form#system-modules input.button,
 form#system-modules-uninstall input.button {
-  color: var(--button-color);
+  min-block-size: 2.25rem;
+  block-size: 2.25rem;
+  margin: 0;
+  padding: 0 1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
   background: var(--button-bg);
+  color: var(--button-color);
+  font: inherit;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: none;
+  cursor: pointer;
+  transition: background-color var(--mm-dur-fast) var(--mm-ease), color var(--mm-dur-fast) var(--mm-ease), border-color var(--mm-dur-fast) var(--mm-ease);
 }
 
 form#system-modules input.button:hover,
 form#system-modules-uninstall input.button:hover {
-  box-shadow: var(--focus-shadow);
+  background: var(--link-color-hover);
   color: var(--button-color-hover);
-  background: var(--button-bg-hover);
+  box-shadow: none;
 }
 
-form#system-modules .module-matrix-item-details,
-form#system-modules-uninstall .module-matrix-item-details {
-  background: var(--details-bg);
+form#system-modules input.button:focus-visible,
+form#system-modules-uninstall input.button:focus-visible {
+  outline: 2px solid var(--checkbox-focus-outline);
+  outline-offset: 2px;
+  box-shadow: var(--focus-shadow);
+}
+
+form#system-modules input.button:disabled,
+form#system-modules-uninstall input.button:disabled {
+  cursor: not-allowed;
+  border: 1px dashed var(--ctl-color);
+  background: var(--filter-bg);
+  color: var(--muted-color);
+}
+
+/* Package rail (Extend, and Uninstall once it has one). */
+form#system-modules .module-matrix-sidebar,
+form#system-modules-uninstall .module-matrix-sidebar {
+  padding: 0.375rem;
+  background: var(--package-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-weight: 400;
 }
 
 form#system-modules .module-matrix-sidebar a,
 form#system-modules-uninstall .module-matrix-sidebar a {
-  background: var(--package-bg);
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-block-size: 2.125rem;
+  margin: 0 0 1px;
+  padding: 0.375rem 0.625rem 0.5625rem;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
   color: var(--package-color);
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  text-decoration: none;
+  box-shadow: none;
+  transition: background-color var(--mm-dur-fast) var(--mm-ease), color var(--mm-dur-fast) var(--mm-ease);
+}
+
+form#system-modules .module-matrix-sidebar a:hover,
+form#system-modules-uninstall .module-matrix-sidebar a:hover {
+  background: var(--package-bg-hover);
+  color: var(--package-color);
+  box-shadow: none;
+}
+
+form#system-modules .module-matrix-sidebar a.active,
+form#system-modules-uninstall .module-matrix-sidebar a.active {
+  background: var(--package-bg-hover);
+  box-shadow: inset 3px 0 0 var(--accent-color);
+}
+
+[dir="rtl"] form#system-modules .module-matrix-sidebar a.active,
+[dir="rtl"] form#system-modules-uninstall .module-matrix-sidebar a.active {
+  box-shadow: inset -3px 0 0 var(--accent-color);
+}
+
+form#system-modules .module-matrix-sidebar a .package-link-left,
+form#system-modules-uninstall .module-matrix-sidebar a .package-link-left {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 0.5rem;
+  min-inline-size: 0;
+}
+
+form#system-modules .module-matrix-sidebar a .package-label,
+form#system-modules-uninstall .module-matrix-sidebar a .package-label {
+  overflow: hidden;
+  color: var(--package-color);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+form#system-modules .module-matrix-sidebar a.active .package-label,
+form#system-modules-uninstall .module-matrix-sidebar a.active .package-label {
+  font-weight: 600;
+}
+
+form#system-modules .module-matrix-sidebar a .mm-i,
+form#system-modules-uninstall .module-matrix-sidebar a .mm-i {
+  flex: none;
+  inline-size: 1rem;
+  block-size: 1rem;
+  margin: 0;
+  color: var(--muted-color);
+}
+
+form#system-modules .module-matrix-sidebar a.active .mm-i,
+form#system-modules-uninstall .module-matrix-sidebar a.active .mm-i {
+  color: var(--accent-color);
+}
+
+/* Readout: on / total in tabular figures; .off is screen-reader text. */
+form#system-modules .module-matrix-sidebar a .package-link-right,
+form#system-modules-uninstall .module-matrix-sidebar a .package-link-right {
+  display: inline-flex;
+  flex: none;
+  align-items: baseline;
+  gap: 0.125rem;
+  color: var(--muted-color);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+form#system-modules .module-matrix-sidebar a .package-link-right span,
+form#system-modules-uninstall .module-matrix-sidebar a .package-link-right span {
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  font-size: 0.75rem;
+}
+
+form#system-modules .module-matrix-sidebar a .package-link-right span.on,
+form#system-modules-uninstall .module-matrix-sidebar a .package-link-right span.on {
+  color: var(--on-color);
+  font-weight: 600;
+}
+
+form#system-modules .module-matrix-sidebar a .package-link-right span.total,
+form#system-modules-uninstall .module-matrix-sidebar a .package-link-right span.total {
+  color: var(--muted-color);
+  font-weight: 400;
+}
+
+form#system-modules .module-matrix-sidebar a .package-link-right span.off,
+form#system-modules-uninstall .module-matrix-sidebar a .package-link-right span.off {
+  position: absolute;
+  overflow: hidden;
+  inline-size: 1px;
+  block-size: 1px;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Meter: enabled share of the package (--mm-ratio set by the JS). */
+form#system-modules .module-matrix-sidebar a::after,
+form#system-modules-uninstall .module-matrix-sidebar a::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0.625rem;
+  inset-block-end: 0.1875rem;
+  block-size: 3px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--on-color) calc(var(--mm-ratio, 0) * 100%), var(--border-color) 0);
+}
+
+[dir="rtl"] form#system-modules .module-matrix-sidebar a::after,
+[dir="rtl"] form#system-modules-uninstall .module-matrix-sidebar a::after {
+  background: linear-gradient(to left, var(--on-color) calc(var(--mm-ratio, 0) * 100%), var(--border-color) 0);
+}
+
+/* Matrix mark for "All modules": 3x3 accent dots, CSS only. */
+form#system-modules .module-matrix-sidebar a .mm-mark,
+form#system-modules-uninstall .module-matrix-sidebar a .mm-mark {
+  display: inline-block;
+  flex: none;
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
+  margin-inline: 1px;
+  background: radial-gradient(circle, var(--accent-color) 1.7px, transparent 2px) 0 0 / 33.333% 33.333%;
+}
+
+form#system-modules .module-matrix-sidebar a .package-link-right .mm-count-sep,
+form#system-modules-uninstall .module-matrix-sidebar a .package-link-right .mm-count-sep {
+  color: var(--muted-color);
+}
+
+/* Module list: one panel, hairline rows, no per-row boxes or shadows. */
+form#system-modules .module-matrix-list,
+form#system-modules-uninstall .module-matrix-list {
+  overflow: hidden;
+  background: var(--details-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: var(--main-shadow);
+}
+
+form#system-modules .module-matrix-list .module-matrix-list-inner + .module-matrix-list-inner,
+form#system-modules-uninstall .module-matrix-list .module-matrix-list-inner + .module-matrix-list-inner {
+  border-block-start: 1px solid var(--border-color);
+}
+
+form#system-modules .module-matrix-list .module-matrix-list-inner,
+form#system-modules-uninstall .module-matrix-list .module-matrix-list-inner {
+  transition: background-color 160ms var(--mm-ease);
+}
+
+form#system-modules .module-matrix-list .module-matrix-list-inner:hover,
+form#system-modules-uninstall .module-matrix-list .module-matrix-list-inner:hover {
+  background: color-mix(in srgb, var(--package-bg-hover) 55%, var(--details-bg));
+  box-shadow: none;
+}
+
+form#system-modules .module-matrix-item-details,
+form#system-modules-uninstall .module-matrix-item-details {
+  background: transparent;
+  box-shadow: none;
 }
 
 form#system-modules .module-matrix-list .module-matrix-item-details.open .matrix-details-header-icon,
@@ -96,107 +430,480 @@ form#system-modules-uninstall .module-matrix-list .module-matrix-item-details.op
   color: var(--icon-color-open);
 }
 
-form#system-modules .module-matrix-list a:hover,
-form#system-modules-uninstall .module-matrix-list a:hover {
-  color: var(--accent-color);
+/*
+ * B. The toggle: Extend module switch, filter chips and uninstall picks.
+ * module_matrix owns its own copy of the Selectify "toggle / circle / medium"
+ * look, so it renders the same with Selectify uninstalled. Nothing here loads
+ * or depends on a Selectify file.
+ *
+ * Geometry and motion copied from Selectify (selectify/css/selectify-radio-checkbox.css,
+ * values from selectify/src/Service/SelectifyStyleService.php:123-130, 233-234, 266-273):
+ * track 2.5rem x 1.5rem, 2px border, pill; knob 1.125rem, 1px margin, travel
+ * 2px to 14px; check 0.875rem riding the knob; glide on cubic-bezier(.22,1,.36,1)
+ * for 0.3s. Colours come from module_matrix tokens; --mm-tg-on is the checked
+ * tone (accent here, --off-color on the Uninstall page).
+ *
+ * Theme-proof: the inputs carry data-selectify-skip, and every declaration is
+ * !important under the form ID because an older Selectify still restyles every
+ * checkbox with !important (selectify-radio-checkbox.css:36-80 track,
+ * 107-148 knob, 204-297 mark, 326-339 disabled) and its Claro/Gin files strip
+ * the mask and clip-path (css/claro/selectify-claro.css:66-70,
+ * css/gin/selectify-gin-base.css:28-32). The ID outranks all of them and
+ * Claro's .form-boolean (claro/css/components/form--checkbox-radio.css:62-210).
+ */
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters) input[type="checkbox"] {
+  --mm-tg-on: var(--accent-color);
 }
 
-/* Checkbox Styling */
-form#system-modules input[type="checkbox"],
-form#system-modules-uninstall input[type="checkbox"] {
-  background: var(--checkbox-bg);
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"] {
+  --mm-knob-x: 2px;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  position: relative !important;
+  inset: auto !important;
+  float: none !important;
+  isolation: isolate !important;
+  display: inline-block !important;
+  flex: none !important;
+  box-sizing: border-box !important;
+  inline-size: 2.5rem !important;
+  block-size: 1.5rem !important;
+  min-inline-size: 2.5rem !important;
+  max-inline-size: 2.5rem !important;
+  min-block-size: 1.5rem !important;
+  max-block-size: 1.5rem !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+  translate: none !important;
+  scale: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 2px solid color-mix(in srgb, var(--checkbox-border) 45%, currentColor) !important;
+  border-radius: 999px !important;
+  background: var(--checkbox-bg) !important;
+  box-shadow: inset 0 0 0 0 color-mix(in srgb, var(--mm-tg-on) 16%, transparent) !important;
+  outline: none !important;
+  color: var(--text-color) !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 200ms ease, background-color 200ms ease, box-shadow 240ms cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
-form#system-modules input[type="checkbox"]::before,
-form#system-modules-uninstall input[type="checkbox"]::before {
-  background: var(--checkbox-check-circle);
+/* Checked: the tone floods in from the edges and the knob moves across. */
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:checked {
+  --mm-knob-x: 14px;
+  border-color: color-mix(in srgb, var(--mm-tg-on) 70%, currentColor) !important;
+  background: color-mix(in srgb, var(--mm-tg-on) 14%, var(--checkbox-bg)) !important;
+  box-shadow: inset 0 0 0 2rem color-mix(in srgb, var(--mm-tg-on) 16%, transparent) !important;
 }
 
-/* Checked State */
-form#system-modules input[type="checkbox"]:checked,
-form#system-modules-uninstall input[type="checkbox"]:checked {
-  background: var(--checkbox-checked-bg);
+/* Hover: the line firms up. No movement. */
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:hover:not(:checked, :disabled, [aria-invalid="true"]) {
+  border-color: color-mix(in srgb, var(--mm-tg-on) 60%, currentColor) !important;
+  background: color-mix(in srgb, var(--mm-tg-on) 6%, var(--checkbox-bg)) !important;
 }
 
-form#system-modules input[type="checkbox"]:checked::before,
-form#system-modules-uninstall input[type="checkbox"]:checked::before {
-  background: var(--checkbox-checked-circle);
+/* Pressed while unchecked. */
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:active:not(:checked, :disabled, [aria-invalid="true"]) {
+  border-color: color-mix(in srgb, var(--mm-tg-on) 70%, currentColor) !important;
+  background: color-mix(in srgb, var(--mm-tg-on) 12%, var(--checkbox-bg)) !important;
 }
 
-/* Focus State */
-form#system-modules input[type="checkbox"]:focus,
-form#system-modules-uninstall input[type="checkbox"]:focus {
-  outline: 2px solid var(--checkbox-focus-outline);
+/* Knob: one solid colour, glides by translate only. */
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: 1 !important;
+  display: block !important;
+  box-sizing: border-box !important;
+  inset-block: 0 auto !important;
+  inset-inline: 0 auto !important;
+  inline-size: 1.125rem !important;
+  block-size: 1.125rem !important;
+  margin: 1px !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: color-mix(in srgb, var(--checkbox-border) 45%, currentColor) !important;
+  box-shadow: 0 1px 2px color-mix(in srgb, currentColor 30%, transparent) !important;
+  clip-path: none !important;
+  mask: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transform-origin: left center !important;
+  translate: var(--mm-knob-x) 0 !important;
+  scale: 1 1 !important;
+  will-change: translate, scale;
+  transition: translate 0.3s cubic-bezier(0.22, 1, 0.36, 1), scale 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms ease !important;
 }
 
-/* Disabled State */
-form#system-modules input[type="checkbox"]:disabled,
-form#system-modules-uninstall input[type="checkbox"]:disabled {
-  background: var(--checkbox-disabled-bg);
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:checked::before {
+  background: color-mix(in srgb, var(--mm-tg-on) 70%, currentColor) !important;
+  transform-origin: right center !important;
 }
 
-form#system-modules input[type="checkbox"]:disabled::before,
-form#system-modules-uninstall input[type="checkbox"]:disabled::before {
-  background: var(--checkbox-disabled-circle);
+/* Stretch that settles: the knob widens toward its travel while pressed. */
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:active::before {
+  scale: 1.22 1 !important;
+  transition-duration: 0.3s, 120ms, 200ms !important;
 }
 
-/* Hover & Focus Effects */
-form#system-modules input[type="search"]:hover,
-form#system-modules input[type="search"]:focus,
-form#system-modules-uninstall input[type="search"]:hover,
-form#system-modules-uninstall input[type="search"]:focus,
-form#system-modules input[type="text"]:hover,
-form#system-modules input[type="text"]:focus,
-form#system-modules-uninstall input[type="text"]:hover,
-form#system-modules-uninstall input[type="text"]:focus {
-  box-shadow: var(--focus-shadow);
-  outline: none;
+/* Check mark: rides the knob and draws in after the knob lands. */
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]::after {
+  content: "" !important;
+  position: absolute !important;
+  z-index: 2 !important;
+  display: block !important;
+  inset-block: 50% auto !important;
+  inset-inline-start: calc(1px + (1.125rem - 0.875rem) / 2) !important;
+  inset-inline-end: auto !important;
+  inline-size: 0.875rem !important;
+  block-size: 0.875rem !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--checkbox-bg) !important;
+  -webkit-mask: url(../../icons/check.svg) center / contain no-repeat !important;
+  mask: url(../../icons/check.svg) center / contain no-repeat !important;
+  clip-path: inset(0 100% 0 0) !important;
+  opacity: 0 !important;
+  pointer-events: none;
+  transform: none !important;
+  rotate: none !important;
+  scale: 1 !important;
+  translate: var(--mm-knob-x) -50% !important;
+  transition: translate 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 90ms ease, clip-path 0s linear 90ms !important;
 }
 
-form#system-modules input[type="text"]:focus,
-form#system-modules-uninstall input[type="text"]:focus {
-  border-color: var(--accent-color);
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:checked::after {
+  opacity: 1 !important;
+  clip-path: inset(0) !important;
+  transition: translate 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 120ms ease 150ms, clip-path 200ms cubic-bezier(0.65, 0, 0.35, 1) 150ms !important;
 }
 
-form#system-modules .module-matrix-sidebar a.active,
-form#system-modules .module-matrix-sidebar a:hover,
-form#system-modules .matrix-details-header:not(.count-1):hover,
-form#system-modules-uninstall .module-matrix-sidebar a.active,
-form#system-modules-uninstall .module-matrix-sidebar a:hover,
-form#system-modules-uninstall .matrix-details-header:not(.count-1):hover {
-  background: var(--package-bg-hover);
+/* Focus: ring plus soft halo, flood kept. */
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--checkbox-focus-outline) !important;
+  outline-offset: 2px !important;
+  box-shadow: inset 0 0 0 0 color-mix(in srgb, var(--mm-tg-on) 16%, transparent), var(--focus-shadow) !important;
 }
 
-form#system-modules .module-matrix-sidebar a:hover *,
-form#system-modules .matrix-details-header:not(.count-1):hover *,
-form#system-modules-uninstall .module-matrix-sidebar a:hover *,
-form#system-modules-uninstall .matrix-details-header:not(.count-1):hover * {
-  color: var(--link-color-hover);
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:checked:focus-visible {
+  box-shadow: inset 0 0 0 2rem color-mix(in srgb, var(--mm-tg-on) 16%, transparent), var(--focus-shadow) !important;
 }
 
-/* Shadows on Hover */
-form#system-modules .module-matrix-wrapper .module-matrix-sidebar a:hover,
-form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:hover,
-form#system-modules .module-matrix-wrapper .module-matrix-list-inner:hover > .module-matrix-item-details:not(.grid-layout.module-matrix-wrapper .module-matrix-list-inner > *),
-form#system-modules-uninstall .module-matrix-wrapper .module-matrix-sidebar a:hover,
-form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list-inner:hover,
-form#system-modules-uninstall .module-matrix-wrapper .module-matrix-list-inner:hover > .module-matrix-item-details:not(.grid-layout.module-matrix-wrapper .module-matrix-list-inner > *) {
-  box-shadow: var(--main-shadow);
+/* Indeterminate: a bar in place of the check, knob hidden. */
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:indeterminate {
+  border-color: var(--mm-tg-on) !important;
+  background: color-mix(in srgb, var(--mm-tg-on) 14%, var(--checkbox-bg)) !important;
 }
 
-/* Placeholder Styles */
-form#system-modules input::placeholder,
-form#system-modules-uninstall input::placeholder {
-  color: var(--accent-color);
-  opacity: 0.9;
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:indeterminate::before {
+  opacity: 0 !important;
 }
 
-form#system-modules input[type="submit"],
-form#system-modules-uninstall input[type="submit"] {
-  border: none !important;
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:indeterminate::after {
+  inline-size: 50% !important;
+  block-size: 2px !important;
+  border-radius: 2px !important;
+  background: color-mix(in srgb, var(--mm-tg-on) 60%, currentColor) !important;
+  -webkit-mask: none !important;
+  mask: none !important;
+  clip-path: none !important;
+  opacity: 1 !important;
+  inset-inline-start: 50% !important;
+  translate: -50% -50% !important;
 }
 
-form#system-modules .intro-message-class,
-form#system-modules-uninstall .intro-message-class {
-  background: var(--filter-bg);
+[dir="rtl"] :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:indeterminate::after {
+  translate: 50% -50% !important;
+}
+
+/* Disabled: solid, never dashed. */
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:disabled {
+  border-style: solid !important;
+  border-color: var(--ctl-color) !important;
+  background: var(--checkbox-disabled-bg) !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+}
+
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:disabled::before {
+  background: var(--checkbox-disabled-circle) !important;
+  box-shadow: none !important;
+}
+
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:disabled:active::before {
+  scale: 1 1 !important;
+}
+
+/* Disabled but on (core-required modules): stays visibly on, with a lock. */
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:disabled:checked {
+  border-color: color-mix(in srgb, var(--mm-tg-on) 45%, var(--details-bg)) !important;
+  background: color-mix(in srgb, var(--mm-tg-on) 30%, var(--details-bg)) !important;
+}
+
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:disabled:checked::before {
+  background: color-mix(in srgb, var(--mm-tg-on) 60%, var(--details-bg)) !important;
+}
+
+:is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:disabled:checked::after {
+  inline-size: 0.625rem !important;
+  block-size: 0.625rem !important;
+  inset-inline-start: calc(1px + (1.125rem - 0.625rem) / 2) !important;
+  -webkit-mask-image: url(../../icons/lock.svg) !important;
+  mask-image: url(../../icons/lock.svg) !important;
+}
+
+/* RTL: the knob travels the other way and stretches toward its target. */
+[dir="rtl"] :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"] {
+  --mm-knob-x: -2px;
+}
+
+[dir="rtl"] :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:checked {
+  --mm-knob-x: -14px;
+}
+
+[dir="rtl"] :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]::before {
+  transform-origin: right center !important;
+}
+
+[dir="rtl"] :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:checked::before {
+  transform-origin: left center !important;
+}
+
+[dir="rtl"] :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:not(:checked, :indeterminate)::after {
+  clip-path: inset(0 0 0 100%) !important;
+}
+
+/* C. Radio (none rendered today; shipped so any radio matches the family). */
+form#system-modules input[type="radio"],
+form#system-modules-uninstall input[type="radio"] {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  position: relative !important;
+  flex: none !important;
+  box-sizing: border-box !important;
+  display: inline-block !important;
+  inline-size: 1.125rem !important;
+  block-size: 1.125rem !important;
+  min-inline-size: 1.125rem !important;
+  max-inline-size: 1.125rem !important;
+  min-block-size: 1.125rem !important;
+  max-block-size: 1.125rem !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1.5px solid var(--ctl-color) !important;
+  border-radius: 50% !important;
+  background: var(--details-bg) !important;
+  box-shadow: none !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+  transition: border-color var(--mm-dur-fast) var(--mm-ease), scale var(--mm-dur-fast) var(--mm-ease) !important;
+}
+
+form#system-modules input[type="radio"]::before,
+form#system-modules-uninstall input[type="radio"]::before {
+  content: none !important;
+  display: none !important;
+}
+
+form#system-modules input[type="radio"]::after,
+form#system-modules-uninstall input[type="radio"]::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  clip-path: none !important;
+  mask: none !important;
+  transform: none !important;
+  translate: none !important;
+  opacity: 1 !important;
+  inset: 0 !important;
+  inline-size: 0.5rem !important;
+  block-size: 0.5rem !important;
+  margin: auto !important;
+  border-radius: 50% !important;
+  background: var(--accent-color) !important;
+  scale: 0 !important;
+  transition: scale 120ms var(--mm-ease) !important;
+}
+
+form#system-modules input[type="radio"]:hover,
+form#system-modules-uninstall input[type="radio"]:hover {
+  border-color: var(--text-color) !important;
+}
+
+form#system-modules input[type="radio"]:active,
+form#system-modules-uninstall input[type="radio"]:active {
+  scale: 0.9 !important;
+}
+
+form#system-modules input[type="radio"]:checked,
+form#system-modules-uninstall input[type="radio"]:checked {
+  border-color: var(--accent-color) !important;
+}
+
+form#system-modules input[type="radio"]:checked::after,
+form#system-modules-uninstall input[type="radio"]:checked::after {
+  scale: 1 !important;
+  transition: scale 200ms var(--mm-ease-pop) !important;
+}
+
+form#system-modules input[type="radio"]:focus-visible,
+form#system-modules-uninstall input[type="radio"]:focus-visible {
+  outline: 2px solid var(--checkbox-focus-outline) !important;
+  outline-offset: 2px !important;
+  box-shadow: var(--focus-shadow) !important;
+}
+
+form#system-modules input[type="radio"]:disabled,
+form#system-modules-uninstall input[type="radio"]:disabled {
+  border-style: solid !important;
+  background: var(--checkbox-disabled-bg) !important;
+  cursor: not-allowed !important;
+  scale: 1 !important;
+}
+
+form#system-modules input[type="radio"]:disabled:checked::after,
+form#system-modules-uninstall input[type="radio"]:disabled:checked::after {
+  background: var(--ctl-color) !important;
+}
+
+/* Narrow screens: the rail becomes a horizontal snap strip. */
+@media (max-width: 991px) {
+  form#system-modules .module-matrix-sidebar,
+  form#system-modules-uninstall .module-matrix-sidebar {
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  form#system-modules .module-matrix-sidebar a,
+  form#system-modules-uninstall .module-matrix-sidebar a {
+    flex: none;
+    inline-size: auto;
+    margin: 0;
+    scroll-snap-align: start;
+  }
+}
+
+/* Windows High Contrast and other forced palettes. */
+@media (forced-colors: active) {
+  /* The toggle: track, knob and mark keep their state in system colours. */
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"] {
+    forced-color-adjust: none !important;
+    border: 2px solid CanvasText !important;
+    background: Canvas !important;
+    box-shadow: none !important;
+  }
+
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:checked,
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:indeterminate {
+    border-color: Highlight !important;
+    background: Highlight !important;
+    box-shadow: none !important;
+  }
+
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]::before {
+    background: CanvasText !important;
+    box-shadow: none !important;
+  }
+
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:checked::before {
+    background: HighlightText !important;
+  }
+
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]::after {
+    background: Highlight !important;
+  }
+
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:indeterminate::after {
+    background: HighlightText !important;
+  }
+
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:disabled {
+    border-color: GrayText !important;
+    background: Canvas !important;
+  }
+
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:disabled::before {
+    background: GrayText !important;
+  }
+
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:disabled:checked {
+    border-color: GrayText !important;
+    background: Canvas !important;
+  }
+
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:disabled:checked::before {
+    background: GrayText !important;
+  }
+
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:disabled:checked::after {
+    background: Canvas !important;
+  }
+
+  form#system-modules input[type="radio"],
+  form#system-modules-uninstall input[type="radio"] {
+    forced-color-adjust: none !important;
+    border: 1.5px solid CanvasText !important;
+    background: Canvas !important;
+  }
+
+  form#system-modules input[type="radio"]:checked,
+  form#system-modules-uninstall input[type="radio"]:checked {
+    border-color: Highlight !important;
+    background: Highlight !important;
+  }
+
+  form#system-modules input[type="radio"]::after,
+  form#system-modules-uninstall input[type="radio"]::after {
+    background: HighlightText !important;
+  }
+
+  form#system-modules .module-matrix-sidebar a::after,
+  form#system-modules-uninstall .module-matrix-sidebar a::after {
+    background: CanvasText;
+  }
+
+  form#system-modules .module-matrix-sidebar a.active,
+  form#system-modules-uninstall .module-matrix-sidebar a.active {
+    outline: 2px solid Highlight;
+  }
+
+  form#system-modules :focus-visible,
+  form#system-modules-uninstall :focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+/* Reduced motion: every state change is instant. The control selectors are
+   listed so they match the !important transitions of the controls above. */
+@media (prefers-reduced-motion: reduce) {
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:is(:checked, :not(:checked)),
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:is(:checked, :not(:checked))::before,
+  :is(form#system-modules .name-package .checkbox, form#system-modules .module-matrix-filters, form#system-modules-uninstall) input[type="checkbox"]:is(:checked, :not(:checked))::after,
+  form#system-modules input[type="radio"]:is(:checked, :not(:checked)),
+  form#system-modules input[type="radio"]:is(:checked, :not(:checked))::after,
+  form#system-modules-uninstall input[type="radio"]:is(:checked, :not(:checked)),
+  form#system-modules-uninstall input[type="radio"]:is(:checked, :not(:checked))::after {
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+
+  form#system-modules *,
+  form#system-modules *::before,
+  form#system-modules *::after,
+  form#system-modules-uninstall *,
+  form#system-modules-uninstall *::before,
+  form#system-modules-uninstall *::after {
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+    animation: none !important;
+  }
 }

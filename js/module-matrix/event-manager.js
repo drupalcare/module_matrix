@@ -173,12 +173,17 @@ window.ModuleMatrix.EventManager = {
 
     // Remove active class from all links
     const allLinks = sidebar.querySelectorAll(SELECTORS.packageLink);
-    allLinks.forEach(link => link.classList.remove(CLASSES.active));
+    allLinks.forEach(link => {
+      link.classList.remove(CLASSES.active);
+      link.removeAttribute('aria-current');
+    });
 
-    // Add active class to selected link
-    const activeLink = sidebar.querySelector(`[data-package="${activePackage}"]`);
+    // Add active class to selected link; aria-current tells a screen reader
+    // which package is showing, which the class alone does not.
+    const activeLink = sidebar.querySelector(`[data-package="${CSS.escape(activePackage)}"]`);
     if (activeLink) {
       activeLink.classList.add(CLASSES.active);
+      activeLink.setAttribute('aria-current', 'true');
     }
   },
 

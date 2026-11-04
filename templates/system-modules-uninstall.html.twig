@@ -15,6 +15,11 @@
  *   - description: The description of the module.
  *   - disabled_reasons: (optional) A list of reasons why this module cannot be
  *     uninstalled.
+ *   - machine_name: The module's machine name (module_matrix preprocess).
+ *   - package: The module's package from its info file (module_matrix
+ *     preprocess).
+ * - packages: Package name => number of rows, for the package rail.
+ * - modules_total: Number of rows.
  *
  * @see template_preprocess_system_modules_uninstall()
  *
@@ -30,13 +35,46 @@
 {% endif %}
 
 {{ attach_library('module_matrix/main-uninstall') }}
-{% set compact_layout = visibility.compact_layout ? ' compact' : ''  %}
+{% set compact_layout = visibility.compact_layout ? ' compact' : '' %}
 {% set grid_layout = (visibility.grid_layout or visibility.compact_layout) ? ' grid-layout' : '' %}
 
-<div class="module-matrix-wrapper uninstall {{ grid_layout }}{{ compact_layout }}">
+{#
+  Package rail and per-row details, same pattern as the Extend page. The
+  panels are open in the markup so every reason stays readable without
+  JavaScript; js/module-matrix.main.uninstall.js collapses them on attach.
+#}
+<div class="module-matrix-wrapper uninstall {{ visibility.layout }}{{ grid_layout }}{{ compact_layout }}">
+  {% if modules %}
+    <nav class="module-matrix-sidebar" aria-label="{{ 'Packages'|t }}">
+      {% set count = modules_total %}
+      <a href="#" class="package-link package-link-all active" data-package="all" aria-current="true">
+        <span class="package-link-left">
+          <span class="mm-mark" aria-hidden="true"></span>
+          <span class="package-label">{{ 'All Modules'|t }}</span>
+        </span>
+        <span class="package-link-right">
+          <span class="total" aria-hidden="true">{{ count }}</span>
+          <span class="visually-hidden">{% trans %}{{ count }} module{% plural count %}{{ count }} modules{% endtrans %}</span>
+        </span>
+      </a>
+      {% for package, count in packages %}
+        <a href="#" class="package-link" data-package="{{ package }}">
+          <span class="package-link-left">
+            <span class="mm-i mm-i--folder" aria-hidden="true"></span>
+            <span class="package-label">{{ package }}</span>
+          </span>
+          <span class="package-link-right">
+            <span class="total" aria-hidden="true">{{ count }}</span>
+            <span class="visually-hidden">{% trans %}{{ count }} module{% plural count %}{{ count }} modules{% endtrans %}</span>
+          </span>
+        </a>
+      {% endfor %}
+    </nav>
+  {% endif %}
   <div class="module-matrix-list">
     {% for module in modules %}
-      <div class="module-matrix-list-inner">
+      {% set panel_id = (module.checkbox_id ~ '-panel')|clean_id %}
+      <div class="module-matrix-list-inner" data-package="{{ module.package }}">
         <div class="name-package">
           <span class="checkbox">
             {{ module.checkbox }}
@@ -44,37 +82,51 @@
           <label for="{{ module.checkbox_id }}" class="module-name table-filter-text-source name">{{ module.name }}</label>
         </div>
         <div class="module-matrix-item-details description">
-          <span class="text module-matrix-item-description text module-description">{{ module.description }}
-          </span>
-          {% if module.reasons_count > 0 %}
-            <div class="admin-requirements">
-              {%- trans -%}
-                The following reason prevents {{ module.module_name }} from being uninstalled:
-              {%- plural module.reasons_count -%}
-                The following reasons prevent {{ module.module_name }} from being uninstalled:
-              {%- endtrans %}
-              <div class="item-list">
-                <ul>
-                  {%- for reason in module.validation_reasons -%}
-                    <li class="reason">
-                    <span class="material-icons">error_outline</span>
-                    <span>{{ reason }}</span>
-                  </li>
-                  {%- endfor -%}
-                  {%- if module.required_by -%}
-                    <li class="required-by">
-                    <span class="material-icons">link_off</span>
-                   <span>{{ 'Required by: @module-list'|t({'@module-list': module.required_by|safe_join(', ')}) }}</span>
-                    </li>
-                  {%- endif -%}
-                </ul>
+          <button type="button" class="matrix-details-header" aria-expanded="true" aria-controls="{{ panel_id }}">
+            {% if module.reasons_count > 0 %}
+              <span class="mm-chip mm-chip--blocked"><span class="mm-i mm-i--lock" aria-hidden="true"></span>{{ 'Cannot uninstall'|t }}</span>
+            {% endif %}
+            <span class="text module-matrix-item-description module-description">{{ module.description }}</span>
+            <span class="mm-i mm-i--expand_more matrix-details-header-icon" aria-hidden="true"></span>
+          </button>
+          <div class="matrix-details-content" id="{{ panel_id }}">
+            {% if module.reasons_count > 0 %}
+              <div class="admin-requirements">
+                {%- trans -%}
+                  The following reason prevents {{ module.module_name }} from being uninstalled:
+                {%- plural module.reasons_count -%}
+                  The following reasons prevent {{ module.module_name }} from being uninstalled:
+                {%- endtrans %}
+                <div class="item-list">
+                  <ul>
+                    {%- for reason in module.validation_reasons -%}
+                      <li class="reason">
+                        <span class="mm-i mm-i--info" aria-hidden="true"></span>
+                        <span>{{ reason }}</span>
+                      </li>
+                    {%- endfor -%}
+                    {%- if module.required_by -%}
+                      <li class="required-by">
+                        <span class="mm-i mm-i--link_off" aria-hidden="true"></span>
+                        <span>{{ 'Required by: @module-list'|t({'@module-list': module.required_by|safe_join(', ')}) }}</span>
+                      </li>
+                    {%- endif -%}
+                  </ul>
+                </div>
               </div>
-            </div>
-          {% endif %}
+            {% endif %}
+            {% if module.machine_name %}
+              <div class="admin-requirements machine-name">
+                <span class="mm-i mm-i--code" aria-hidden="true"></span>
+                <span class="details-option">{{ 'Machine name: @machine-name'|t({'@machine-name': module.machine_name}) }}</span>
+              </div>
+            {% endif %}
+          </div>
         </div>
       </div>
     {% else %}
       <div class="module-matrix-list-inner empty-message">
+        <span class="mm-i mm-i--extension_off" aria-hidden="true"></span>
         {{ 'No modules are available to uninstall.'|t }}
       </div>
     {% endfor %}

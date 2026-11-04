@@ -6,21 +6,9 @@
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
-.name-package,
-.module-matrix-item-details {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-}
-
 .admin-requirements,
 form#system-modules .module-matrix-list-inner a {
-  background: none !important;
   padding: 0;
-}
-
-form#system-modules .admin-requirements * {
-  background: none !important;
-  color: inherit;
 }
 
 form#system-modules .module-matrix-list .module-matrix-item-details {
@@ -35,29 +23,133 @@ form#system-modules .module-matrix-list .description-only {
   line-height: 1.4;
 }
 
-form#system-modules .module-matrix-list .admin-requirements {
+/* Panel structure. Every group is its own block, so the grid, the chips and
+   the link row do not depend on the page being left- or right-aligned. */
+form#system-modules .module-matrix-list .mm-details-body {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  text-align: start;
+}
+
+form#system-modules .module-matrix-list .mm-details-chips,
+form#system-modules .module-matrix-list .mm-links,
+form#system-modules .module-matrix-list .mm-dep .details-option {
   display: flex;
-  flex-direction: row;
-  align-items: start;
-  justify-content: start;
-  gap: 2px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem 0.5rem;
 }
 
-form#system-modules .right .matrix-details-content,
-form#system-modules .right .module-matrix-list .admin-requirements {
-  justify-content: end;
-  flex-direction: row-reverse;
+form#system-modules .module-matrix-list .mm-facts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.625rem 1.25rem;
+  margin: 0;
+  padding: 0;
 }
 
-form#system-modules .module-matrix-list .admin-requirements .material-icons {
+form#system-modules .module-matrix-list .mm-fact {
+  display: grid;
+  gap: 0.125rem;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+}
+
+form#system-modules .module-matrix-list .mm-fact dt,
+form#system-modules .module-matrix-list .mm-dep .mm-label {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1rem;
+  text-transform: uppercase;
+}
+
+form#system-modules .module-matrix-list .mm-fact dd {
+  margin: 0;
+  min-inline-size: 0;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+}
+
+/* Machine names and paths: monospace, break only at the <wbr> after a slash. */
+form#system-modules .module-matrix-list .mm-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
+}
+
+form#system-modules .module-matrix-list .mm-dep {
+  display: grid;
+  gap: 0.25rem;
+}
+
+form#system-modules .module-matrix-list .mm-dep .item-list,
+form#system-modules .module-matrix-list .mm-dep .item-list ul {
+  display: contents;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+form#system-modules .module-matrix-list .mm-dep .item-list li {
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+}
+
+form#system-modules .module-matrix-list .mm-dep .item-list li::after {
+  content: none;
+}
+
+form#system-modules .module-matrix-list .mm-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  line-height: 1.25rem;
+}
+
+form#system-modules .module-matrix-list .mm-link .mm-i {
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
+form#system-modules .module-matrix-list .mm-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  box-sizing: border-box;
+  min-block-size: 1.375rem;
+  padding: 0 0.5rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
   line-height: 1;
-  min-width: 26px;
+  white-space: nowrap;
 }
 
-form#system-modules .module-matrix-list .admin-requirements .details-option {
-  white-space: wrap;
-  line-height: 1.8;
-  font-size: 0.875rem;
+form#system-modules .module-matrix-list .mm-chip .mm-i {
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  form#system-modules .module-matrix-list .mm-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  form#system-modules .module-matrix-list .mm-fact--wide {
+    grid-column: 1 / -1;
+  }
 }
 
 form#system-modules .module-matrix-list .name-package,
@@ -108,12 +200,6 @@ form#system-modules .module-matrix-list .name-package .checkbox {
   line-height: 1.6;
 }
 
-form#system-modules .module-matrix-list .name-package .name .material-icons {
-  font-size: 1rem;
-  line-height: 1;
-  margin: 0;
-}
-
 form#system-modules .compact .module-matrix-list .compact-bottom {
   display: flex;
   flex-wrap: wrap;
@@ -131,9 +217,7 @@ form#system-modules .compact .module-matrix-list .compact-bottom > * {
 }
 
 form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-content {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+  display: block;
   font-size: 0.875rem;
   line-height: 1.4;
   overflow: hidden;
@@ -141,14 +225,6 @@ form#system-modules .module-matrix-list .module-matrix-item-details .matrix-deta
   opacity: 0;
   padding: 0;
   transition: height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
-}
-
-form#system-modules .module-matrix-list .matrix-details-content > * {
-  padding: 0 12px;
-}
-
-form#system-modules .module-matrix-list .matrix-details-content > *:not(.grid-layout .matrix-details-content > *) {
-  margin-bottom: 12px;
 }
 
 form#system-modules .module-matrix-list .name-package .package {
@@ -209,12 +285,10 @@ form#system-modules .module-matrix-list .module-matrix-item-details .matrix-deta
   gap: 8px;
   cursor: pointer;
   flex-direction: row;
-  transition: background 0.3s ease;
 }
 
 form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header-icon {
-  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
-  font-weight: bold;
+  transition: transform 0.3s ease-in-out;
   font-size: 1.75rem;
   line-height: 14px;
   margin-top: 4px;
@@ -223,6 +297,20 @@ form#system-modules .module-matrix-list .module-matrix-item-details .matrix-deta
 form#system-modules .module-matrix-wrapper.right .module-matrix-list .matrix-details-header {
   flex-direction: row-reverse;
   text-align: right;
+}
+
+/* The header owns its focus ring. Claro's global :focus ring was clipped by
+   the overflow of the details block (a green line under the header), so the
+   ring is drawn inside the header's own box where nothing can clip it. */
+form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header:focus-visible {
+  outline: 2px solid var(--checkbox-focus-outline, currentColor);
+  outline-offset: -2px;
+  box-shadow: none;
 }
 
 form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-content {

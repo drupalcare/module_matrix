@@ -38,7 +38,8 @@ Modules are grouped by package with visual indicators:
 - **Green**: Number of enabled modules.
 - **Red**: Number of disabled modules.
 
-Google Material Icons are used for a clean and modern visual design.
+Google Material Symbols (SVG files in `icons/`) are used for a clean and
+modern visual design.
 
 ### Customizable Module List
 
@@ -110,6 +111,12 @@ and deeper module metadata display. Choose the one that fits your workflow.
 1. Download and enable Module Matrix.
 2. Navigate to `admin/config/system/module-matrix-settings` to configure the
    module.
+
+## Credits
+
+The icons in `icons/` (settings, Extend and Uninstall pages) are Google
+Material Symbols (https://fonts.google.com/icons), Apache License 2.0,
+drawings unchanged with the viewBox trimmed to the painted edge.
 
 ## Support
 

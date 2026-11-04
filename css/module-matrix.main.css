@@ -36,52 +36,14 @@ form#system-modules .intro-message-class * {
   text-decoration: none;
 }
 
-form#system-modules .intro-message-class .material-icons {
-  font-size: 1.5rem;
-}
-
 form#system-modules .module-matrix-filters {
   margin: 0;
 }
 
-form#system-modules .material-icons {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1.5rem;
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  white-space: nowrap;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-@font-face {
-  font-family: 'Material Icons';
-  src: url('../fonts/MaterialIcons-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 form#system-modules .module-matrix-list,
 form#system-modules .module-matrix-sidebar {
-  border-radius: 5px;
   padding: 16px;
   min-width: 0;
-}
-
-.module-matrix-list,
-.module-matrix-sidebar {
-  border: 1px solid #ddd;
-}
-
-form#system-modules .name-package a.name .material-icons {
-  opacity: 0.7;
 }
 
 @keyframes fadeSlideUp {

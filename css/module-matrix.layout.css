@@ -149,11 +149,6 @@ form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-item-detai
 
 form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
   padding: 12px;
-  border-radius: 8px;
-}
-
-.grid-layout .module-matrix-list-inner:not(.module-matrix-wrapper.compact .module-matrix-list-inner) {
-  border: 1px solid #ddd;
 }
 
 form#system-modules .enabled-scroll.module-matrix-wrapper .module-matrix-sidebar:not(.top.module-matrix-wrapper .module-matrix-sidebar) {

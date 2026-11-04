@@ -1,412 +1,623 @@
 /**
  * @file
- * Module Matrix Style.
+ * Module Matrix Style: the Extend page look ("Switchboard").
  *
- * Filename:     module-matrix-style.css
+ * Filename:     module-matrix.style.css
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ *
+ * Extend only (library matrix-style). Shared rules (frame, command bar,
+ * search, buttons, rail, list panel, plain checkbox, radio, forced colors,
+ * reduced motion) live in module-matrix.style.accent.css. Here: page grid,
+ * filter chips, rows, the module switch, details panel, badges, grid mode.
+ * Every selector carries form#system-modules, so no admin theme rule is
+ * touched. Motion is transform and opacity (plus colour cross-fades).
  */
-form#system-modules .matrix-details-content .admin-requirements.project .material-icons {
-  color: #757575; /* Neutral gray for Project */
-}
 
-form#system-modules .matrix-details-content .admin-requirements.status .material-icons {
-  color: #4caf50; /* Green for Status (Enabled) */
-}
-
-form#system-modules .compact-bottom .version .material-icons,
-form#system-modules .matrix-details-content .admin-requirements.version .material-icons {
-  color: #2196f3; /* Blue for Version */
-}
-
-form#system-modules .matrix-details-content .admin-requirements.mtime .material-icons {
-  color: #ff9800; /* Orange for Last Modified */
-}
-
-form#system-modules .matrix-details-content .admin-requirements.stability .material-icons {
-  color: #4caf50; /* Green for Stability */
-}
-
-form#system-modules .matrix-details-content .admin-requirements.lifecycle .material-icons {
-  color: #009688; /* Teal for Lifecycle */
-}
-
-form#system-modules .matrix-details-content .admin-requirements.machine-name .material-icons {
-  color: #9e9e9e; /* Light gray for Machine Name */
-}
-
-form#system-modules .compact-bottom .help-link .material-icons,
-form#system-modules .matrix-details-content .admin-requirements.help-link .material-icons {
-  color: #3f51b5; /* Indigo for Help */
-}
-
-form#system-modules .compact-bottom .permissions-link .material-icons,
-form#system-modules .matrix-details-content .admin-requirements.permissions-link .material-icons {
-  color: #f44336; /* Red for Permissions */
-}
-
-form#system-modules .compact-bottom .configure-link .material-icons,
-form#system-modules .matrix-details-content .admin-requirements.configure-link .material-icons {
-  color: #673ab7; /* Purple for Configure */
-}
-
-form#system-modules .matrix-details-content .admin-requirements.issue-link .material-icons {
-  color: #e91e63; /* Pink for Create Issue */
-}
-
-form#system-modules .matrix-details-content .admin-requirements.usage-link .material-icons {
-  color: #ffc107; /* Amber for Usage Stats */
-}
-
-form#system-modules .matrix-details-content .admin-requirements.requires .material-icons {
-  color: #4caf50; /* Green for Requires */
-}
-
-form#system-modules .matrix-details-content .admin-requirements.required_by .material-icons {
-  color: #f44336; /* Red for Required By (Disabled) */
-}
-
-form#system-modules .matrix-details-content .admin-requirements.subpath .material-icons {
-  color: #00acc1; /* Deep Cyan for Subpath */
-}
-
-form#system-modules .module-details-content .module-description .material-icons {
-  color: #3f51b5; /* Indigo for Description */
-}
-
-form#system-modules .matrix-details-content .reason .material-icons {
-  color: #f44336; /* Red for Reason */
-}
-
-/* Missing and Disabled Module Indicators */
-form#system-modules .matrix-details-content .admin-requirements.requires .details-option,
-form#system-modules .matrix-details-content .admin-requirements.required_by .details-option {
-  line-height: 1.6;
-}
-
-/* Style for (missing) text */
-form#system-modules .matrix-details-content .admin-requirements.requires .details-option *:not(a),
-form#system-modules .matrix-details-content .admin-requirements.required_by .details-option *:not(a) {
-  font-weight: normal;
-  color: inherit;
-}
-
-/* Target text containing "(missing)" - using CSS attribute selector */
-form#system-modules .matrix-details-content .admin-requirements.requires .details-option,
-form#system-modules .matrix-details-content .admin-requirements.required_by .details-option {
-  word-wrap: break-word;
-}
-
-/* Bold and red styling for missing indicator */
-form#system-modules .matrix-details-content .admin-requirements.requires .admin-missing,
-form#system-modules .matrix-details-content .admin-requirements.required_by .admin-missing {
-  color: #d32f2f !important;
-  font-weight: 700 !important;
-  background-color: rgba(211, 47, 47, 0.08);
-  padding: 2px 6px;
-  border-radius: 3px;
-  border: 1px solid rgba(211, 47, 47, 0.3);
-  display: inline-block;
-  margin: 0 2px;
-}
-
-/* Styling for disabled indicator */
-form#system-modules .matrix-details-content .admin-requirements.requires .admin-disabled,
-form#system-modules .matrix-details-content .admin-requirements.required_by .admin-disabled {
-  color: #f57c00 !important;
-  font-weight: 600 !important;
-  background-color: rgba(245, 124, 0, 0.08);
-  padding: 2px 6px;
-  border-radius: 3px;
-  border: 1px solid rgba(245, 124, 0, 0.3);
-  display: inline-block;
-  margin: 0 2px;
-}
-
-/* Styling for enabled modules (subtle) */
-form#system-modules .matrix-details-content .admin-requirements.requires .admin-enabled,
-form#system-modules .matrix-details-content .admin-requirements.required_by .admin-enabled {
-  color: #388e3c;
-  font-weight: 400;
-}
-
-/* Form */
-form#system-modules .module-matrix-sidebar a {
-  margin: 5px 0;
-}
-
-@media (min-width:576px) {
-  form#system-modules {
-    border-radius: 8px !important;
-    padding: 16px !important;
-    display: flex;
-    gap: 8px;
-    flex-direction: column;
-    position: relative;
-  }
-
-  form#system-modules #edit-actions {
-    position: absolute;
-    top: 21px;
-    margin: 0;
-    right: 32px;
-    width: auto;
-    padding: 0;
-  }
-
-  form#system-modules #edit-actions input {
-    margin: 0;
-  }
-
-}
-
-form#system-modules input[type="text"],
-form#system-modules input[type="submit"] {
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, padding 0.3s ease, color 0.3s ease;
-}
-
-form#system-modules input[type="text"] {
-  border: 3px solid transparent;
-  width: 100%;
-  padding: 16px 12px;
-  border-radius: 4px;
-  outline: none;
-}
-
-form#system-modules input.button {
-  border-radius: 4px;
-  padding: 12px 32px;
-  box-shadow: none;
-  line-height: 1.5;
-}
-
-form#system-modules input[type="text"]:disabled {
-  cursor: not-allowed;
-}
-
-form#system-modules input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio) {
-  all: unset;
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  cursor: pointer;
-  display: inline-block !important;
-  vertical-align: middle;
-  position: relative !important;
-  overflow: visible !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  box-sizing: border-box !important;
-  background: var(--checkbox-bg) !important;
-  box-shadow: none !important;
-  outline: none !important;
-  border-radius: 999px !important;
-  border: 2px solid var(--border-color) !important;
-  height: 1.5rem !important;
-  width: 2.5rem !important;
-  overflow: visible !important;
-  box-sizing: border-box !important;
-  transition: background 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              border 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-form#system-modules input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio)::before {
-  content: "";
-  position: absolute;
-  border: none !important;
-  margin: 1px !important;
-  width: 1.125rem !important;
-  height: 1.125rem !important;
-  border-radius: 50% !important;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              background 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              border 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform: translateX(2px) !important;
-  box-shadow: none !important;
-}
-
-form#system-modules input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio):checked::before {
-  transform: translateX(14px) !important;
-  box-shadow: none;
-}
-
-[dir="rtl"] form#system-modules input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio)::before {
-  transform: translateX(14px) !important;
-}
-
-[dir="rtl"] form#system-modules input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio):checked::before {
-  transform: translateX(2px) !important;
-}
-
-form#system-modules input[type="checkbox"]:not(.selectify-checkbox):not(.selectify-radio):disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-  background: var(--checkbox-disabled);
-  border-color: var(--checkbox-disabled);
-}
-
-form#system-modules .module-matrix-sidebar a.active,
-form#system-modules .module-matrix-sidebar a:hover {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Form style */
-form#system-modules .module-matrix-list-inner:not(.module-matrix-wrapper.grid-layout .module-matrix-list-inner):hover {
-  cursor: pointer;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  transition: all 0.3s ease-in-out;
-}
-
-form#system-modules .module-matrix-wrapper .module-matrix-list .name-package {
-  border: 1px solid transparent;
-  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
-  transition: background-color 0.5s ease, box-shadow 0.5s ease-in-out, border-color 0.5s ease, padding 0.5s ease, color 0.5s ease;
-}
-
-body form#system-modules .module-matrix-wrapper .module-matrix-list .name-package.enabled {
-  border-color: rgba(76, 175, 80, 0.4) !important;
-  box-shadow: inset 0 6px 12px rgba(76, 175, 80, 0.1);
-}
-
-body form#system-modules .module-matrix-wrapper .module-matrix-list .name-package.disabled {
-  border-color: rgba(244, 67, 54, 0.4) !important;
-  box-shadow: inset 0 6px 12px rgba(244, 67, 54, 0.1);
-}
-
-/* Stylish Number Indicators */
-form#system-modules .module-matrix-wrapper .module-matrix-sidebar a span.on {
-  color: #4caf50 !important;
-}
-
-form#system-modules .module-matrix-wrapper .module-matrix-sidebar a span.off {
-  color: #f44336 !important;
-}
-
-form#system-modules .module-matrix-wrapper .module-matrix-sidebar a span.total {
-  color: #9e9e9e !important;
-}
-
-form#system-modules .matrix-details-header *,
-form#system-modules .module-matrix-wrapper .grid-layout .module-matrix-list-inner,
-form#system-modules .module-matrix-wrapper .module-matrix-list-inner > *:not(.grid-layout .module-matrix-list-inner > *) {
-  transition: background-color 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease, padding 0.5s ease, color 0.5s ease;
-}
-
-form#system-modules .module-matrix-wrapper .module-matrix-sidebar a:hover,
-form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list-inner:hover,
-form#system-modules .module-matrix-wrapper .module-matrix-list-inner:hover > .module-matrix-item-details:not(.grid-layout.module-matrix-wrapper .module-matrix-list-inner > *) {
-  text-decoration: none;
-  --main-shadow: rgba(0, 0, 0, 0.2) 0 8px 40px;
-  box-shadow: var(--main-shadow);
-}
-
-form#system-modules .module-matrix-wrapper .module-matrix-list-inner:hover > .name-package.disabled {
-  border-color: #f45d52 !important;
-  box-shadow: inset 0 -10px 16px rgba(244, 67, 54, 0.5);
-}
-
-form#system-modules .module-matrix-wrapper .module-matrix-list-inner:hover > .name-package.enabled {
-  border-color: #65e66a !important;
-  box-shadow: inset 0 -10px 16px rgba(76, 175, 80, 0.5);
-}
-
-form#system-modules .module-matrix-sidebar a:focus,
-form#system-modules .module-matrix-sidebar a:active {
-  outline: none;
-  box-shadow: none;
-}
-
-.module-matrix-sidebar a {
-  border: 1px solid #ddd;
-}
-
-/* For all accent colors */
+/* Page: intro line and Save share the top row; the rest spans full width. */
 form#system-modules {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  border-color: var(--border-color);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 0.75rem;
+  position: relative;
+  padding: 1rem;
+  border-radius: 0;
 }
 
-form.system-modules *:not(a) {
-  color: var(--text-color);
+form#system-modules > * {
+  grid-column: 1 / -1;
+  min-inline-size: 0;
 }
 
-form.system-modules .module-matrix-filters {
-  border: 1px dashed var(--border-color) !important;
-  box-shadow: var(--main-shadow);
-  background: var(--filter-bg);
-  width: auto;
+form#system-modules > .intro-message-class {
+  grid-column: 1;
+  grid-row: 1;
 }
 
-form#system-modules * {
-  border-color: var(--border-color);
+form#system-modules > #edit-actions {
+  grid-column: 2;
+  grid-row: 1;
+  position: static;
+  inline-size: auto;
+  margin: 0 0 0.625rem;
+  padding: 0;
 }
 
-form.system-modules a:not(.package-link),
-form.system-modules a:not(.package-link) * {
-  color: var(--link-color);
-}
-
-form.system-modules a:hover,
-form.system-modules a:hover * {
-  color: var(--link-color-hover);
-}
-
-
-form#system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes > * {
-  width: auto;
-  display: flex;
-  margin-top: 8px!important;
-  margin-bottom: 8px!important;
-  margin-right: 24px!important;
-  margin-left: 0!important;
-  flex-direction: column;
-}
-
-[dir="rtl"] form#system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes > * {
-  margin-right: 0 !important;
-  margin-left: 24px !important;
-}
-
-form#system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes > *:first-child {
+form#system-modules #edit-actions input {
   margin: 0;
 }
 
-form#system-modules .module-matrix-filters .reset-button {
-  margin-left: auto;
-  margin-top: auto;
-  display: flex;
-}
-
-form#system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes {
+/* Command bar: row 1 search + Reset, row 2 the three filter groups. */
+form#system-modules .module-matrix-filters > .fieldset-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
-  align-items: start;
+  align-items: center;
+  gap: 0.625rem 1.25rem;
 }
 
-/* Ensure RTL themes align elements correctly */
-[dir="rtl"] form#system-modules .module-matrix-filters fieldset.form-checkboxes legend {
-  text-align: right;
+form#system-modules .module-matrix-filters > .fieldset-wrapper::before {
+  content: "";
+  order: 2;
+  flex: 0 0 100%;
+  block-size: 0;
 }
 
-[dir="rtl"] form#system-modules .module-matrix-filters .reset-button {
-  margin-left: 0;
-  margin-right: auto;
+form#system-modules .module-matrix-filters > .fieldset-wrapper > .form-item:has(input[type="text"]) {
+  order: 0;
+  flex: 1 1 16rem;
+  margin: 0;
 }
 
-[dir="rtl"] form#system-modules .module-matrix-filters fieldset.form-checkboxes .form-checkboxes {
-  justify-content: flex-end;
+form#system-modules .module-matrix-filters > .fieldset-wrapper > .form-item:has(input[type="text"]) label {
+  position: absolute;
+  overflow: hidden;
+  inline-size: 1px;
+  block-size: 1px;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-[dir="rtl"] form#system-modules .module-matrix-filters fieldset.form-checkboxes legend span {
-  margin-right: 0;
-  margin-left: 16px;
+form#system-modules .module-matrix-filters > .fieldset-wrapper > .module-matrix-status,
+form#system-modules .module-matrix-filters > .fieldset-wrapper > .module-matrix-lifecycle,
+form#system-modules .module-matrix-filters > .fieldset-wrapper > .module-matrix-stability {
+  order: 3;
+  flex: 0 1 auto;
+  margin: 0;
+}
+
+/* Reset: an outlined button, the same height as the search box. */
+form#system-modules .module-matrix-filters input#reset-filters {
+  order: 1;
+  flex: none;
+  align-self: center;
+  min-block-size: 2.5rem;
+  margin: 0;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid var(--muted-color);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--text-color);
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+form#system-modules .module-matrix-filters input#reset-filters:hover {
+  border-color: var(--text-color);
+  background: var(--filter-bg);
+}
+
+form#system-modules .module-matrix-filters input#reset-filters:focus-visible {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+
+/* Filter group: legend 11px caps with its icon, options as chips. */
+form#system-modules .module-matrix-filters fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+form#system-modules .module-matrix-filters fieldset legend {
+  float: inline-start;
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+  margin: 0 0.25rem 0 0;
+  padding: 0;
+  color: var(--muted-color);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.75rem;
+  text-align: start;
+  text-transform: uppercase;
+}
+
+form#system-modules .module-matrix-filters fieldset legend * {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+form#system-modules .module-matrix-filters fieldset legend::before {
+  content: "";
+  flex: none;
+  inline-size: 0.9375rem;
+  block-size: 0.9375rem;
+  background-color: currentColor;
+  -webkit-mask: var(--mm-legend-icon, none) center / contain no-repeat;
+  mask: var(--mm-legend-icon, none) center / contain no-repeat;
+}
+
+form#system-modules .module-matrix-filters .module-matrix-status legend {
+  --mm-legend-icon: url(../../icons/toggle_on.svg);
+}
+
+form#system-modules .module-matrix-filters .module-matrix-lifecycle legend {
+  --mm-legend-icon: url(../../icons/autorenew.svg);
+}
+
+form#system-modules .module-matrix-filters .module-matrix-stability legend {
+  --mm-legend-icon: url(../../icons/verified.svg);
+}
+
+form#system-modules .module-matrix-filters fieldset .fieldset-wrapper,
+form#system-modules .module-matrix-filters fieldset .fieldset__wrapper,
+form#system-modules .module-matrix-filters .form-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+}
+
+form#system-modules .module-matrix-filters .form-checkboxes .form-item {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-block-size: 2rem;
+  margin: 0;
+  padding: 0 0 0 0.4375rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--details-bg);
+  color: var(--text-color);
+  font-size: 0.8125rem;
+  transition: background-color 200ms var(--mm-ease), border-color 200ms var(--mm-ease), color 200ms var(--mm-ease);
+}
+
+[dir="rtl"] form#system-modules .module-matrix-filters .form-checkboxes .form-item {
+  padding: 0 0.4375rem 0 0;
+}
+
+form#system-modules .module-matrix-filters .form-checkboxes .form-item label {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 1.875rem;
+  margin: 0;
+  padding-block: 0;
+  padding-inline: 0.5rem 0.625rem;
+  color: inherit;
+  font-size: 0.8125rem;
+  font-weight: inherit;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+}
+
+form#system-modules .module-matrix-filters .form-checkboxes .form-item:hover {
+  border-color: var(--ctl-color);
+}
+
+form#system-modules .module-matrix-filters .form-checkboxes .form-item:has(input:checked) {
+  border-color: var(--accent-color);
+  background: var(--package-bg-hover);
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+form#system-modules .module-matrix-filters .form-checkboxes .form-item:has(input:focus-visible) {
+  outline: 2px solid var(--checkbox-focus-outline);
+  outline-offset: 2px;
+}
+
+form#system-modules .module-matrix-filters .form-checkboxes .form-item:has(input:disabled) {
+  border-style: solid;
+  background: var(--filter-bg);
+  color: var(--muted-color);
+  cursor: not-allowed;
+}
+
+/* Rows (list mode): hairline rows, enabled bar at inline-start, no red. */
+form#system-modules .module-matrix-list .module-matrix-list-inner:not(.module-matrix-wrapper.grid-layout .module-matrix-list-inner) {
+  padding: 0.625rem 0.875rem;
+  gap: 0.375rem 0.75rem;
+}
+
+form#system-modules .module-matrix-list .module-matrix-list-inner:has(.name-package.enabled):not(.module-matrix-wrapper.grid-layout .module-matrix-list-inner) {
+  box-shadow: inset 3px 0 0 var(--on-color);
+}
+
+[dir="rtl"] form#system-modules .module-matrix-list .module-matrix-list-inner:has(.name-package.enabled):not(.module-matrix-wrapper.grid-layout .module-matrix-list-inner) {
+  box-shadow: inset -3px 0 0 var(--on-color);
+}
+
+form#system-modules .module-matrix-wrapper .module-matrix-list .name-package,
+form#system-modules .module-matrix-wrapper .module-matrix-list .name-package.enabled,
+form#system-modules .module-matrix-wrapper .module-matrix-list .name-package.disabled {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  min-inline-size: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+/* Switch, name and chip stay on one row: the name wraps in its own column. */
+form#system-modules .module-matrix-list .name-package .name {
+  display: inline-flex;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: 0.25rem;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+  color: var(--text-color);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+form#system-modules .module-matrix-list .name-package.enabled .name {
+  font-weight: 600;
+}
+
+form#system-modules .module-matrix-list .name-package a.name:hover {
+  color: var(--link-color-hover);
+  text-decoration: underline;
+}
+
+form#system-modules .module-matrix-list .name-package a.name > span {
+  display: inline;
+  min-inline-size: 0;
+  color: inherit;
+}
+
+form#system-modules .module-matrix-list .name-package a.name .mm-i {
+  display: inline-block;
+  inline-size: 0.8125rem;
+  block-size: 0.8125rem;
+  margin-inline-start: 0.125rem;
+  vertical-align: -0.0625rem;
+  color: var(--muted-color);
+}
+
+form#system-modules .module-matrix-list .name-package .package {
+  flex: none;
+  margin-inline-start: auto;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  background: var(--filter-bg);
+  color: var(--muted-color);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* The switch slot keeps rows aligned whatever control sits inside. */
+form#system-modules .name-package .checkbox {
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: 2.5rem;
+  min-inline-size: 2.5rem;
+  block-size: 1.5rem;
+}
+
+form#system-modules .name-package .checkbox .form-item {
+  margin: 0;
+  min-inline-size: 2.5rem;
+}
+
+/* The switch itself is the shared toggle in module-matrix.style.accent.css. */
+
+/* Details header: one muted line, chevron 20px (rotation from details.css). */
+form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header {
+  align-items: center;
+  min-block-size: 1.75rem;
+  margin: 0;
+  padding: 0.125rem 0.375rem;
+  border-radius: 6px;
+  color: var(--muted-color);
+  font-size: 0.8125rem;
+  transition: background-color var(--mm-dur-fast) var(--mm-ease), color var(--mm-dur-fast) var(--mm-ease);
+}
+
+form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header:not(.count-1):hover {
+  background: var(--filter-bg);
+  color: var(--text-color);
+}
+
+form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-header:not(.count-1):hover * {
+  color: inherit;
+}
+
+form#system-modules .module-matrix-list .matrix-details-header .module-matrix-item-description {
+  overflow: hidden;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  color: inherit;
+  font-size: 0.8125rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+form#system-modules .module-matrix-list .module-matrix-item-details.open .matrix-details-header {
+  color: var(--text-color);
+}
+
+form#system-modules .module-matrix-list .module-matrix-item-details.open .matrix-details-header .module-matrix-item-description {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: normal;
+}
+
+form#system-modules .module-matrix-list .matrix-details-header .matrix-details-header-icon {
+  flex: none;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  color: var(--muted-color);
+  transition: transform 200ms var(--mm-ease);
+}
+
+form#system-modules .module-matrix-list .module-matrix-item-details .description-only {
+  color: var(--muted-color);
+  font-size: 0.8125rem;
+}
+
+/* Details panel: no slab. The theme surface shows through; one hairline
+   border and a thin accent bar on the inline-start edge frame the facts. The
+   frame is on the inner body so a closed (height 0) panel draws nothing. */
+form#system-modules .module-matrix-list .module-matrix-item-details .matrix-details-content {
+  margin-block-start: 0.375rem;
+  background: transparent;
+  font-size: 0.8125rem;
+}
+
+form#system-modules .module-matrix-list .mm-details-body {
+  border: 1px solid var(--border-color);
+  border-inline-start: 3px solid var(--accent-color);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-color);
+}
+
+form#system-modules .module-matrix-list .mm-fact dt,
+form#system-modules .module-matrix-list .mm-dep .mm-label {
+  color: var(--muted-color);
+}
+
+form#system-modules .module-matrix-list .mm-fact dd,
+form#system-modules .module-matrix-list .admin-requirements .details-option {
+  color: var(--text-color);
+}
+
+form#system-modules .module-matrix-list .admin-requirements .mm-i {
+  color: var(--muted-color);
+}
+
+form#system-modules .module-matrix-list .mm-link .mm-i {
+  color: var(--link-color);
+}
+
+form#system-modules .module-matrix-list .mm-link a {
+  color: var(--link-color);
+}
+
+/* Status and stability chips: pill, tone icon, tinted fill. */
+form#system-modules .module-matrix-list .mm-chip {
+  --mm-tone: var(--muted-color);
+  border-color: color-mix(in srgb, var(--mm-tone) 35%, transparent);
+  background: color-mix(in srgb, var(--mm-tone) 10%, var(--details-bg));
+  color: var(--mm-tone);
+}
+
+form#system-modules .module-matrix-list .mm-chip .mm-i,
+form#system-modules .module-matrix-list .mm-chip .details-option {
+  color: inherit;
+}
+
+form#system-modules .module-matrix-list .mm-chip--enabled,
+form#system-modules .module-matrix-list .mm-chip--stability-stable {
+  --mm-tone: var(--on-color);
+}
+
+form#system-modules .module-matrix-list .mm-chip--stability-alpha,
+form#system-modules .module-matrix-list .mm-chip--stability-beta,
+form#system-modules .module-matrix-list .mm-chip--stability-dev,
+form#system-modules .module-matrix-list .mm-chip--stability-rc {
+  --mm-tone: var(--warn-color);
+}
+
+/* Dependency badges: pill, tone icon, tinted fill. */
+form#system-modules .matrix-details-content .admin-requirements .admin-enabled,
+form#system-modules .matrix-details-content .admin-requirements .admin-disabled,
+form#system-modules .matrix-details-content .admin-requirements .admin-missing {
+  --mm-tone: var(--on-color);
+  --mm-badge-icon: url(../../icons/check_circle.svg);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  box-sizing: border-box;
+  min-block-size: 1.25rem;
+  margin: 1px 2px;
+  padding: 0 0.4375rem;
+  border: 1px solid color-mix(in srgb, var(--mm-tone) 35%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--mm-tone) 10%, var(--details-bg));
+  color: var(--mm-tone);
+  font-size: 0.71875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  vertical-align: 1px;
+}
+
+form#system-modules .matrix-details-content .admin-requirements .admin-disabled {
+  --mm-tone: var(--warn-color);
+  --mm-badge-icon: url(../../icons/warning.svg);
+}
+
+form#system-modules .matrix-details-content .admin-requirements .admin-missing {
+  --mm-tone: var(--off-color);
+  --mm-badge-icon: url(../../icons/error.svg);
+}
+
+form#system-modules .matrix-details-content .admin-requirements .admin-enabled::before,
+form#system-modules .matrix-details-content .admin-requirements .admin-disabled::before,
+form#system-modules .matrix-details-content .admin-requirements .admin-missing::before {
+  content: "";
+  flex: none;
+  inline-size: 0.8125rem;
+  block-size: 0.8125rem;
+  background-color: currentColor;
+  -webkit-mask: var(--mm-badge-icon) center / contain no-repeat;
+  mask: var(--mm-badge-icon) center / contain no-repeat;
+}
+
+form#system-modules .matrix-details-content .admin-requirements .admin-enabled *,
+form#system-modules .matrix-details-content .admin-requirements .admin-disabled *,
+form#system-modules .matrix-details-content .admin-requirements .admin-missing * {
+  color: inherit;
+}
+
+/* Compact layout: version and links line under the name. */
+form#system-modules .compact-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  color: var(--muted-color);
+  font-size: 0.75rem;
+}
+
+form#system-modules .compact-bottom > div {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+form#system-modules .compact-bottom .mm-i {
+  inline-size: 1rem;
+  block-size: 1rem;
+  color: var(--muted-color);
+}
+
+form#system-modules .compact-bottom .help-link .mm-i,
+form#system-modules .compact-bottom .permissions-link .mm-i,
+form#system-modules .compact-bottom .configure-link .mm-i {
+  color: var(--link-color);
+}
+
+/* Grid mode: cards return here only; enabled card gets a top bar. */
+form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list {
+  overflow: visible;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list .module-matrix-list-inner {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--details-bg);
+  box-shadow: none;
+}
+
+form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list .module-matrix-list-inner + .module-matrix-list-inner {
+  border-block-start: 1px solid var(--border-color);
+}
+
+form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list .module-matrix-list-inner:has(.name-package.enabled) {
+  box-shadow: inset 0 3px 0 var(--on-color);
+}
+
+form#system-modules .module-matrix-wrapper.grid-layout .module-matrix-list .module-matrix-list-inner:hover {
+  border-color: var(--ctl-color);
+  background: var(--details-bg);
+}
+
+/* Empty state (no module matches the filters). */
+form#system-modules .module-matrix-empty {
+  display: grid;
+  place-items: center;
+  gap: 0.375rem;
+  padding: 1.75rem;
+  color: var(--muted-color);
+  font-size: 0.8125rem;
+}
+
+form#system-modules .module-matrix-empty .mm-i {
+  inline-size: 2rem;
+  block-size: 2rem;
+}
+
+/* 390px and up to 640px: switch, name and chevron; package drops. */
+@media (max-width: 640px) {
+  form#system-modules {
+    padding: 0.75rem;
+  }
+
+  form#system-modules .module-matrix-list .name-package .package {
+    display: none;
+  }
+
+  form#system-modules .module-matrix-filters > .fieldset-wrapper > .form-item:has(input[type="text"]) {
+    flex-basis: 100%;
+  }
+}
+
+/* Forced colours: the enabled bar stays visible (the toggle is in accent.css). */
+@media (forced-colors: active) {
+  form#system-modules .module-matrix-list .module-matrix-list-inner:has(.name-package.enabled) {
+    box-shadow: inset 3px 0 0 CanvasText;
+  }
+
+  form#system-modules .module-matrix-filters .form-checkboxes .form-item:has(input:checked) {
+    border-color: Highlight;
+  }
+}
+
+/* Claro offsets every boolean form item and its input
+   (claro/css/components/form--checkbox-radio.css:17-31: margin-inline-start,
+   line-height, position relative, inset-block-start, float, negative margin).
+   module_matrix places its own controls, so those offsets are cancelled for
+   every control it owns (marked data-selectify-skip). */
+form#system-modules .form-type--boolean:has(> input[data-selectify-skip]) {
+  margin-inline-start: 0 !important;
+  line-height: normal !important;
+}
+
+form#system-modules input[data-selectify-skip] {
+  position: static !important;
+  inset: auto !important;
+  float: none !important;
+  margin-inline: 0 !important;
+  vertical-align: middle !important;
 }

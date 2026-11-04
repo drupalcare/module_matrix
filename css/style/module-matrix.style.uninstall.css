@@ -2,257 +2,780 @@
  * @file
  * Module Matrix Style Uninstall.
  *
+ * "Switchboard" look for /admin/modules/uninstall: command bar, package rail
+ * with counts, hairline rows, a per-row details accordion in the right
+ * column, a destructive checkbox and a danger Uninstall button.
+ * Colours come from the accent files; nothing here is a raw colour.
+ *
  * Filename:     module-matrix-style-uninstall.css
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
-form#system-modules-uninstall .module-matrix-item-details .module-description .material-icons {
-  color: #3f51b5 !important; /* Indigo for Description */
-}
 
-form#system-modules-uninstall .module-matrix-item-details .reason .material-icons {
-  color: #f44336 !important; /* Red for Reason */
-}
-
-form#system-modules-uninstall .module-matrix-item-details .required-by .material-icons {
-  color: #f44336 !important; /* Red for Required By (Disabled) */
-}
-
+/* ---------- Frame and motion tokens ---------- */
 form#system-modules-uninstall {
-  border-radius: 8px !important;
-  padding: 16px !important;
-  display: flex;
-  gap: 8px;
-  flex-direction: column;
+  --mm-ease: cubic-bezier(0.19, 1, 0.22, 1);
+  --mm-ease-pop: cubic-bezier(0.34, 1.3, 0.64, 1);
+  --mm-dur: 280ms;
+  --mm-dur-fast: 140ms;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 0;
+  background: var(--background-color);
+  color: var(--text-color);
+  font-size: 0.875rem;
+  line-height: 1.4;
 }
 
-form#system-modules-uninstall #edit-filters,
-form#system-modules-uninstall #edit-filters > * {
+/* Matrix mark: a 3x3 dot grid, CSS only. */
+form#system-modules-uninstall .mm-mark {
+  display: inline-block;
+  flex: none;
+  inline-size: 14px;
+  block-size: 14px;
+  background: radial-gradient(circle, var(--accent-color) 1.5px, transparent 1.9px) 0 0 / 33.333% 33.333% repeat;
+}
+
+/* ---------- Command bar: core's search field ---------- */
+form#system-modules-uninstall .table-filter {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--details-bg);
+}
+
+form#system-modules-uninstall .table-filter .form-item {
+  position: relative;
   margin: 0;
 }
 
-form#system-modules-uninstall #edit-filters input {
-  max-height: 60px;
-}
-
-form#system-modules-uninstall input[type="submit"] {
-  max-height: 48px;
-}
-
-@media (min-width:576px) {
-  form#system-modules-uninstall #edit-actions {
-    position: absolute;
-    top: 16px;
-    margin: 0;
-    right: 16px;
-    width: 130px;
-    padding: 0;
-    min-height: 60px;
-
-  }
-
-  form#system-modules-uninstall #edit-actions #edit-submit {
-    margin: 0;
-    padding: 19px 12px;
-    width: 100%;
-    max-height: initial;
-  }
-  form#system-modules-uninstall .table-filter {
-    width: calc(100% - 140px);
-  }
-}
-
-
-
-/* Input styles */
-form#system-modules-uninstall input[type="search"],
-form#system-modules-uninstall input[type="text"],
-form#system-modules-uninstall input[type="submit"] {
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, padding 0.3s ease, color 0.3s ease;
-}
-
-form#system-modules-uninstall input[type="search"],
-form#system-modules-uninstall input[type="text"] {
-  border: 3px solid var(--border-color);
-  width: 100%;
-  padding: 16px 12px;
-  border-radius: 4px;
-  outline: none;
-  background: var(--filter-bg);
-  color: var(--text-color);
-  outline-color: var(--link-color) !important;
-}
-
-form#system-modules-uninstall input[type="search"]:focus,
-form#system-modules-uninstall input[type="text"]:focus {
-  outline-color: var(--link-color) !important;
-  box-shadow: none;
-}
-
-form#system-modules-uninstall input.button {
-  border-radius: 4px;
-  padding: 12px 32px;
-  box-shadow: none;
-  line-height: 1.5;
-}
-
-/* Checkbox styling */
-form#system-modules-uninstall input[type="checkbox"] {
-  all: unset;
-  appearance: none;
-  cursor: pointer;
-  display: inline-block;
-  vertical-align: top;
-  width: 2.5rem;
-  height: 1.5rem;
-  position: relative;
-  overflow: hidden;
-  clip-path: circle(1.5rem at 50% 50%);
-  border-radius: 0.75rem;
-  box-sizing: border-box;
-  transition: background 0.3s ease, border 0.3s ease, color 0.3s ease, opacity 0.3s ease;
-}
-
-form#system-modules-uninstall input[type="checkbox"]::before {
+form#system-modules-uninstall .table-filter .form-item::before {
   content: "";
   position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 22px;
-  transition: transform 0.3s ease-in-out;
-  transform: translateX(16px);
+  inset-block-start: 12px;
+  inset-inline-start: 12px;
+  inline-size: 16px;
+  block-size: 16px;
+  background-color: var(--muted-color);
+  -webkit-mask: url(../../icons/search.svg) center / contain no-repeat;
+  mask: url(../../icons/search.svg) center / contain no-repeat;
+  pointer-events: none;
 }
 
-form#system-modules-uninstall input[type="checkbox"]:checked::before {
-  transform: translateX(-16px);
+form#system-modules-uninstall .table-filter input[type="search"],
+form#system-modules-uninstall .table-filter input[type="text"] {
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: none;
+  block-size: 40px;
+  min-block-size: 40px;
+  margin: 0;
+  padding-block: 0;
+  padding-inline: 36px 12px;
+  border: 1px solid var(--ctl-color);
+  border-radius: 6px;
+  background: var(--input-bg);
+  color: var(--text-color);
+  font-size: 0.875rem;
+  box-shadow: none;
+  transition: border-color var(--mm-dur-fast) var(--mm-ease);
 }
 
-form#system-modules-uninstall input[type="checkbox"]:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
+form#system-modules-uninstall .table-filter input::placeholder {
+  color: var(--muted-color);
+  opacity: 1;
 }
 
+form#system-modules-uninstall .table-filter input:hover {
+  border-color: var(--text-color);
+}
+
+form#system-modules-uninstall .table-filter input:focus-visible {
+  outline: 2px solid var(--checkbox-focus-outline);
+  outline-offset: 2px;
+  box-shadow: var(--focus-shadow);
+}
+
+form#system-modules-uninstall .table-filter .description {
+  margin: 6px 0 0;
+  color: var(--muted-color);
+  font-size: 0.75rem;
+}
+
+/* ---------- Wrapper: rail + list ---------- */
+form#system-modules-uninstall .module-matrix-wrapper.uninstall {
+  display: grid;
+  grid-template-columns: 248px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 0;
+}
+
+form#system-modules-uninstall .module-matrix-wrapper.uninstall.right {
+  grid-template-columns: minmax(0, 1fr) 248px;
+}
+
+form#system-modules-uninstall .module-matrix-wrapper.uninstall.right .module-matrix-sidebar {
+  order: 2;
+}
+
+form#system-modules-uninstall .module-matrix-wrapper.uninstall.top {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* ---------- Package rail ---------- */
+form#system-modules-uninstall .module-matrix-sidebar {
+  position: sticky;
+  inset-block-start: 12px;
+  display: grid;
+  gap: 1px;
+  max-block-size: calc(100vh - 24px);
+  overflow-y: auto;
+  padding: 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--package-bg);
+}
+
+form#system-modules-uninstall .module-matrix-wrapper.uninstall.top .module-matrix-sidebar {
+  position: static;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-block-size: none;
+}
+
+form#system-modules-uninstall .package-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-block-size: 34px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: var(--text-color);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color var(--mm-dur-fast) var(--mm-ease);
+}
+
+form#system-modules-uninstall .package-link-left {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-inline-size: 0;
+}
+
+form#system-modules-uninstall .package-link .mm-i {
+  font-size: 16px;
+  color: var(--muted-color);
+}
+
+form#system-modules-uninstall .package-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+form#system-modules-uninstall .package-link-right {
+  flex: none;
+  color: var(--muted-color);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+form#system-modules-uninstall .package-link:hover {
+  background: var(--package-bg-hover);
+  color: var(--text-color);
+}
+
+form#system-modules-uninstall .package-link:focus-visible {
+  outline: 2px solid var(--checkbox-focus-outline);
+  outline-offset: 2px;
+}
+
+form#system-modules-uninstall .package-link.active {
+  background: var(--package-bg-hover);
+  box-shadow: inset 3px 0 0 var(--accent-color);
+}
+
+[dir="rtl"] form#system-modules-uninstall .package-link.active {
+  box-shadow: inset -3px 0 0 var(--accent-color);
+}
+
+form#system-modules-uninstall .package-link.active .package-label {
+  font-weight: 600;
+}
+
+form#system-modules-uninstall .package-link.active .mm-i {
+  color: var(--accent-color);
+}
+
+/* ---------- Module list: one panel, hairline rows ---------- */
 form#system-modules-uninstall .module-matrix-list {
-  border: none;
-}
-
-/* Module description */
-form#system-modules-uninstall .module-matrix-item-details {
-  background: transparent !important;
+  display: block;
+  margin: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--details-bg);
+  overflow: clip;
 }
 
 form#system-modules-uninstall .module-matrix-list-inner {
-  border: 1px solid var(--border-color);
-  height: 100%;
-  border-radius: 8px;
-}
-
-/* Hover effect */
-form#system-modules-uninstall .module-matrix-list-inner:hover {
-  box-shadow: var(--main-shadow);
-}
-
-/* Responsive Layout */
-@media (max-width:768px) {
-  form#system-modules-uninstall .module-matrix-list-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-}
-
-/* Empty message styling */
-form#system-modules-uninstall .empty-message {
-  text-align: center;
-  font-style: italic;
-  padding: 16px;
-  border: 1px solid var(--border-color);
-}
-
-form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list-inner {
-  flex-direction: column;
-  align-items: start;
-  justify-content: start;
-}
-
-form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list-inner > * {
-  border: none;
-  width: 100%;
-}
-
-form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list-inner > .name-package {
-  border-bottom: 1px solid var(--border-color);
-}
-
-form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-  grid-auto-rows: auto;
-  gap: 16px;
+  grid-template-columns: minmax(12rem, 30%) minmax(0, 1fr);
+  gap: 12px;
   align-items: start;
-  justify-content: start;
+  block-size: auto;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transition: background-color var(--mm-dur-fast) var(--mm-ease);
 }
 
-form#system-modules-uninstall  .module-matrix-wrapper.grid-layout .module-matrix-list {
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+form#system-modules-uninstall .module-matrix-list-inner > * {
+  padding: 0;
 }
 
-@media (max-width:110px) {
-  form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  }
+form#system-modules-uninstall .module-matrix-list-inner + .module-matrix-list-inner {
+  border-block-start: 1px solid var(--border-color);
+}
 
+form#system-modules-uninstall .module-matrix-list-inner:hover {
+  background: var(--package-bg-hover);
+  box-shadow: none;
+}
+
+/* Picked for uninstall: tinted in the destructive tone, bar at inline-start. */
+form#system-modules-uninstall .module-matrix-list-inner:has(input[type="checkbox"]:checked) {
+  background: color-mix(in srgb, var(--off-color) 6%, var(--details-bg));
+  box-shadow: inset 3px 0 0 var(--off-color);
+}
+
+[dir="rtl"] form#system-modules-uninstall .module-matrix-list-inner:has(input[type="checkbox"]:checked) {
+  box-shadow: inset -3px 0 0 var(--off-color);
+}
+
+/* Pick and name stay on one row: the slot never shrinks, the name wraps. */
+form#system-modules-uninstall .module-matrix-list .name-package {
+  display: flex;
+  flex: none;
+  flex-wrap: nowrap;
+  align-items: center;
+  min-inline-size: 0;
+  gap: 10px;
+  min-block-size: 28px;
+  padding: 0;
+}
+
+form#system-modules-uninstall .name-package .checkbox {
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: 2.5rem;
+  min-inline-size: 2.5rem;
+  block-size: 1.5rem;
+}
+
+form#system-modules-uninstall .name-package .checkbox * {
+  margin: 0;
+}
+
+/* Claro offsets the boolean form item and its input
+   (claro/css/components/form--checkbox-radio.css:17-31: margin-inline-start,
+   line-height, position relative, inset-block-start 12px, float, negative
+   margin). Without this reset the box sits 12px below the module name. */
+form#system-modules-uninstall .name-package .checkbox .form-item {
+  display: grid !important;
+  place-items: center !important;
+  min-inline-size: 2.5rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+form#system-modules-uninstall .module-matrix-list .name {
+  flex: 0 1 auto;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+  color: var(--text-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 form#system-modules-uninstall .module-matrix-item-details {
-  border-color: var(--border-color);
-  transition: all 0.3s ease;
+  flex: none;
+  min-inline-size: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 0.8125rem;
 }
 
-form#system-modules-uninstall .module-matrix-item-details:hover {
-  box-shadow: none !important;
-  padding-top: 12px;
-  padding-bottom: 12px;
+/* ---------- Accordion header (a real button) ---------- */
+form#system-modules-uninstall .matrix-details-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: 28px;
+  margin: 0;
+  padding: 2px 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted-color);
+  font: inherit;
+  font-size: 0.8125rem;
+  text-align: start;
+  cursor: pointer;
+  appearance: none;
+  box-shadow: none;
+}
+
+form#system-modules-uninstall .matrix-details-header:hover {
+  color: var(--text-color);
+}
+
+form#system-modules-uninstall .matrix-details-header:focus-visible {
+  outline: 2px solid var(--checkbox-focus-outline);
+  outline-offset: 2px;
+  box-shadow: var(--focus-shadow);
+}
+
+form#system-modules-uninstall .matrix-details-header .text {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+form#system-modules-uninstall .matrix-details-header[aria-expanded="false"] .text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+form#system-modules-uninstall .matrix-details-header-icon {
+  font-size: 20px;
+  color: var(--muted-color);
+  transition: rotate 200ms var(--mm-ease);
+}
+
+form#system-modules-uninstall .matrix-details-header[aria-expanded="true"] .matrix-details-header-icon {
+  rotate: 180deg;
+}
+
+/* "Cannot uninstall" chip, warn tone. */
+form#system-modules-uninstall .mm-chip--blocked {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  block-size: 20px;
+  padding: 0 7px;
+  border: 1px solid color-mix(in srgb, var(--warn-color) 35%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--warn-color) 10%, var(--details-bg));
+  color: var(--warn-color);
+  font-size: 0.71875rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+form#system-modules-uninstall .mm-chip--blocked .mm-i {
+  font-size: 13px;
+}
+
+/* ---------- Accordion panel ---------- */
+form#system-modules-uninstall .matrix-details-content {
+  display: grid;
+  gap: 8px;
+  margin-block-start: 6px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: var(--filter-bg);
+  color: var(--text-color);
+  font-size: 0.78125rem;
+  opacity: 1;
+  translate: 0 0;
+  transition: opacity var(--mm-dur-fast) var(--mm-ease), translate var(--mm-dur-fast) var(--mm-ease);
+}
+
+form#system-modules-uninstall .matrix-details-content[hidden] {
+  display: none;
+}
+
+@starting-style {
+  form#system-modules-uninstall .matrix-details-content {
+    opacity: 0;
+    translate: 0 -4px;
+  }
 }
 
 form#system-modules-uninstall .admin-requirements ul,
 form#system-modules-uninstall .admin-requirements li {
-  list-style: none;
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-/* Missing and Disabled Module Indicators - Uninstall Page */
-form#system-modules-uninstall .module-matrix-item-details .required-by .details-option {
-  line-height: 1.6;
+form#system-modules-uninstall .admin-requirements .item-list ul {
+  display: grid;
+  gap: 4px;
+  margin-block-start: 6px;
 }
 
-/* Bold and red styling for missing indicator */
-form#system-modules-uninstall .module-matrix-item-details .admin-missing {
-  color: #d32f2f !important;
-  font-weight: 700 !important;
-  background-color: rgba(211, 47, 47, 0.08);
-  padding: 2px 6px;
-  border-radius: 3px;
-  border: 1px solid rgba(211, 47, 47, 0.3);
-  display: inline-block;
+form#system-modules-uninstall .admin-requirements li,
+form#system-modules-uninstall .admin-requirements.machine-name {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+}
+
+form#system-modules-uninstall .admin-requirements .mm-i {
+  margin-block-start: 1px;
+  font-size: 16px;
+  color: var(--muted-color);
+}
+
+form#system-modules-uninstall .admin-requirements.machine-name .details-option {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+}
+
+/* Dependency status pills (from module_matrix_style_dependency_status). */
+form#system-modules-uninstall .admin-missing,
+form#system-modules-uninstall .admin-disabled,
+form#system-modules-uninstall .admin-enabled {
+  --mm-tone: var(--off-color);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  block-size: 20px;
   margin: 0 2px;
+  padding: 0 7px;
+  border: 1px solid color-mix(in srgb, var(--mm-tone) 35%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--mm-tone) 10%, var(--details-bg));
+  color: var(--mm-tone);
+  font-size: 0.71875rem;
+  font-weight: 600;
+  line-height: 1;
+  vertical-align: middle;
 }
 
-/* Styling for disabled indicator */
-form#system-modules-uninstall .module-matrix-item-details .admin-disabled {
-  color: #f57c00 !important;
-  font-weight: 600 !important;
-  background-color: rgba(245, 124, 0, 0.08);
-  padding: 2px 6px;
-  border-radius: 3px;
-  border: 1px solid rgba(245, 124, 0, 0.3);
-  display: inline-block;
-  margin: 0 2px;
+form#system-modules-uninstall .admin-disabled {
+  --mm-tone: var(--warn-color);
 }
 
-/* Styling for enabled modules (subtle) */
-form#system-modules-uninstall .module-matrix-item-details .admin-enabled {
-  color: #388e3c;
-  font-weight: 400;
+form#system-modules-uninstall .admin-enabled {
+  --mm-tone: var(--on-color);
+}
+
+form#system-modules-uninstall .admin-missing::before,
+form#system-modules-uninstall .admin-disabled::before,
+form#system-modules-uninstall .admin-enabled::before {
+  content: "";
+  inline-size: 13px;
+  block-size: 13px;
+  background-color: currentColor;
+  -webkit-mask: var(--mm-icon) center / contain no-repeat;
+  mask: var(--mm-icon) center / contain no-repeat;
+}
+
+form#system-modules-uninstall .admin-missing { --mm-icon: url(../../icons/error.svg); }
+form#system-modules-uninstall .admin-disabled { --mm-icon: url(../../icons/warning.svg); }
+form#system-modules-uninstall .admin-enabled { --mm-icon: url(../../icons/check_circle.svg); }
+
+/* ---------- Checkbox: destructive pick ----------
+   The pick is the shared toggle (module-matrix.style.accent.css), tinted with
+   the destructive tone when checked instead of the accent. */
+form#system-modules-uninstall input[type="checkbox"] {
+  --mm-tg-on: var(--off-color);
+}
+
+form#system-modules-uninstall .module-matrix-list-inner:has(input[type="checkbox"]:disabled) .name {
+  cursor: not-allowed !important;
+}
+
+/* ---------- Radio: none rendered today; matches the family if one appears ---------- */
+form#system-modules-uninstall input[type="radio"] {
+  display: inline-grid !important;
+  place-content: center !important;
+  box-sizing: border-box !important;
+  inline-size: 18px !important;
+  block-size: 18px !important;
+  min-inline-size: 18px !important;
+  max-inline-size: 18px !important;
+  min-block-size: 18px !important;
+  max-block-size: 18px !important;
+  opacity: 1 !important;
+  margin: 0 !important;
+  border: 1.5px solid var(--ctl-color) !important;
+  border-radius: 50% !important;
+  background-color: var(--checkbox-bg) !important;
+  background-image: none !important;
+  cursor: pointer !important;
+  appearance: none !important;
+  transition: border-color var(--mm-dur-fast) var(--mm-ease), scale var(--mm-dur-fast) var(--mm-ease) !important;
+}
+
+form#system-modules-uninstall input[type="radio"]::after {
+  content: "" !important;
+  inline-size: 8px !important;
+  block-size: 8px !important;
+  border-radius: 50% !important;
+  background: var(--accent-color) !important;
+  scale: 0 !important;
+  transition: scale 200ms var(--mm-ease-pop) !important;
+}
+
+form#system-modules-uninstall input[type="radio"]:hover {
+  border-color: var(--text-color) !important;
+}
+
+form#system-modules-uninstall input[type="radio"]:active {
+  scale: 0.9 !important;
+}
+
+form#system-modules-uninstall input[type="radio"]:checked {
+  border-color: var(--accent-color) !important;
+}
+
+form#system-modules-uninstall input[type="radio"]:checked::after {
+  scale: 1 !important;
+}
+
+form#system-modules-uninstall input[type="radio"]:focus-visible {
+  outline: 2px solid var(--checkbox-focus-outline) !important;
+  outline-offset: 2px !important;
+  box-shadow: var(--focus-shadow) !important;
+}
+
+form#system-modules-uninstall input[type="radio"]:disabled {
+  border-style: solid !important;
+  background-color: var(--checkbox-disabled-bg) !important;
+  cursor: not-allowed !important;
+}
+
+/* ---------- Empty state ---------- */
+form#system-modules-uninstall .module-matrix-list-inner.empty-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 16px;
+  color: var(--muted-color);
+  font-style: normal;
+  text-align: center;
+}
+
+form#system-modules-uninstall .empty-message .mm-i {
+  font-size: 32px;
+}
+
+/* ---------- Danger action: Uninstall ---------- */
+form#system-modules-uninstall #edit-actions {
+  position: sticky;
+  inset-block-end: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-self: flex-end;
+  margin: 0;
+  padding: 0;
+}
+
+form#system-modules-uninstall #edit-actions::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 14px;
+  z-index: 1;
+  inline-size: 16px;
+  block-size: 16px;
+  margin-block-start: -8px;
+  background-color: var(--on-accent);
+  -webkit-mask: url(../../icons/delete.svg) center / contain no-repeat;
+  mask: url(../../icons/delete.svg) center / contain no-repeat;
+  pointer-events: none;
+}
+
+form#system-modules-uninstall #edit-actions input.button--primary {
+  block-size: 36px;
+  min-block-size: 36px;
+  margin: 0;
+  padding-block: 0;
+  padding-inline: 38px 16px;
+  border: 1px solid var(--off-color);
+  border-radius: 6px;
+  background: var(--off-color);
+  color: var(--on-accent);
+  font-weight: 600;
+  box-shadow: var(--main-shadow);
+  transition: background-color var(--mm-dur-fast) var(--mm-ease);
+}
+
+form#system-modules-uninstall #edit-actions input.button--primary:hover {
+  background: color-mix(in srgb, var(--off-color) 86%, var(--text-color));
+}
+
+form#system-modules-uninstall #edit-actions input.button--primary:focus-visible {
+  outline: 2px solid var(--off-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--off-color) 22%, transparent);
+}
+
+/* ---------- Grid layout: cards return only here ---------- */
+form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: 12px;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list-inner {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--details-bg);
+}
+
+form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list-inner + .module-matrix-list-inner {
+  border-block-start: 1px solid var(--border-color);
+}
+
+form#system-modules-uninstall .module-matrix-wrapper.grid-layout .module-matrix-list-inner:has(input[type="checkbox"]:checked) {
+  box-shadow: inset 0 3px 0 var(--off-color);
+}
+
+/* ---------- Below 992px: rail becomes a scroll strip, rows stack ---------- */
+@media (max-width: 61.99rem) {
+  form#system-modules-uninstall .module-matrix-wrapper.uninstall,
+  form#system-modules-uninstall .module-matrix-wrapper.uninstall.right {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  form#system-modules-uninstall .module-matrix-wrapper.uninstall.right .module-matrix-sidebar {
+    order: 0;
+  }
+
+  form#system-modules-uninstall .module-matrix-sidebar {
+    position: static;
+    display: flex;
+    gap: 4px;
+    max-block-size: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+  }
+
+  form#system-modules-uninstall .module-matrix-wrapper.uninstall.top .module-matrix-sidebar {
+    flex-wrap: nowrap;
+  }
+
+  form#system-modules-uninstall .package-link {
+    flex: none;
+    scroll-snap-align: start;
+  }
+
+  form#system-modules-uninstall .module-matrix-list-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  form#system-modules-uninstall .module-matrix-item-details {
+    padding-inline-start: 24px;
+  }
+}
+
+@media (max-width: 30rem) {
+  form#system-modules-uninstall {
+    padding: 8px;
+  }
+
+  form#system-modules-uninstall .module-matrix-item-details {
+    padding-inline-start: 0;
+  }
+
+  form#system-modules-uninstall #edit-actions {
+    align-self: stretch;
+  }
+
+  form#system-modules-uninstall #edit-actions input.button--primary {
+    inline-size: 100%;
+  }
+}
+
+/* ---------- Forced colors: keep every state visible ---------- */
+@media (forced-colors: active) {
+  form#system-modules-uninstall .mm-i,
+  form#system-modules-uninstall .mm-mark,
+  form#system-modules-uninstall .table-filter .form-item::before,
+  form#system-modules-uninstall .admin-missing::before,
+  form#system-modules-uninstall .admin-disabled::before,
+  form#system-modules-uninstall .admin-enabled::before {
+    background: CanvasText;
+    forced-color-adjust: none;
+  }
+
+  form#system-modules-uninstall input[type="radio"] {
+    border: 1.5px solid CanvasText !important;
+    forced-color-adjust: none !important;
+    background-color: Canvas !important;
+  }
+
+  form#system-modules-uninstall input[type="radio"]:checked {
+    border-color: Highlight !important;
+    background-color: Highlight !important;
+  }
+
+  form#system-modules-uninstall input[type="radio"]::after {
+    background: Highlight !important;
+  }
+
+  form#system-modules-uninstall .module-matrix-list-inner:has(input[type="checkbox"]:checked),
+  form#system-modules-uninstall .package-link.active {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  form#system-modules-uninstall .package-link:focus-visible,
+  form#system-modules-uninstall .matrix-details-header:focus-visible,
+  form#system-modules-uninstall input:focus-visible {
+    outline-color: Highlight;
+  }
+
+  form#system-modules-uninstall #edit-actions::before {
+    background: ButtonText;
+  }
+
+  form#system-modules-uninstall #edit-actions input.button--primary {
+    border: 1px solid ButtonText;
+  }
+}
+
+/* ---------- Reduced motion: every state change is instant ---------- */
+@media (prefers-reduced-motion: reduce) {
+  form#system-modules-uninstall *,
+  form#system-modules-uninstall *::before,
+  form#system-modules-uninstall *::after {
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+    animation: none !important;
+  }
 }

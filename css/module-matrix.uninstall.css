@@ -20,30 +20,6 @@ form#system-modules-uninstall * {
   display: none !important;
 }
 
-form#system-modules-uninstall .material-icons {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1.25rem;
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  white-space: nowrap;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-@font-face {
-  font-family: 'Material Icons';
-  src: url('../fonts/MaterialIcons-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 form#system-modules-uninstall .module-matrix-wrapper.uninstall {
   display: flex;
   flex-direction: column;
@@ -65,8 +41,6 @@ form#system-modules-uninstall .module-matrix-list-inner {
   align-items: center;
   justify-content: space-between;
   padding: 0;
-  border: 1px solid #ddd;
-  transition: box-shadow 0.3s ease;
   gap: 16px;
 }
 
@@ -94,12 +68,6 @@ form#system-modules-uninstall .module-matrix-item-details {
   flex: 2;
   font-size: 0.875rem;
   padding: 12px;
-  border-left: 1px solid #ddd;
-}
-
-/* Hover effect */
-form#system-modules-uninstall .module-matrix-list-inner:hover {
-  box-shadow: var(--main-shadow);
 }
 
 /* Empty message styling */
@@ -107,7 +75,6 @@ form#system-modules-uninstall .empty-message {
   text-align: center;
   font-style: italic;
   padding: 16px;
-  border: 1px solid #ddd;
 }
 
 form#system-modules-uninstall .name-package .checkbox * {
@@ -119,10 +86,6 @@ form#system-modules-uninstall .name-package .checkbox * {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-  }
-
-  form#system-modules-uninstall .module-matrix-item-details {
-    border-left: none;
   }
 
 }
