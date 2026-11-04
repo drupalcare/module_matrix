@@ -4,12 +4,12 @@ All notable changes to the Module Matrix module will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-Entries before 1.0.14 were not kept in this file; see the release notes on
+Entries before 1.1.0 were not kept in this file; see the release notes on
 drupal.org.
 
 ## [Unreleased]
 
-## [1.0.14] - 2026-11-03
+## [1.1.0] - 2026-11-03
 
 ### Changed
 - **Calmer accent palettes.** All 12 accent files (6 colors, light and dark)
