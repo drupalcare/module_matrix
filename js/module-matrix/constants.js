@@ -38,23 +38,17 @@ window.ModuleMatrix.Constants = {
     packageLinkLeft: 'package-link-left',
     packageLinkRight: 'package-link-right',
     packageLabel: 'package-label',
-    // Kept for backward compatibility; nothing renders the icon font now.
     materialIcons: 'material-icons',
-    // SVG icon base class; the modifier is the icon name (mm-i--folder).
-    icon: 'mm-i',
-    // Matrix mark on the "All modules" link (CSS only).
-    mark: 'mm-mark',
     totalCount: 'total',
     enabledCount: 'on',
-    disabledCount: 'off',
-    countSeparator: 'mm-count-sep'
+    disabledCount: 'off'
   },
 
   // Default Values
   DEFAULTS: {
     activePackage: 'all',
     unknownPackage: 'unknown',
-    categoryIcon: 'folder',
+    categoryIcon: 'category',
     enabledStatus: 1
   },
 

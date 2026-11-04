@@ -21,7 +21,7 @@ window.ModuleMatrix.UIGenerator = {
 
     // Create "All Modules" link
     const allModulesLink = this.createSidebarLink(
-      Drupal.t('All Modules'),
+      'All Modules',
       'all',
       ['package-link', 'package-link-all', 'active'],
       stats.totalModules,
@@ -55,16 +55,8 @@ window.ModuleMatrix.UIGenerator = {
     link.dataset.package = packageName;
 
     classList.forEach(className => link.classList.add(className));
-    if (link.classList.contains('active')) {
-      link.setAttribute('aria-current', 'true');
-    }
 
-    // Package meter: enabled share of the package, read by CSS as
-    // --mm-ratio. Set through the CSSOM, which a strict style-src CSP allows.
-    link.style.setProperty('--mm-ratio', total ? String(enabled / total) : '0');
-
-    const isAll = classList.includes('package-link-all');
-    const leftContainer = this.createLeftContainer(label, isAll);
+    const leftContainer = this.createLeftContainer(label);
     const rightContainer = this.createRightContainer(total, enabled, disabled);
 
     link.append(leftContainer, rightContainer);
@@ -73,21 +65,14 @@ window.ModuleMatrix.UIGenerator = {
 
   /**
    * Create left side of sidebar link (icon + label)
-   *
-   * "All modules" carries the matrix mark (CSS only); a package carries the
-   * folder icon. Both are decorative.
    */
-  createLeftContainer(label, isAll = false) {
+  createLeftContainer(label) {
     const { CLASSES, DEFAULTS } = window.ModuleMatrix.Constants;
     const { Utils } = window.ModuleMatrix;
 
     const container = Utils.createElement('div', CLASSES.packageLinkLeft);
 
-    const icon = Utils.createElement(
-      'span',
-      isAll ? CLASSES.mark : `${CLASSES.icon} ${CLASSES.icon}--${DEFAULTS.categoryIcon}`
-    );
-    icon.setAttribute('aria-hidden', 'true');
+    const icon = Utils.createElement('span', CLASSES.materialIcons, DEFAULTS.categoryIcon);
     const labelSpan = Utils.createElement('span', CLASSES.packageLabel, label);
 
     container.append(icon, labelSpan);
@@ -110,10 +95,6 @@ window.ModuleMatrix.UIGenerator = {
 
   /**
    * Create count display fragment
-   *
-   * Visible readout is "on / total" in tabular figures, hidden from screen
-   * readers; the .off element carries one labelled sentence for them, so
-   * the link is not announced as bare numbers.
    */
   createCountFragment(total, enabled, disabled) {
     const { CLASSES } = window.ModuleMatrix.Constants;
@@ -121,22 +102,12 @@ window.ModuleMatrix.UIGenerator = {
 
     const fragment = document.createDocumentFragment();
 
-    const on = Utils.createElement('span', CLASSES.enabledCount, String(enabled));
-    const separator = Utils.createElement('span', CLASSES.countSeparator, '/');
-    const all = Utils.createElement('span', CLASSES.totalCount, String(total));
-    [on, separator, all].forEach((element) => element.setAttribute('aria-hidden', 'true'));
-
-    const label = Utils.createElement(
-      'span',
-      `${CLASSES.disabledCount} visually-hidden`,
-      Drupal.t('@enabled enabled, @disabled disabled, @total total', {
-        '@enabled': enabled,
-        '@disabled': disabled,
-        '@total': total,
-      })
+    fragment.append(
+      Utils.createElement('span', CLASSES.totalCount, total),
+      Utils.createElement('span', CLASSES.enabledCount, enabled),
+      document.createTextNode('/'),
+      Utils.createElement('span', CLASSES.disabledCount, disabled)
     );
-
-    fragment.append(on, separator, all, label);
 
     return fragment;
   },
@@ -178,9 +149,7 @@ window.ModuleMatrix.UIGenerator = {
     const { Utils } = window.ModuleMatrix;
 
     const emptyState = Utils.createElement('div', 'module-matrix-empty');
-    const { CLASSES } = window.ModuleMatrix.Constants;
-    const icon = Utils.createElement('span', `${CLASSES.icon} ${CLASSES.icon}--inbox`);
-    icon.setAttribute('aria-hidden', 'true');
+    const icon = Utils.createElement('span', 'material-icons', 'inbox');
     const text = Utils.createElement('p', 'empty-text', message);
 
     emptyState.append(icon, text);
