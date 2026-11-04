@@ -12,9 +12,10 @@ drupal.org.
 ## [1.1.0] - 2026-11-03
 
 ### Changed
-- **Calmer accent palettes.** All 12 accent files (6 colors, light and dark)
-  have new, softer values in the same color family. Sites that rely on the old
-  shipped colors will see the new ones after updating.
+- **Better accent colors, for every site.** All 12 accent palettes (6 colors,
+  light and dark) were retuned to be softer and easier on the eyes. Each color
+  stays in its own family, so the accent a site picked still looks like itself,
+  only more polished, with nothing to configure.
 - **SVG icons replace the Material Icons font.** The Extend page, the Uninstall
   page and the settings page now draw their icons from SVG files in `icons/`
   (Google Material Symbols, Apache License 2.0, with the license in
