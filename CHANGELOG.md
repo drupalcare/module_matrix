@@ -9,6 +9,8 @@ drupal.org.
 
 ## [Unreleased]
 
+- Extend and Appearance pages: every module and theme description is a short, professional statement that begins with a verb; credits, links and version notes moved out of the info files.
+
 ## [1.1.0] - 2026-11-03
 
 ### Changed
