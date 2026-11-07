@@ -10,6 +10,7 @@ drupal.org.
 ## [Unreleased]
 
 - Extend and Appearance pages: every module and theme description is a short, professional statement that begins with a verb; credits, links and version notes moved out of the info files.
+- New Module Matrix logo in the settings page header and in the Extend page toolbar.
 
 ## [1.1.0] - 2026-11-03
 

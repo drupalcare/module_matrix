@@ -49,3 +49,27 @@
     background-color: CanvasText;
   }
 }
+
+/* On the Extend page the Module Matrix logo leads the "Adjust layout and
+   options" row, in place of the tune glyph. */
+form#system-modules .intro-message-class p {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+form#system-modules .intro-message-class .mm-i--tune {
+  inline-size: 2rem;
+  block-size: 2rem;
+  background: url(../images/logo.svg) center / contain no-repeat;
+  -webkit-mask: none;
+  mask: none;
+}
+
+/* High Contrast mode: the logo is an image, not a mask; keep its own colours
+   instead of the solid CanvasText fill the glyphs get. */
+@media (forced-colors: active) {
+  form#system-modules .intro-message-class .mm-i--tune {
+    background-color: transparent;
+  }
+}

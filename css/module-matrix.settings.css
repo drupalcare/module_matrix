@@ -21,7 +21,7 @@
   --mx-muted: color-mix(in srgb, currentcolor 70%, transparent);
   --mx-ctl: color-mix(in srgb, currentcolor 50%, transparent);
   --mx-line: color-mix(in srgb, currentcolor 25%, transparent);
-  --mx-accent: #3949ab;
+  --mx-accent: #936a30;
   --mx-r-form: 16px;
   --mx-r-card: 12px;
   --mx-r-ctl: 8px;
@@ -41,7 +41,7 @@
 
 .dark-mode .mm-settings,
 .gin--dark-mode .mm-settings {
-  --mx-accent: #a3adf5;
+  --mx-accent: #c5a36a;
 }
 
 .mm-settings *,
@@ -1075,4 +1075,17 @@
   .mm-settings .mm-swatch {
     transition: none;
   }
+}
+
+/* The Module Matrix logo takes the place of the dot-grid mark in the band. */
+.mm-settings .mm-mark {
+  display: block;
+  inline-size: 3.25rem;
+  block-size: 3.25rem;
+  padding: 0;
+  background: url("../images/logo.svg") no-repeat center / contain;
+}
+
+.mm-settings .mm-mark i {
+  display: none;
 }
